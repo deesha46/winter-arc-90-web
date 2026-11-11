@@ -5,1158 +5,526 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#17102f">
-<title>Winter Arc 90</title>
-
+<title>Winter Arc 90 — Your glow-up journey</title>
 <style>
-:root{
---ink:#f8f6ff;
---muted:#c4bddb;
---panel:rgba(35,25,66,.85);
---line:rgba(255,255,255,.13);
---pink:#ff6fae;
---blue:#69d5ff;
---gold:#ffd166;
---purple:#a78bfa;
-}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-
-body{
-margin:0;
-background:
-radial-gradient(ellipse at 10% 0%,#45246d,transparent 36%),
-radial-gradient(ellipse at 100% 25%,#123d68,transparent 35%),
-linear-gradient(145deg,#100b25,#17102f 52%,#081d36);
-background-attachment:fixed;
-color:var(--ink);
-font-family:system-ui,Arial,sans-serif;
-min-height:100vh;
-}
-
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
-.muted{color:var(--muted)}
-.small{font-size:12px}
-
-.app{
-max-width:760px;
-margin:auto;
-padding:18px 16px 105px;
-}
-
-.logo{
-font-weight:900;
-font-size:23px;
-background:linear-gradient(90deg,#fff,#ff91c5,#7bdcff);
-background-clip:text;
-color:transparent;
-}
-
-header{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:12px 2px 22px;
-}
-
-.pill,.secondary{
-border:1px solid var(--line);
-background:rgba(255,255,255,.09);
-color:white;
-padding:11px 14px;
-border-radius:12px;
-}
-
-.hero{
-border-radius:28px;
-min-height:250px;
-padding:26px 23px;
-background:
-linear-gradient(90deg,rgba(15,10,35,.94),rgba(15,10,35,.48)),
-url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&auto=format&fit=crop&q=85')
-center/cover;
-border:1px solid var(--line);
-box-shadow:0 18px 45px #0005;
-}
-
-.eyebrow{
-font-size:11px;
-font-weight:800;
-letter-spacing:2px;
-color:#ffb5d4;
-}
-
-.hero h1{
-font-size:clamp(30px,7vw,46px);
-line-height:1.05;
-margin:12px 0;
-}
-
-.hero p{
-max-width:390px;
-color:#eee7ff;
-line-height:1.6;
-}
-
-.gradient-btn{
-border:0;
-border-radius:13px;
-padding:13px 18px;
-font-weight:800;
-color:#21102d;
-background:linear-gradient(100deg,#ff8ab8,#ffd166);
-box-shadow:0 7px 22px #ff6fae33;
-}
-
-.card{
-background:var(--panel);
-backdrop-filter:blur(16px);
-border:1px solid var(--line);
-border-radius:22px;
-padding:19px;
-margin:16px 0;
-box-shadow:0 14px 35px #0002;
-}
-
-.card h2{font-size:19px;margin:0 0 14px}
-
-.section-title{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin:24px 2px 8px;
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-}
-
-.stat{
-padding:15px 9px;
-text-align:center;
-border:1px solid var(--line);
-border-radius:17px;
-background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035));
-}
-
-.stat strong{
-display:block;
-font-size:27px;
-color:var(--blue);
-}
-
-.stat:nth-child(2) strong{color:var(--pink)}
-.stat:nth-child(3) strong{color:var(--gold)}
-.stat span{font-size:11px;color:var(--muted)}
-
-.progress{
-height:11px;
-background:#ffffff20;
-border-radius:99px;
-overflow:hidden;
-margin:14px 0 8px;
-}
-
-.progress>div{
-height:100%;
-width:0;
-background:linear-gradient(90deg,var(--pink),var(--gold),var(--blue));
-border-radius:99px;
-transition:width .3s;
-}
-
-.habit{
-display:flex;
-align-items:center;
-gap:12px;
-padding:12px 2px;
-border-bottom:1px solid var(--line);
-}
-
-.habit input{
-width:20px;
-height:20px;
-accent-color:var(--pink);
-}
-
-.habit span{flex:1}
-.habit.done span{
-text-decoration:line-through;
-color:var(--muted);
-}
-
-.quote{
-background:linear-gradient(110deg,#653b83,#1b5b79);
-border:0;
-}
-
-.quote p{
-font-size:18px;
-line-height:1.5;
-}
-
-.photo-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.photo-tile{
-min-height:145px;
-border:1px dashed #ffffff55;
-border-radius:16px;
-overflow:hidden;
-display:grid;
-place-items:center;
-background:#ffffff0b;
-position:relative;
-text-align:center;
-}
-
-.photo-tile img{
-width:100%;
-height:100%;
-min-height:145px;
-object-fit:cover;
-position:absolute;
-inset:0;
-}
-
-.photo-tile label{
-z-index:1;
-background:#100b25cc;
-padding:9px 12px;
-border-radius:10px;
-font-size:12px;
-}
-
-.photo-tile input{display:none}
-
-.field{
-display:block;
-margin:12px 0 5px;
-font-size:13px;
-color:#e7ddff;
-}
-
-.input,textarea{
-width:100%;
-padding:13px 14px;
-margin:6px 0;
-background:#100d25;
-color:white;
-border:1px solid var(--line);
-border-radius:12px;
-outline:none;
-}
-
-.input:focus,textarea:focus{
-border-color:var(--blue);
-}
-
-textarea{
-min-height:85px;
-resize:vertical;
-}
-
-.two{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.chart-wrap{
-height:210px;
-width:100%;
-}
-
-.chart-wrap canvas{
-width:100%;
-height:100%;
-}
-
-.full{
-width:100%;
-margin-top:9px;
-}
-
-.nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-z-index:10;
-display:flex;
-justify-content:center;
-gap:5px;
-padding:9px 5px calc(9px + env(safe-area-inset-bottom));
-background:rgba(15,11,35,.94);
-backdrop-filter:blur(18px);
-border-top:1px solid var(--line);
-}
-
-.nav button{
-flex:1;
-max-width:130px;
-background:transparent;
-border:0;
-color:#b9b1d0;
-padding:7px 2px;
-font-size:11px;
-}
-
-.nav button b{
-display:block;
-font-size:20px;
-margin-bottom:2px;
-}
-
-.nav button.active{color:#ff91c5}
-
-.notice{
-background:#30264c;
-border:1px solid var(--line);
-border-radius:12px;
-padding:12px;
-margin:10px 0;
-color:#ffe5f1;
-}
-
-.auth{
-max-width:440px;
-margin:10vh auto;
-padding:20px;
-}
-
-.auth .hero{min-height:180px}
-
-.toast{
-position:fixed;
-top:12px;
-left:50%;
-transform:translateX(-50%);
-z-index:20;
-background:#173d43;
-border:1px solid #70e1b2;
-padding:11px 16px;
-border-radius:12px;
-}
-
-@media(max-width:430px){
-.app{padding-left:13px;padding-right:13px}
-.card{padding:16px}
-.stats{gap:7px}
-.stat strong{font-size:23px}
-.hero{padding:22px 18px}
-}
+:root{--ink:#f8f6ff;--muted:#c4bddb;--panel:rgba(35,25,66,.82);--line:rgba(255,255,255,.13);--pink:#ff6fae;--blue:#69d5ff;--gold:#ffd166;--purple:#a78bfa;--green:#70e1b2}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#45246d 0,transparent 36%),radial-gradient(ellipse at 100% 25%,#123d68 0,transparent 35%),linear-gradient(145deg,#100b25,#17102f 52%,#081d36);background-attachment:fixed;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:auto;padding:18px 16px 105px}.hidden{display:none!important}.muted{color:var(--muted)}.small{font-size:12px}.logo{font-weight:900;letter-spacing:.2px;background:linear-gradient(90deg,#fff,#ff91c5,#7bdcff);background-clip:text;color:transparent;font-size:23px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 2px 22px}.pill{border:1px solid var(--line);background:rgba(255,255,255,.09);color:var(--ink);padding:10px 14px;border-radius:999px}.hero{position:relative;overflow:hidden;border-radius:28px;min-height:250px;padding:26px 23px;background:linear-gradient(90deg,rgba(15,10,35,.94),rgba(15,10,35,.48)),url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&auto=format&fit=crop&q=85') center/cover;border:1px solid var(--line);box-shadow:0 18px 45px #0005}.eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:#ffb5d4}.hero h1{font-size:clamp(30px,7vw,46px);line-height:1.05;margin:12px 0}.hero p{max-width:390px;color:#eee7ff;line-height:1.6}.gradient-btn{border:0;border-radius:13px;padding:13px 18px;font-weight:800;color:#21102d;background:linear-gradient(100deg,#ff8ab8,#ffd166);box-shadow:0 7px 22px #ff6fae33}.secondary{border:1px solid var(--line);border-radius:12px;padding:11px 14px;background:rgba(255,255,255,.09);color:var(--ink)}.card{background:var(--panel);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;padding:19px;margin:16px 0;box-shadow:0 14px 35px #0002}.card h2{font-size:19px;margin:0 0 14px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 2px 8px}.section-title h2{margin:0;font-size:21px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{padding:15px 9px;text-align:center;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035))}.stat strong{display:block;font-size:27px;color:var(--blue)}.stat:nth-child(2) strong{color:var(--pink)}.stat:nth-child(3) strong{color:var(--gold)}.stat span{font-size:11px;color:var(--muted)}.progress{height:11px;background:#ffffff20;border-radius:99px;overflow:hidden;margin:14px 0 8px}.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--gold),var(--blue));border-radius:99px;transition:width .3s}.habit{display:flex;align-items:center;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line)}.habit:last-child{border:0}.habit input{width:20px;height:20px;accent-color:var(--pink)}.habit span{flex:1}.habit.done span{text-decoration:line-through;color:var(--muted)}.quote{background:linear-gradient(110deg,#653b83,#1b5b79);border:0}.quote p{font-size:18px;line-height:1.5}.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.photo-tile{min-height:145px;border:1px dashed #ffffff55;border-radius:16px;overflow:hidden;display:grid;place-items:center;background:#ffffff0b;position:relative;text-align:center}.photo-tile img{width:100%;height:100%;min-height:145px;object-fit:cover;position:absolute;inset:0}.photo-tile label{z-index:1;background:#100b25cc;padding:9px 12px;border-radius:10px;font-size:12px}.photo-tile input{display:none}.field{display:block;margin:12px 0 5px;font-size:13px;color:#e7ddff}.input,textarea{width:100%;padding:13px 14px;margin:6px 0;background:#100d25;color:white;border:1px solid var(--line);border-radius:12px;outline:none}.input:focus,textarea:focus{border-color:var(--blue)}textarea{min-height:85px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chart-wrap{height:210px;width:100%;position:relative}.chart-wrap canvas{width:100%;height:100%}.nav{position:fixed;bottom:0;left:0;right:0;z-index:10;display:flex;justify-content:center;gap:5px;padding:9px 5px calc(9px + env(safe-area-inset-bottom));background:rgba(15,11,35,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line)}.nav button{flex:1;max-width:130px;background:transparent;border:0;color:#b9b1d0;padding:7px 2px;font-size:11px}.nav button b{display:block;font-size:20px;margin-bottom:2px}.nav button.active{color:#ff91c5}.notice{background:#30264c;border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;color:#ffe5f1}.auth{max-width:440px;margin:10vh auto;padding:20px}.auth .hero{min-height:180px}.full{width:100%;margin-top:9px}.divider{height:1px;background:var(--line);margin:15px 0}.toast{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:20;background:#173d43;border:1px solid #70e1b2;padding:11px 16px;border-radius:12px;box-shadow:0 8px 30px #0005}
+@media(max-width:430px){.app{padding-left:13px;padding-right:13px}.card{padding:16px}.stats{gap:7px}.stat strong{font-size:23px}.hero{padding:22px 18px}.two{gap:7px}}
 </style>
 </head>
-
 <body>
-
 <div id="authScreen" class="auth">
-
-<div class="hero">
-<div class="eyebrow">YOUR NEXT CHAPTER STARTS NOW</div>
-<h1>Winter Arc <span style="color:#ff91c5">90</span> ❄️</h1>
-<p>90 days of showing up, growing stronger and becoming your own favourite version.</p>
-</div>
-
-<div class="card">
-<h2>Welcome back ✨</h2>
-
-<input class="input" id="email" type="email" placeholder="Email address">
-
-<input class="input" id="password" type="password" placeholder="Password">
-
-<button class="gradient-btn full" id="loginBtn">Log in</button>
-
-<button class="secondary full" id="registerBtn">Create account</button>
-
-<button class="secondary full" id="resetBtn">Forgot password?</button>
-
-<p id="authMessage" class="notice hidden"></p>
-</div>
-
-<p class="muted small" style="text-align:center">
-Your journal is linked to your Firebase account.
-</p>
-
+  <div class="hero">
+    <div class="eyebrow">YOUR NEXT CHAPTER STARTS NOW</div>
+    <h1>Winter Arc <span style="color:#ff91c5">90</span> ❄️</h1>
+    <p>90 days of showing up, growing stronger and becoming your own favourite version.</p>
+  </div>
+  <div class="card">
+    <h2>Welcome back ✨</h2>
+    <input class="input" id="email" type="email" placeholder="Email address" autocomplete="email">
+    <input class="input" id="password" type="password" placeholder="Password" autocomplete="current-password">
+    <button class="gradient-btn full" id="loginBtn">Log in</button>
+    <button class="secondary full" id="registerBtn">Create account</button>
+    <button class="secondary full" id="resetBtn">Forgot password?</button>
+    <p id="authMessage" class="notice hidden"></p>
+  </div>
+  <p class="muted small" style="text-align:center">Your journal is linked to your Firebase account.</p>
 </div>
 
 <div id="mainApp" class="app hidden">
-
-<header>
-<div class="logo">❄ WINTER ARC 90</div>
-<button class="pill" id="logoutBtn">Log out ↗</button>
-</header>
-
+<header><div class="logo">❄ WINTER ARC 90</div><button class="pill" id="logoutBtn">Log out ↗</button></header>
 <section id="homePage">
-
-<div class="hero">
-<div class="eyebrow">YOUR PERSONAL TRANSFORMATION</div>
-
-<h1>Make this season<br>your strongest yet.</h1>
-
-<p id="todayText"></p>
-
-<button class="gradient-btn" onclick="document.getElementById('habitCard').scrollIntoView({behavior:'smooth'})">
-Start today's habits ✨
-</button>
-</div>
-
-<div class="section-title">
-<h2>Your 90-day journey</h2>
-<span class="muted small" id="startText"></span>
-</div>
-
-<div class="card">
-<div class="stats">
-
-<div class="stat">
-<strong id="dayNumber">1</strong>
-<span>CHALLENGE DAY</span>
-</div>
-
-<div class="stat">
-<strong id="streak">0 🔥</strong>
-<span>DAY STREAK</span>
-</div>
-
-<div class="stat">
-<strong id="completion">0%</strong>
-<span>TODAY'S HABITS</span>
-</div>
-
-</div>
-
-<div class="progress"><div id="mainProgress"></div></div>
-
-<p class="muted small" id="daysLabel"></p>
-</div>
-
-<div class="card" id="habitCard">
-<h2>Today's habits 🌈</h2>
-<div id="habitList"></div>
-<p class="muted small">Tick each habit as you complete it. Changes save automatically.</p>
-</div>
-
-<div class="card quote">
-<div class="eyebrow">A LITTLE REMINDER</div>
-<p id="quote">Small steps every day create extraordinary change.</p>
-<span class="small">Keep your promise to yourself. 💜</span>
-</div>
-
-<div class="card">
-<h2>Progress photos 📸</h2>
-<p class="muted small">Photos stay on this device and are not uploaded to Firebase.</p>
-
-<div class="photo-grid">
-<div class="photo-tile" id="beforeTile">
-<label for="beforePhoto">＋ Add starting photo</label>
-<input id="beforePhoto" type="file" accept="image/*">
-</div>
-
-<div class="photo-tile" id="afterTile">
-<label for="afterPhoto">＋ Add latest photo</label>
-<input id="afterPhoto" type="file" accept="image/*">
-</div>
-</div>
-</div>
-
+  <div class="hero">
+    <div class="eyebrow">YOUR PERSONAL TRANSFORMATION</div>
+    <h1>Make this season<br>your strongest yet.</h1>
+    <p id="todayText">One day at a time. Your future self is cheering for you.</p>
+    <button class="gradient-btn" onclick="document.getElementById('habitCard').scrollIntoView({behavior:'smooth'})">Start today's habits ✨</button>
+  </div>
+  <div class="section-title"><h2>Your 90-day journey</h2><span class="muted small" id="startText"></span></div>
+  <div class="card">
+    <div class="stats">
+      <div class="stat"><strong id="dayNumber">1</strong><span>CHALLENGE DAY</span></div>
+      <div class="stat"><strong id="streak">0 🔥</strong><span>DAY STREAK</span></div>
+      <div class="stat"><strong id="completion">0%</strong><span>TODAY'S HABITS</span></div>
+    </div>
+    <div class="progress"><div id="mainProgress"></div></div>
+    <p class="muted small" id="daysLabel">89 days to go — keep going!</p>
+  </div>
+  <div class="card" id="habitCard"><h2>Today's habits 🌈</h2><div id="habitList"></div><p class="muted small">Tick each habit as you complete it. Changes save automatically.</p></div>
+  <div class="card quote"><div class="eyebrow">A LITTLE REMINDER</div><p id="quote">Small steps every day create extraordinary change.</p><span class="small">Keep your promise to yourself. 💜</span></div>
+  <div class="card"><h2>Progress photos 📸</h2><p class="muted small">Choose private photos from this device to compare your journey. Photos stay on this device and are not uploaded to Firebase.</p><div class="photo-grid">
+    <div class="photo-tile" id="beforeTile"><label for="beforePhoto">＋ Add starting photo</label><input id="beforePhoto" type="file" accept="image/*"></div>
+    <div class="photo-tile" id="afterTile"><label for="afterPhoto">＋ Add latest photo</label><input id="afterPhoto" type="file" accept="image/*"></div>
+  </div></div>
 </section>
 
 <section id="foodPage" class="hidden">
-
-<div class="hero" style="min-height:180px;background-image:linear-gradient(90deg,rgba(15,10,35,.92),rgba(15,10,35,.3)),url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1000&auto=format&fit=crop&q=85')">
-
-<div class="eyebrow">NOURISH TO FLOURISH</div>
-<h1>Food & nutrition 🥑</h1>
-<p>Fuel your day with meals that make you feel good.</p>
-
-</div>
-
-<div class="card">
-<h2>Today's food diary</h2>
-
-<label class="field">Breakfast</label>
-<textarea id="breakfast" placeholder="Oats, fruit, eggs..."></textarea>
-
-<label class="field">Lunch</label>
-<textarea id="lunch" placeholder="What did you enjoy?"></textarea>
-
-<label class="field">Dinner</label>
-<textarea id="dinner" placeholder="A nourishing dinner..."></textarea>
-
-<label class="field">Snacks</label>
-<textarea id="snacks" placeholder="Snacks and treats..."></textarea>
-
-<div class="two">
-
-<div>
-<label class="field">Water (glasses)</label>
-<input class="input" id="water" type="number" min="0" max="50">
-</div>
-
-<div>
-<label class="field">Weight (kg)</label>
-<input class="input" id="weight" type="number" min="0" step=".1">
-</div>
-
-</div>
-
-<button class="gradient-btn full" id="saveFood">Save food diary 💗</button>
-</div>
-
-<div class="card">
-<h2>Weight journey ⚖️</h2>
-<p class="muted small">Focus on strength, energy and healthy habits.</p>
-<div class="chart-wrap"><canvas id="weightChart"></canvas></div>
-<p class="muted small" id="weightLabel"></p>
-</div>
-
+  <div class="hero" style="min-height:180px;background-image:linear-gradient(90deg,rgba(15,10,35,.92),rgba(15,10,35,.3)),url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1000&auto=format&fit=crop&q=85')">
+    <div class="eyebrow">NOURISH TO FLOURISH</div><h1>Food & nutrition 🥑</h1><p>Fuel your day with meals that make you feel good.</p>
+  </div>
+  <div class="card"><h2>Today's food diary</h2>
+    <label class="field">Breakfast</label><textarea id="breakfast" placeholder="Oats, fruit, eggs..."></textarea>
+    <label class="field">Lunch</label><textarea id="lunch" placeholder="What did you enjoy?"></textarea>
+    <label class="field">Dinner</label><textarea id="dinner" placeholder="A nourishing dinner..."></textarea>
+    <label class="field">Snacks</label><textarea id="snacks" placeholder="Snacks and treats..."></textarea>
+    <div class="two"><div><label class="field">Water (glasses)</label><input class="input" id="water" type="number" min="0" max="50" placeholder="8"></div><div><label class="field">Weight (kg)</label><input class="input" id="weight" type="number" min="0" step=".1" placeholder="Optional"></div></div>
+    <button class="gradient-btn full" id="saveFood">Save food diary 💗</button>
+  </div>
+  <div class="card"><h2>Weight journey ⚖️</h2><p class="muted small">Log your weight when you want. Focus on strength, energy and healthy habits—not just a number.</p><div class="chart-wrap"><canvas id="weightChart"></canvas></div><p class="muted small" id="weightLabel">Your entries will appear here.</p></div>
 </section>
 
 <section id="fitnessPage" class="hidden">
-
-<div class="hero" style="min-height:180px;background-image:linear-gradient(90deg,rgba(15,10,35,.92),rgba(15,10,35,.3)),url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&auto=format&fit=crop&q=85')">
-
-<div class="eyebrow">MOVE WITH PURPOSE</div>
-<h1>Fitness & movement 💪</h1>
-<p>Every bit of movement counts.</p>
-
-</div>
-
-<div class="card">
-<h2>Today's workout</h2>
-
-<label class="field">Activity</label>
-<textarea id="workout" placeholder="Walking, gym, yoga, dance..."></textarea>
-
-<div class="two">
-
-<div>
-<label class="field">Minutes</label>
-<input class="input" id="duration" type="number" min="0">
-</div>
-
-<div>
-<label class="field">Steps</label>
-<input class="input" id="steps" type="number" min="0">
-</div>
-
-</div>
-
-<label class="field">Mood / energy after movement</label>
-<textarea id="fitnessNotes" placeholder="How did you feel?"></textarea>
-
-<button class="gradient-btn full" id="saveFitness">Save workout 🔥</button>
-</div>
-
-<div class="card">
-<h2>Weekly movement</h2>
-<div class="chart-wrap"><canvas id="activityChart"></canvas></div>
-</div>
-
+  <div class="hero" style="min-height:180px;background-image:linear-gradient(90deg,rgba(15,10,35,.92),rgba(15,10,35,.3)),url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&auto=format&fit=crop&q=85')">
+    <div class="eyebrow">MOVE WITH PURPOSE</div><h1>Fitness & movement 💪</h1><p>Every bit of movement counts. Celebrate what your body can do.</p>
+  </div>
+  <div class="card"><h2>Today's workout</h2>
+    <label class="field">Activity</label><textarea id="workout" placeholder="Walking, gym, yoga, dance..."></textarea>
+    <div class="two"><div><label class="field">Minutes</label><input class="input" id="duration" type="number" min="0" placeholder="30"></div><div><label class="field">Steps</label><input class="input" id="steps" type="number" min="0" placeholder="5000"></div></div>
+    <label class="field">Mood / energy after movement</label><textarea id="fitnessNotes" placeholder="How did you feel?"></textarea>
+    <button class="gradient-btn full" id="saveFitness">Save workout 🔥</button>
+  </div>
+  <div class="card"><h2>Weekly movement</h2><div class="chart-wrap"><canvas id="activityChart"></canvas></div><p class="muted small">Workout minutes from your recent entries.</p></div>
 </section>
 
 <section id="progressPage" class="hidden">
-
-<div class="hero" style="min-height:180px;background-image:linear-gradient(90deg,rgba(15,10,35,.92),rgba(15,10,35,.3)),url('https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1000&auto=format&fit=crop&q=85')">
-
-<div class="eyebrow">LOOK HOW FAR YOU'VE COME</div>
-<h1>Your progress ✨</h1>
-<p>Consistency over perfection. Every check-in matters.</p>
-
-</div>
-
-<div class="card">
-<h2>Your challenge stats</h2>
-
-<div class="stats">
-<div class="stat"><strong id="totalHabits">0</strong><span>HABITS DONE</span></div>
-<div class="stat"><strong id="totalWorkouts">0</strong><span>WORKOUT DAYS</span></div>
-<div class="stat"><strong id="bestStreak">0</strong><span>BEST STREAK</span></div>
-</div>
-
-<div class="progress"><div id="progressBar"></div></div>
-<p class="muted small" id="progressLabel"></p>
-</div>
-
-<div class="card">
-<h2>Weekly habit consistency 🌟</h2>
-<div class="chart-wrap"><canvas id="habitChart"></canvas></div>
-</div>
-
-<div class="card">
-<h2>Daily reflection 📝</h2>
-<textarea id="reflection" placeholder="What went well today? What are you proud of?"></textarea>
-<button class="gradient-btn full" id="saveReflection">Save reflection</button>
-</div>
-
+  <div class="hero" style="min-height:180px;background-image:linear-gradient(90deg,rgba(15,10,35,.92),rgba(15,10,35,.3)),url('https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1000&auto=format&fit=crop&q=85')">
+    <div class="eyebrow">LOOK HOW FAR YOU'VE COME</div><h1>Your progress ✨</h1><p>Consistency over perfection. Every check-in matters.</p>
+  </div>
+  <div class="card"><h2>Your challenge stats</h2><div class="stats"><div class="stat"><strong id="totalHabits">0</strong><span>HABITS DONE</span></div><div class="stat"><strong id="totalWorkouts">0</strong><span>WORKOUT DAYS</span></div><div class="stat"><strong id="bestStreak">0</strong><span>BEST STREAK</span></div></div><div class="progress"><div id="progressBar"></div></div><p class="muted small" id="progressLabel">Day 1 of 90</p></div>
+  <div class="card"><h2>Weekly habit consistency 🌟</h2><div class="chart-wrap"><canvas id="habitChart"></canvas></div></div>
+  <div class="card"><h2>Daily reflection 📝</h2><textarea id="reflection" placeholder="What went well today? What are you proud of?"></textarea><button class="gradient-btn full" id="saveReflection">Save reflection</button></div>
 </section>
 </div>
-
 <nav id="navigation" class="nav hidden">
-<button class="active" data-page="homePage"><b>⌂</b>Home</button>
-<button data-page="foodPage"><b>🥑</b>Food</button>
-<button data-page="fitnessPage"><b>⚡</b>Fitness</button>
-<button data-page="progressPage"><b>✦</b>Progress</button>
+  <button class="active" data-page="homePage"><b>⌂</b>Home</button>
+  <button data-page="foodPage"><b>🥑</b>Food</button>
+  <button data-page="fitnessPage"><b>⚡</b>Fitness</button>
+  <button data-page="progressPage"><b>✨</b>Progress</button>
 </nav>
-
 <div id="toast" class="toast hidden"></div>
 
 <script type="module">
-
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 import {
-getAuth,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-sendPasswordResetEmail,
-onAuthStateChanged,
-signOut
+  getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, sendPasswordResetEmail, signOut
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
-
 import {
-getFirestore,
-doc,
-getDoc,
-setDoc
+  getFirestore, doc, getDoc, setDoc
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey:"AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",
-authDomain:"winterarc90web-5d889.firebaseapp.com",
-projectId:"winterarc90web-5d889",
-storageBucket:"winterarc90web-5d889.firebasestorage.app",
-messagingSenderId:"53251809201",
-appId:"1:53251809201:web:565ee6e61037a038692790"
+  apiKey: "AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",
+  authDomain: "winterarc90web-5d889.firebaseapp.com",
+  projectId: "winterarc90web-5d889",
+  storageBucket: "winterarc90web-5d889.firebasestorage.app",
+  messagingSenderId: "53251809201",
+  appId: "1:53251809201:web:565ee6e61037a038692790"
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-let currentUser=null;
-let userData={};
-let currentDate=localDate();
+let currentUser = null;
+let allData = { startDate: new Date().toISOString().slice(0,10), days: {} };
+let activeDate = new Date().toISOString().slice(0,10);
 
-const habits=[
-"Wake up on time",
-"Drink enough water",
-"Move your body",
-"Eat nourishing meals",
-"Read or learn something",
-"Take a mindful break",
-"Sleep on time"
+const habits = [
+  "Wake up on time ☀️",
+  "Drink enough water 💧",
+  "Eat nourishing meals 🥗",
+  "Move my body 🏃",
+  "Learn something new 📚",
+  "Take care of my skin 🧴",
+  "Sleep on time 🌙"
 ];
 
-const quotes=[
-"You do not need to be perfect. You just need to keep showing up. 💜",
-"One small promise kept today becomes confidence tomorrow. ✨",
-"Your pace is valid. Keep moving forward. 🌷",
-"Progress is built on the days you feel like giving up. 🔥",
-"Be proud of the effort nobody else sees. 🌙"
+const $ = id => document.getElementById(id);
+const today = () => new Date().toISOString().slice(0,10);
+const dayData = () => allData.days[activeDate] ||= { habits: [], food: {}, fitness: {}, reflection: "" };
+
+function notify(message) {
+  $("toast").textContent = message;
+  $("toast").classList.remove("hidden");
+  setTimeout(() => $("toast").classList.add("hidden"), 2500);
+}
+
+function showAuthMessage(message) {
+  $("authMessage").textContent = message;
+  $("authMessage").classList.remove("hidden");
+}
+
+async function saveData() {
+  if (!currentUser) return false;
+  try {
+    await setDoc(doc(db, "users", currentUser.uid), allData);
+    return true;
+  } catch (error) {
+    notify("Save failed: " + error.message);
+    return false;
+  }
+}
+
+async function loadData(user) {
+  currentUser = user;
+  try {
+    const snapshot = await getDoc(doc(db, "users", user.uid));
+    if (snapshot.exists()) {
+      allData = snapshot.data();
+    } else {
+      allData = { startDate: today(), days: {} };
+      await saveData();
+    }
+    if (!allData.days) allData.days = {};
+    if (!allData.startDate) allData.startDate = today();
+    activeDate = today();
+    $("authScreen").classList.add("hidden");
+    $("mainApp").classList.remove("hidden");
+    $("navigation").classList.remove("hidden");
+    renderAll();
+    loadPhotos();
+  } catch (error) {
+    showAuthMessage("Could not load your data: " + error.message);
+  }
+}
+
+$("loginBtn").addEventListener("click", async () => {
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  if (!email || !password) return showAuthMessage("Enter your email and password.");
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    showAuthMessage(error.message);
+  }
+});
+
+$("registerBtn").addEventListener("click", async () => {
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  if (!email || !password) return showAuthMessage("Enter your email and a password.");
+  if (password.length < 6) return showAuthMessage("Password must have at least 6 characters.");
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    showAuthMessage(error.message);
+  }
+});
+
+$("resetBtn").addEventListener("click", async () => {
+  const email = $("email").value.trim();
+  if (!email) return showAuthMessage("Enter your email first.");
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showAuthMessage("Password reset email sent. Check your inbox.");
+  } catch (error) {
+    showAuthMessage(error.message);
+  }
+});
+
+$("logoutBtn").addEventListener("click", () => signOut(auth));
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    loadData(user);
+  } else {
+    currentUser = null;
+    $("mainApp").classList.add("hidden");
+    $("navigation").classList.add("hidden");
+    $("authScreen").classList.remove("hidden");
+  }
+});
+
+function renderHabits() {
+  const data = dayData();
+  $("habitList").innerHTML = habits.map((habit, index) => `
+    <label class="habit ${data.habits.includes(index) ? "done" : ""}">
+      <input type="checkbox" data-habit="${index}" ${data.habits.includes(index) ? "checked" : ""}>
+      <span>${habit}</span>
+    </label>
+  `).join("");
+
+  $("habitList").querySelectorAll("input").forEach(input => {
+    input.addEventListener("change", async () => {
+      const index = Number(input.dataset.habit);
+      const list = dayData().habits;
+      if (input.checked && !list.includes(index)) list.push(index);
+      if (!input.checked) dayData().habits = list.filter(item => item !== index);
+      renderHabits();
+      renderStats();
+      await saveData();
+    });
+  });
+}
+
+function renderStats() {
+  const start = new Date(allData.startDate + "T00:00:00");
+  const now = new Date(today() + "T00:00:00");
+  const elapsed = Math.max(0, Math.floor((now - start) / 86400000));
+  const dayNumber = Math.min(90, elapsed + 1);
+  const completed = dayData().habits.length;
+  $("dayNumber").textContent = dayNumber;
+  $("completion").textContent = Math.round(completed / habits.length * 100) + "%";
+  $("mainProgress").style.width = (dayNumber / 90 * 100) + "%";
+  $("daysLabel").textContent = Math.max(0, 90 - dayNumber) + " days to go — keep going!";
+  $("startText").textContent = "Started " + allData.startDate;
+
+  let streak = 0;
+  let cursor = new Date(now);
+  while (true) {
+    const key = cursor.toISOString().slice(0,10);
+    if ((allData.days[key]?.habits?.length || 0) === habits.length) {
+      streak++;
+      cursor.setDate(cursor.getDate() - 1);
+    } else break;
+  }
+  $("streak").textContent = streak + " 🔥";
+}
+
+function renderFood() {
+  const food = dayData().food || {};
+  ["breakfast","lunch","dinner","snacks","water","weight"].forEach(id => {
+    $(id).value = food[id] ?? "";
+  });
+}
+
+function renderFitness() {
+  const fitness = dayData().fitness || {};
+  ["workout","duration","steps","fitnessNotes"].forEach(id => {
+    $(id).value = fitness[id] ?? "";
+  });
+}
+
+function renderReflection() {
+  $("reflection").value = dayData().reflection || "";
+}
+
+function renderAll() {
+  renderHabits();
+  renderStats();
+  renderFood();
+  renderFitness();
+  renderReflection();
+  renderProgress();
+  $("todayText").textContent = new Date().toLocaleDateString(undefined, {
+    weekday:"long", day:"numeric", month:"long"
+  }) + " — make today count. 💜";
+}
+
+document.querySelectorAll(".nav button").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    ["homePage","foodPage","fitnessPage","progressPage"].forEach(id => $(id).classList.add("hidden"));
+    $(button.dataset.page).classList.remove("hidden");
+    if (button.dataset.page === "foodPage") drawWeightChart();
+    if (button.dataset.page === "fitnessPage") drawActivityChart();
+    if (button.dataset.page === "progressPage") drawHabitChart();
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+
+$("saveFood").addEventListener("click", async () => {
+  const food = {};
+  ["breakfast","lunch","dinner","snacks","water","weight"].forEach(id => food[id] = $(id).value);
+  dayData().food = food;
+  if (await saveData()) {
+    notify("Food diary saved! 🥑");
+    renderProgress();
+    drawWeightChart();
+  }
+});
+
+$("saveFitness").addEventListener("click", async () => {
+  const fitness = {};
+  ["workout","duration","steps","fitnessNotes"].forEach(id => fitness[id] = $(id).value);
+  dayData().fitness = fitness;
+  if (await saveData()) {
+    notify("Workout saved! 💪");
+    renderProgress();
+    drawActivityChart();
+  }
+});
+
+$("saveReflection").addEventListener("click", async () => {
+  dayData().reflection = $("reflection").value;
+  if (await saveData()) notify("Reflection saved! ✨");
+});
+
+function renderProgress() {
+  const entries = Object.values(allData.days);
+  const totalHabits = entries.reduce((sum, item) => sum + (item.habits?.length || 0), 0);
+  const workoutDays = entries.filter(item => Number(item.fitness?.duration) > 0).length;
+  $("totalHabits").textContent = totalHabits;
+  $("totalWorkouts").textContent = workoutDays;
+  $("progressLabel").textContent = "Day " + Math.min(90, Math.max(1, Math.floor((new Date(today()) - new Date(allData.startDate)) / 86400000) + 1)) + " of 90";
+  const days = Object.keys(allData.days).sort();
+  let best = 0, streak = 0, previous = null;
+  days.forEach(key => {
+    const complete = (allData.days[key].habits?.length || 0) === habits.length;
+    const date = new Date(key + "T00:00:00");
+    if (complete && (!previous || date - previous === 86400000)) streak++;
+    else if (complete) streak = 1;
+    else streak = 0;
+    best = Math.max(best, streak);
+    previous = date;
+  });
+  $("bestStreak").textContent = best;
+  $("progressBar").style.width = Math.min(100, totalHabits / (90 * habits.length) * 100) + "%";
+}
+
+const quotes = [
+  "Small steps every day create extraordinary change.",
+  "You don't need to be perfect. You need to keep showing up.",
+  "Your only competition is who you were yesterday.",
+  "Discipline is choosing what you want most.",
+  "A fresh day is another chance to grow. 🌷"
 ];
+$("quote").textContent = quotes[new Date().getDate() % quotes.length];
 
-function localDate(){
-const d=new Date();
-return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function drawChart(canvasId, values, labels, color) {
+  const canvas = $(canvasId);
+  if (!canvas) return;
+  const rect = canvas.getBoundingClientRect();
+  const width = Math.max(280, rect.width);
+  const height = 210;
+  const scale = window.devicePixelRatio || 1;
+  canvas.width = width * scale;
+  canvas.height = height * scale;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(scale, scale);
+  ctx.clearRect(0, 0, width, height);
+
+  const left = 28, right = 12, top = 18, bottom = 35;
+  const chartHeight = height - top - bottom;
+  const max = Math.max(5, ...values) * 1.15;
+  ctx.strokeStyle = "rgba(255,255,255,.13)";
+  ctx.fillStyle = "#c4bddb";
+  ctx.font = "11px system-ui";
+  ctx.lineWidth = 1;
+
+  for (let i = 0; i <= 4; i++) {
+    const y = top + chartHeight * i / 4;
+    ctx.beginPath();
+    ctx.moveTo(left, y);
+    ctx.lineTo(width - right, y);
+    ctx.stroke();
+  }
+
+  const step = (width - left - right) / Math.max(1, values.length - 1);
+  const points = values.map((value, i) => ({
+    x: left + i * step,
+    y: top + chartHeight - (value / max) * chartHeight
+  }));
+
+  ctx.beginPath();
+  points.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 3;
+  ctx.lineJoin = "round";
+  ctx.stroke();
+
+  points.forEach((p, i) => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.fillStyle = "#c4bddb";
+    ctx.textAlign = "center";
+    ctx.fillText(labels[i], p.x, height - 10);
+  });
 }
 
-function dayData(date=currentDate){
-return userData.days?.[date]||{};
+function lastSevenDays() {
+  const dates = [];
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    dates.push(date.toISOString().slice(0,10));
+  }
+  return dates;
 }
 
-function toast(msg){
-const t=document.getElementById("toast");
-t.textContent=msg;
-t.classList.remove("hidden");
-setTimeout(()=>t.classList.add("hidden"),2200);
+function drawWeightChart() {
+  const dates = lastSevenDays();
+  const values = dates.map(date => Number(allData.days[date]?.food?.weight || 0));
+  const valid = values.some(value => value > 0);
+  $("weightLabel").textContent = valid
+    ? "Your recent weight entries"
+    : "Add a weight entry in your food diary to see your chart.";
+  drawChart("weightChart", values, dates.map(d => d.slice(5)), "#ff83bd");
 }
 
-function authMessage(msg){
-const e=document.getElementById("authMessage");
-e.textContent=msg;
-e.classList.remove("hidden");
+function drawActivityChart() {
+  const dates = lastSevenDays();
+  const values = dates.map(date => Number(allData.days[date]?.fitness?.duration || 0));
+  drawChart("activityChart", values, dates.map(d => d.slice(5)), "#69d5ff");
 }
 
-async function saveData(){
-if(!currentUser)return;
-await setDoc(doc(db,"users",currentUser.uid),userData);
+function drawHabitChart() {
+  const dates = lastSevenDays();
+  const values = dates.map(date => allData.days[date]?.habits?.length || 0);
+  drawChart("habitChart", values, dates.map(d => d.slice(5)), "#ffd166");
 }
 
-async function loadData(user){
-currentUser=user;
-const snap=await getDoc(doc(db,"users",user.uid));
-
-if(snap.exists()){
-userData=snap.data();
-}else{
-userData={startDate:currentDate,days:{}};
-await saveData();
-}
-
-if(!userData.days)userData.days={};
-if(!userData.startDate)userData.startDate=currentDate;
-
-document.getElementById("authScreen").classList.add("hidden");
-document.getElementById("mainApp").classList.remove("hidden");
-document.getElementById("navigation").classList.remove("hidden");
-
-render();
-}
-
-function challengeDay(){
-const start=new Date(userData.startDate+"T00:00:00");
-const today=new Date(currentDate+"T00:00:00");
-return Math.min(90,Math.max(1,Math.floor((today-start)/86400000)+1));
-}
-
-function completedCount(d){
-return habits.filter((_,i)=>!!d["habit"+i]).length;
-}
-
-function streakInfo(){
-let streak=0,best=0,run=0;
-const start=new Date(userData.startDate+"T00:00:00");
-const today=new Date(currentDate+"T00:00:00");
-const days=Math.min(90,Math.max(1,Math.floor((today-start)/86400000)+1));
-
-for(let i=0;i<days;i++){
-const dt=new Date(start);
-dt.setDate(start.getDate()+i);
-const key=dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
-const full=completedCount(dayData(key))===habits.length;
-
-if(full){
-run++;
-best=Math.max(best,run);
-}else{
-run=0;
-}
-}
-
-for(let i=days-1;i>=0;i--){
-const dt=new Date(start);
-dt.setDate(start.getDate()+i);
-const key=dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
-
-if(completedCount(dayData(key))===habits.length){
-streak++;
-}else{
-break;
-}
-}
-
-return{streak,best};
-}
-
-async function updateDay(key,value){
-if(!userData.days[currentDate]){
-userData.days[currentDate]={};
-}
-
-userData.days[currentDate][key]=value;
-
-try{
-await saveData();
-renderStats();
-}catch(e){
-toast("Save failed: "+e.message);
-}
-}
-
-function renderHabits(){
-const list=document.getElementById("habitList");
-list.innerHTML="";
-const day=dayData();
-
-habits.forEach((habit,i)=>{
-const label=document.createElement("label");
-label.className="habit"+(day["habit"+i]?" done":"");
-
-const input=document.createElement("input");
-input.type="checkbox";
-input.checked=!!day["habit"+i];
-
-input.addEventListener("change",async()=>{
-label.classList.toggle("done",input.checked);
-await updateDay("habit"+i,input.checked);
+window.addEventListener("resize", () => {
+  drawWeightChart();
+  drawActivityChart();
+  drawHabitChart();
 });
 
-const span=document.createElement("span");
-span.textContent=habit;
-
-label.append(input,span);
-list.append(label);
-});
+function loadPhotos() {
+  if (!currentUser) return;
+  ["before","after"].forEach(which => {
+    const saved = localStorage.getItem("winterarc90-photo-" + currentUser.uid + "-" + which);
+    if (saved) showPhoto(which, saved);
+  });
 }
 
-function renderStats(){
-const day=dayData();
-const done=completedCount(day);
-const percent=Math.round(done/habits.length*100);
-const d=challengeDay();
-const s=streakInfo();
-
-document.getElementById("completion").textContent=percent+"%";
-document.getElementById("mainProgress").style.width=(d/90*100)+"%";
-document.getElementById("dayNumber").textContent=d;
-document.getElementById("streak").textContent=s.streak+" 🔥";
-document.getElementById("daysLabel").textContent=(90-d)+" days to go — keep going!";
-
-let total=0,workouts=0;
-
-Object.values(userData.days||{}).forEach(x=>{
-total+=completedCount(x);
-if(x.workout&&x.workout.trim())workouts++;
-});
-
-document.getElementById("totalHabits").textContent=total;
-document.getElementById("totalWorkouts").textContent=workouts;
-document.getElementById("bestStreak").textContent=s.best;
-document.getElementById("progressBar").style.width=(d/90*100)+"%";
-document.getElementById("progressLabel").textContent="Day "+d+" of 90";
-
-drawCharts();
+function showPhoto(which, dataUrl) {
+  const tile = $(which + "Tile");
+  let img = tile.querySelector("img");
+  if (!img) {
+    img = document.createElement("img");
+    tile.appendChild(img);
+  }
+  img.src = dataUrl;
+  const label = tile.querySelector("label");
+  if (label) label.textContent = which === "before" ? "Change starting photo" : "Change latest photo";
 }
 
-function render(){
-currentDate=localDate();
-
-document.getElementById("todayText").textContent=
-new Date().toLocaleDateString(undefined,{
-weekday:"long",
-year:"numeric",
-month:"long",
-day:"numeric"
-});
-
-document.getElementById("startText").textContent=
-"Started "+userData.startDate;
-
-const day=dayData();
-
-[
-"breakfast","lunch","dinner","snacks","water","weight",
-"workout","duration","steps","fitnessNotes","reflection"
-].forEach(id=>{
-const el=document.getElementById(id);
-if(el)el.value=day[id]??"";
-});
-
-document.getElementById("quote").textContent=
-quotes[challengeDay()%quotes.length];
-
-renderHabits();
-renderStats();
-loadPhoto("before");
-loadPhoto("after");
-}
-
-async function saveFields(ids){
-const d=dayData();
-
-ids.forEach(id=>{
-d[id]=document.getElementById(id).value.trim();
-});
-
-userData.days[currentDate]=d;
-
-try{
-await saveData();
-toast("Saved successfully ✨");
-renderStats();
-}catch(e){
-toast("Save failed: "+e.message);
-}
-}
-
-document.getElementById("registerBtn").onclick=async()=>{
-try{
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value;
-
-if(password.length<6){
-throw Error("Password must contain at least 6 characters.");
-}
-
-await createUserWithEmailAndPassword(auth,email,password);
-
-}catch(e){
-authMessage(e.message);
-}
-};
-
-document.getElementById("loginBtn").onclick=async()=>{
-try{
-await signInWithEmailAndPassword(
-auth,
-document.getElementById("email").value.trim(),
-document.getElementById("password").value
-);
-}catch(e){
-authMessage(e.message);
-}
-};
-
-document.getElementById("resetBtn").onclick=async()=>{
-try{
-const email=document.getElementById("email").value.trim();
-
-if(!email)throw Error("Enter your email first.");
-
-await sendPasswordResetEmail(auth,email);
-authMessage("Password reset email sent. Check your inbox.");
-
-}catch(e){
-authMessage(e.message);
-}
-};
-
-document.getElementById("logoutBtn").onclick=()=>{
-signOut(auth);
-};
-
-document.querySelectorAll(".nav button").forEach(btn=>{
-btn.onclick=()=>{
-document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-btn.classList.add("active");
-
-document.querySelectorAll("#mainApp section").forEach(s=>s.classList.add("hidden"));
-
-document.getElementById(btn.dataset.page).classList.remove("hidden");
-
-drawCharts();
-};
-});
-
-document.getElementById("saveFood").onclick=()=>{
-saveFields(["breakfast","lunch","dinner","snacks","water","weight"]);
-};
-
-document.getElementById("saveFitness").onclick=()=>{
-saveFields(["workout","duration","steps","fitnessNotes"]);
-};
-
-document.getElementById("saveReflection").onclick=()=>{
-saveFields(["reflection"]);
-};
-
-function drawChart(id,values,labels){
-const canvas=document.getElementById(id);
-if(!canvas)return;
-
-const rect=canvas.getBoundingClientRect();
-const w=Math.max(280,rect.width*devicePixelRatio);
-const h=Math.max(160,rect.height*devicePixelRatio);
-
-canvas.width=w;
-canvas.height=h;
-
-const c=canvas.getContext("2d");
-c.clearRect(0,0,w,h);
-
-const pad=32*devicePixelRatio;
-const usableW=w-pad*1.5;
-const usableH=h-pad*1.5;
-
-const nums=values.map(v=>Number(v)||0);
-const max=Math.max(1,...nums);
-const min=Math.min(0,...nums);
-
-c.strokeStyle="rgba(255,255,255,.15)";
-c.lineWidth=devicePixelRatio;
-
-for(let j=0;j<4;j++){
-const y=pad+j*usableH/3;
-c.beginPath();
-c.moveTo(pad,y);
-c.lineTo(w-pad/2,y);
-c.stroke();
-}
-
-if(!nums.length)return;
-
-const pts=nums.map((v,i)=>({
-x:pad+(nums.length===1?usableW/2:i*usableW/(nums.length-1)),
-y:pad+usableH-(v-min)/(max-min||1)*usableH
-}));
-
-const grad=c.createLinearGradient(0,pad,0,h-pad);
-grad.addColorStop(0,"rgba(255,111,174,.38)");
-grad.addColorStop(1,"rgba(105,213,255,.02)");
-
-c.beginPath();
-pts.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));
-c.lineTo(pts[pts.length-1].x,h-pad/2);
-c.lineTo(pts[0].x,h-pad/2);
-c.closePath();
-c.fillStyle=grad;
-c.fill();
-
-c.beginPath();
-pts.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));
-c.strokeStyle="#ff91c5";
-c.lineWidth=3*devicePixelRatio;
-c.stroke();
-
-pts.forEach((p,i)=>{
-c.beginPath();
-c.arc(p.x,p.y,4*devicePixelRatio,0,Math.PI*2);
-c.fillStyle="#7bdcff";
-c.fill();
-
-if(labels[i]){
-c.fillStyle="#c4bddb";
-c.textAlign="center";
-c.font=(10*devicePixelRatio)+"px system-ui";
-c.fillText(labels[i],p.x,h-5*devicePixelRatio);
-}
-});
-}
-
-function lastSeven(){
-const labels=[],keys=[];
-
-for(let i=6;i>=0;i--){
-const d=new Date(currentDate+"T00:00:00");
-d.setDate(d.getDate()-i);
-
-keys.push(
-d.getFullYear()+"-"+
-String(d.getMonth()+1).padStart(2,"0")+"-"+
-String(d.getDate()).padStart(2,"0")
-);
-
-labels.push(d.toLocaleDateString(undefined,{weekday:"short"}));
-}
-
-return{keys,labels};
-}
-
-function drawCharts(){
-const {keys,labels}=lastSeven();
-
-drawChart(
-"weightChart",
-keys.map(k=>dayData(k).weight||0),
-labels
-);
-
-const weights=keys.map(k=>Number(dayData(k).weight)||0).filter(Boolean);
-
-document.getElementById("weightLabel").textContent=
-weights.length?
-"Latest logged weight: "+weights[weights.length-1]+" kg":
-"Add a weight entry to see your trend.";
-
-drawChart(
-"activityChart",
-keys.map(k=>Number(dayData(k).duration)||0),
-labels
-);
-
-drawChart(
-"habitChart",
-keys.map(k=>completedCount(dayData(k))),
-labels
-);
-}
-
-function photoKey(which){
-return "winterarc90-photo-"+(currentUser?.uid||"guest")+"-"+which;
-}
-
-function loadPhoto(which){
-const tile=document.getElementById(which+"Tile");
-if(!tile)return;
-
-const old=tile.querySelector("img");
-if(old)old.remove();
-
-const src=localStorage.getItem(photoKey(which));
-
-if(src){
-const img=document.createElement("img");
-img.src=src;
-tile.prepend(img);
-
-const label=tile.querySelector("label");
-label.textContent=which==="before"?
-"Change starting photo":
-"Change latest photo";
-}
-}
-
-async function compressPhoto(file){
-return new Promise((resolve,reject)=>{
-const reader=new FileReader();
-
-reader.onerror=reject;
-
-reader.onload=()=>{
-const img=new Image();
-
-img.onload=()=>{
-const scale=Math.min(1,900/Math.max(img.width,img.height));
-
-const canvas=document.createElement("canvas");
-canvas.width=Math.round(img.width*scale);
-canvas.height=Math.round(img.height*scale);
-
-canvas.getContext("2d").drawImage(
-img,0,0,canvas.width,canvas.height
-);
-
-resolve(canvas.toDataURL("image/jpeg",.78));
-};
-
-img.onerror=reject;
-img.src=reader.result;
-};
-
-reader.readAsDataURL(file);
-});
-}
-
-["before","after"].forEach(which=>{
-document.getElementById(which+"Photo").addEventListener("change",async e=>{
-const file=e.target.files[0];
-if(!file)return;
-
-try{
-const data=await compressPhoto(file);
-localStorage.setItem(photoKey(which),data);
-loadPhoto(which);
-toast("Photo saved on this device 📸");
-}catch(err){
-toast("Could not save this photo");
-}
-});
-});
-
-onAuthStateChanged(auth,async user=>{
-if(user){
-try{
-await loadData(user);
-}catch(e){
-alert("Unable to load account: "+e.message);
-}
-}else{
-currentUser=null;
-document.getElementById("authScreen").classList.remove("hidden");
-document.getElementById("mainApp").classList.add("hidden");
-document.getElementById("navigation").classList.add("hidden");
-}
+["before","after"].forEach(which => {
+  $(which + "Photo").addEventListener("change", event => {
+    const file = event.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      notify("Please choose an image.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const image = new Image();
+      image.onload = () => {
+        const canvas = document.createElement("canvas");
+        const maxSide = 900;
+        const ratio = Math.min(1, maxSide / Math.max(image.width, image.height));
+        canvas.width = Math.round(image.width * ratio);
+        canvas.height = Math.round(image.height * ratio);
+        canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+        const compressed = canvas.toDataURL("image/jpeg", .78);
+        try {
+          localStorage.setItem("winterarc90-photo-" + currentUser.uid + "-" + which, compressed);
+          showPhoto(which, compressed);
+          notify("Photo saved on this device 📸");
+        } catch (error) {
+          notify("Photo is too large. Try a smaller image.");
+        }
+      };
+      image.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
 });
 
 </script>
