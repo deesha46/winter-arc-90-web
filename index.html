@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#17102f">
 <title>Winter Arc 90</title>
 <style>
-:root{--bg:#130f27;--panel:#251b40;--panel2:#33244f;--pink:#ff83bd;--gold:#ffd477;--blue:#79d7ff;--green:#7be0b2;--muted:#c6bad9;--line:#ffffff22}
+:root{--bg:#130f27;--panel:#251b40;--pink:#ff83bd;--gold:#ffd477;--blue:#79d7ff;--green:#7be0b2;--muted:#c6bad9;--line:#ffffff22}
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(ellipse at top left,#51265d,transparent 40%),radial-gradient(ellipse at bottom right,#123b53,transparent 40%),var(--bg);color:#fff;font-family:system-ui,Arial,sans-serif;padding-bottom:35px}
 button,input,select,textarea{font:inherit}
@@ -44,16 +44,16 @@ button.danger{background:#783550;color:white;border:0;padding:10px 13px;border-r
 .exercise,.history{padding:12px;margin:7px 0;border-radius:12px;background:#ffffff0b;border:1px solid var(--line)}
 .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .pill{font-size:11px;color:var(--gold);background:#ffffff12;border-radius:30px;padding:5px 9px}
-.avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;background:#44365c}
+.avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;background:#44365c;border:2px solid var(--pink)}
 canvas{width:100%;height:190px}
 hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+#notice{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);background:#30204f;border:1px solid var(--pink);padding:12px 18px;border-radius:12px;z-index:50;display:none;max-width:90%;text-align:center}
 @media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}h1{font-size:25px}.card{padding:15px}.wrap{padding:11px}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<!-- LOGIN -->
 <section id="authScreen" class="card" style="max-width:430px;margin:8vh auto">
  <div class="logo">WINTER ARC 90 ✨</div>
  <p>Your personal fitness and lifestyle journal.</p>
@@ -62,20 +62,19 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
   <label>Email</label><input id="email" type="email" placeholder="Email address">
   <label>Password</label><input id="password" type="password" placeholder="Password">
   <button class="primary" style="width:100%" onclick="login()">Log in</button>
-  <p><a href="#" onclick="resetPassword()" style="color:var(--pink)">Forgot password?</a></p>
-  <p>New user? <a href="#" onclick="showRegister()" style="color:var(--gold)">Create account</a></p>
+  <p><a href="#" onclick="resetPassword();return false" style="color:var(--pink)">Forgot password?</a></p>
+  <p>New user? <a href="#" onclick="showRegister();return false" style="color:var(--gold)">Create account</a></p>
  </div>
  <div id="registerBox" class="hidden">
   <h2>Create account</h2>
   <label>Email</label><input id="newEmail" type="email">
   <label>Password (minimum 6 characters)</label><input id="newPassword" type="password">
   <button class="primary" style="width:100%" onclick="register()">Create account</button>
-  <p>Already registered? <a href="#" onclick="showLogin()" style="color:var(--pink)">Log in</a></p>
+  <p>Already registered? <a href="#" onclick="showLogin();return false" style="color:var(--pink)">Log in</a></p>
  </div>
  <p id="authMessage" class="small"></p>
 </section>
 
-<!-- MAIN APP -->
 <div id="app" class="hidden">
 <header>
  <div><div class="logo">WINTER ARC 90 ✨</div><div class="small">Progress over perfection.</div></div>
@@ -91,7 +90,6 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
  <button onclick="tab('settings',this)">⚙️ Settings</button>
 </nav>
 
-<!-- HOME -->
 <section id="home" class="page active">
  <div class="hero">
   <span class="pill">YOUR 90-DAY JOURNEY</span>
@@ -117,7 +115,6 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
  </div>
 </section>
 
-<!-- PROFILE -->
 <section id="profile" class="page">
  <div class="card">
   <h2>My Personal Profile 💜</h2>
@@ -138,7 +135,6 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
  </div>
 </section>
 
-<!-- FOOD -->
 <section id="food" class="page">
  <div class="card">
   <h2>Food & Nutrition 🥑</h2>
@@ -155,7 +151,6 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
  <div class="card"><h2>A gentle reminder 💧</h2><p>Eat balanced meals, drink water and give your body the nourishment it needs. This journal is for awareness, not restriction.</p></div>
 </section>
 
-<!-- WORKOUTS -->
 <section id="workouts" class="page">
  <div class="card">
   <h2>Workout & Activity Hub 🔥</h2>
@@ -178,6 +173,11 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
    <div><label>Steps</label><input id="steps" type="number" min="0"></div>
    <div><label>Weight lifted (kg)</label><input id="load" type="number" min="0" step=".5"></div>
   </div>
+  <div class="row">
+   <button class="secondary" onclick="startTimer()">▶ Start timer</button>
+   <button class="secondary" onclick="stopTimer()">⏹ Stop timer</button>
+  </div>
+  <p class="small" id="timerDisplay">Timer not started.</p>
   <label>Notes</label><textarea id="workoutNotes" placeholder="How did it feel?"></textarea>
   <button class="primary" onclick="saveWorkout()">＋ Save workout</button>
  </div>
@@ -192,7 +192,6 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
  </div>
 </section>
 
-<!-- PROGRESS -->
 <section id="progress" class="page">
  <div class="card">
   <h2>My Progress 🌟</h2>
@@ -211,7 +210,6 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
  <div class="card"><h2>90-day calendar</h2><div id="calendar"></div></div>
 </section>
 
-<!-- SETTINGS -->
 <section id="settings" class="page">
  <div class="card">
   <h2>Settings ⚙️</h2>
@@ -228,6 +226,7 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 </section>
 </div>
 </div>
+<div id="notice"></div>
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
@@ -242,9 +241,13 @@ const firebaseConfig={
  messagingSenderId:"53251809201",
  appId:"1:53251809201:web:565ee6e61037a038692790"
 };
-const fb=initializeApp(firebaseConfig),auth=getAuth(fb),db=getFirestore(fb);
-let user=null,photoData="";
+const fb=initializeApp(firebaseConfig);
+const auth=getAuth(fb);
+const db=getFirestore(fb);
+
+let user=null,photoData="",timerStart=null,timerInterval=null;
 let data={startDate:today(),days:{},profile:{},targets:{step:6000,weekly:4}};
+const $=id=>document.getElementById(id);
 const defaultHabits=["Wake up on time","Drink enough water","Move my body","Eat balanced meals","Read or learn","Sleep on time"];
 const exercises={
  "Walking & Steps":["10,000 steps","Walking","Brisk walking","Hiking","Stair climbing","Cycling"],
@@ -253,150 +256,380 @@ const exercises={
  "Strength & Gym":["Dumbbell workout","Barbell workout","Chest workout","Back workout","Shoulder workout","Arm workout","Leg workout","Core workout","Resistance bands"],
  "Flexibility & Recovery":["Yoga","Stretching","Mobility","Balance exercises","Breathing exercises"]
 };
-function today(){let d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
-function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function day(date=today()){
- data.days??={};data.days[date]??={habits:[],food:{},workouts:[],reflection:""};
- let d=data.days[date];
- if(!Array.isArray(d.habits))d.habits=Object.keys(d.habits||{}).filter(k=>d.habits[k]).map(Number);
+
+function today(){
+ const d=new Date();
+ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+function esc(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function notify(text){
+ const n=$("notice");n.textContent=text;n.style.display="block";
+ setTimeout(()=>n.style.display="none",3500);
+}
+function currentDay(date=today()){
+ data.days??={};
+ data.days[date]??={habits:[],food:{},workouts:[],reflection:""};
+ const d=data.days[date];
+ if(!Array.isArray(d.habits)){
+  d.habits=Object.keys(d.habits||{}).filter(k=>d.habits[k]).map(Number);
+ }
  if(!Array.isArray(d.workouts))d.workouts=[];
  return d;
 }
-async function save(){
- if(user)await setDoc(doc(db,"users",user.uid),data,{merge:true});
+async function saveData(){
+ if(!user)throw new Error("You are not logged in.");
+ await setDoc(doc(db,"users",user.uid),data,{merge:true});
 }
-function msg(s){document.getElementById("authMessage").textContent=s}
-window.showRegister=()=>{loginBox.classList.add("hidden");registerBox.classList.remove("hidden");msg("")};
-window.showLogin=()=>{registerBox.classList.add("hidden");loginBox.classList.remove("hidden");msg("")};
-window.login=async()=>{try{await signInWithEmailAndPassword(auth,email.value,password.value)}catch(e){msg(e.message)}};
-window.register=async()=>{try{await createUserWithEmailAndPassword(auth,newEmail.value,newPassword.value)}catch(e){msg(e.message)}};
-window.resetPassword=async()=>{if(!email.value)return msg("Enter your email first.");try{await sendPasswordResetEmail(auth,email.value);msg("Reset email sent.")}catch(e){msg(e.message)}};
-window.logout=()=>signOut(auth);
+function authMessage(t){$("authMessage").textContent=t}
+
+window.showRegister=()=>{
+ $("loginBox").classList.add("hidden");
+ $("registerBox").classList.remove("hidden");
+ authMessage("");
+};
+window.showLogin=()=>{
+ $("registerBox").classList.add("hidden");
+ $("loginBox").classList.remove("hidden");
+ authMessage("");
+};
+window.login=async()=>{
+ try{
+  await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);
+ }catch(e){authMessage(e.message)}
+};
+window.register=async()=>{
+ try{
+  await createUserWithEmailAndPassword(auth,$("newEmail").value.trim(),$("newPassword").value);
+ }catch(e){authMessage(e.message)}
+};
+window.resetPassword=async()=>{
+ const email=$("email").value.trim();
+ if(!email)return authMessage("Enter your email first.");
+ try{await sendPasswordResetEmail(auth,email);authMessage("Password reset email sent.");}
+ catch(e){authMessage(e.message)}
+};
+window.logout=async()=>{if(timerInterval)clearInterval(timerInterval);await signOut(auth)};
 
 onAuthStateChanged(auth,async u=>{
  user=u;
- if(!u){authScreen.classList.remove("hidden");app.classList.add("hidden");return}
- authScreen.classList.add("hidden");app.classList.remove("hidden");
+ if(!u){
+  $("authScreen").classList.remove("hidden");
+  $("app").classList.add("hidden");
+  return;
+ }
+ $("authScreen").classList.add("hidden");
+ $("app").classList.remove("hidden");
  try{
-  const s=await getDoc(doc(db,"users",u.uid));
-  if(s.exists())data={...data,...s.data(),days:s.data().days||{}};
-  else await save();
+  const snap=await getDoc(doc(db,"users",u.uid));
+  if(snap.exists()){
+   const old=snap.data();
+   data={...data,...old,days:old.days||{},profile:old.profile||{},targets:old.targets||data.targets};
+  }else{
+   await saveData();
+  }
   photoData=localStorage.getItem("winterPhoto_"+u.uid)||"";
-  fillProfile();renderAll();
- }catch(e){alert("Could not load your journal: "+e.message)}
+  fillProfile();
+  renderAll();
+ }catch(e){
+  alert("Could not load your journal: "+e.message);
+ }
 });
-window.tab=(id,btn)=>{
+
+window.tab=(id,button)=>{
  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
- document.getElementById(id).classList.add("active");
+ $(id).classList.add("active");
  document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
- btn.classList.add("active");
+ button.classList.add("active");
  if(id==="progress")renderProgress();
 };
+
 function fillProfile(){
  const p=data.profile||{};
- const fields={name:"name",age:"age",gender:"gender",height:"height",currentWeight:"weight",goalWeight:"goalWeight",goal:"goal"};
- Object.entries(fields).forEach(([id,k])=>document.getElementById(id).value=p[k]??"");
- avatar.src=photoData;
- startDate.value=data.startDate||today();
- stepTarget.value=data.targets?.step??6000;
- weeklyTarget.value=data.targets?.weekly??4;
+ $("name").value=p.name||"";
+ $("age").value=p.age||"";
+ $("gender").value=p.gender||"";
+ $("height").value=p.height||"";
+ $("currentWeight").value=p.weight||"";
+ $("goalWeight").value=p.goalWeight||"";
+ $("goal").value=p.goal||"Healthy lifestyle";
+ $("avatar").src=photoData||"";
+ $("startDate").value=data.startDate||today();
+ $("stepTarget").value=data.targets?.step??6000;
+ $("weeklyTarget").value=data.targets?.weekly??4;
 }
+
 window.changePhoto=e=>{
- const f=e.target.files[0];if(!f)return;
- const r=new FileReader();r.onload=()=>{
-  photoData=r.result;avatar.src=photoData;
+ const file=e.target.files?.[0];
+ if(!file)return;
+ if(file.size>2*1024*1024){
+  alert("Please choose a photo smaller than 2 MB.");
+  e.target.value="";
+  return;
+ }
+ const reader=new FileReader();
+ reader.onload=()=>{
+  photoData=reader.result;
+  $("avatar").src=photoData;
   if(user)localStorage.setItem("winterPhoto_"+user.uid,photoData);
- };r.readAsDataURL(f);
+ };
+ reader.readAsDataURL(file);
 };
+
 window.saveProfile=async()=>{
- data.profile={name:name.value,age:age.value,gender:gender.value,height:height.value,weight:currentWeight.value,goalWeight:goalWeight.value,goal:goal.value};
- await save();renderAll();alert("Profile saved 💜");
+ try{
+  data.profile={
+   name:$("name").value.trim(),
+   age:$("age").value,
+   gender:$("gender").value,
+   height:$("height").value,
+   weight:$("currentWeight").value,
+   goalWeight:$("goalWeight").value,
+   goal:$("goal").value
+  };
+  await saveData();
+  renderAll();
+  notify("Profile saved successfully 💜");
+ }catch(e){alert("Profile save failed: "+e.message)}
 };
+
 window.addHabit=async()=>{
- const n=prompt("Enter a habit name");if(!n?.trim())return;
- data.customHabits??=[];data.customHabits.push(n.trim());await save();renderAll();
+ const name=prompt("Enter a new habit:");
+ if(!name?.trim())return;
+ data.customHabits??=[];
+ data.customHabits.push(name.trim());
+ try{await saveData();renderAll();notify("Habit added.");}
+ catch(e){alert("Could not save habit: "+e.message)}
 };
 window.toggleHabit=async i=>{
- const d=day(),a=d.habits;
- d.habits=a.includes(i)?a.filter(x=>x!==i):[...a,i];
- await save();renderAll();
+ const d=currentDay();
+ d.habits=d.habits.includes(i)?d.habits.filter(x=>x!==i):[...d.habits,i];
+ try{await saveData();renderAll();}
+ catch(e){alert("Could not save habit: "+e.message)}
 };
-window.saveReflection=async()=>{day().reflection=reflection.value;await save();alert("Reflection saved!")};
+
+window.saveReflection=async()=>{
+ try{
+  currentDay().reflection=$("reflection").value;
+  await saveData();
+  notify("Daily reflection saved 💜");
+ }catch(e){alert("Reflection save failed: "+e.message)}
+};
+
 window.saveFood=async()=>{
- day().food={breakfast:breakfast.value,lunch:lunch.value,dinner:dinner.value,snacks:snacks.value,water:Number(water.value)||0,weight:Number(weight.value)||""};
- await save();renderAll();alert("Food journal saved 🥗");
+ try{
+  currentDay().food={
+   breakfast:$("breakfast").value,
+   lunch:$("lunch").value,
+   dinner:$("dinner").value,
+   snacks:$("snacks").value,
+   water:Number($("water").value)||0,
+   weight:Number($("weight").value)||""
+  };
+  await saveData();
+  renderAll();
+  notify("Food journal saved 🥗");
+ }catch(e){alert("Food save failed: "+e.message)}
 };
+
 window.renderExercises=()=>{
- const q=searchExercise.value.toLowerCase(),c=category.value;
+ const query=$("searchExercise").value.toLowerCase();
+ const category=$("category").value;
  let html="";
  Object.entries(exercises).forEach(([cat,names])=>{
-  if(c!=="All"&&c!==cat)return;
-  names.filter(n=>n.toLowerCase().includes(q)).forEach(n=>{
-   html+=`<div class="exercise row"><div><strong>${escapeHTML(n)}</strong><div class="small">${escapeHTML(cat)}</div></div><button class="secondary" onclick="chooseExercise('${escapeHTML(n)}')">Log this</button></div>`;
+  if(category!=="All"&&category!==cat)return;
+  names.filter(n=>n.toLowerCase().includes(query)).forEach(n=>{
+   html+=`<div class="exercise row"><div><strong>${esc(n)}</strong><div class="small">${esc(cat)}</div></div><button class="secondary" onclick="chooseExercise('${esc(n)}')">Log this</button></div>`;
   });
  });
- document.getElementById("exerciseList").innerHTML=html||"<p>No matching activities.</p>";
+ $("exerciseList").innerHTML=html||"<p>No matching activities.</p>";
 };
-window.chooseExercise=n=>{exerciseName.value=n;document.getElementById("exerciseName").scrollIntoView({behavior:"smooth",block:"center"})};
+window.chooseExercise=n=>{
+ $("exerciseName").value=n;
+ $("exerciseName").scrollIntoView({behavior:"smooth",block:"center"});
+};
+
+window.startTimer=()=>{
+ if(timerStart)return;
+ timerStart=Date.now();
+ $("timerDisplay").textContent="Workout timer running...";
+ timerInterval=setInterval(()=>{
+  const seconds=Math.floor((Date.now()-timerStart)/1000);
+  const mm=String(Math.floor(seconds/60)).padStart(2,"0");
+  const ss=String(seconds%60).padStart(2,"0");
+  $("timerDisplay").textContent="Timer: "+mm+":"+ss;
+ },1000);
+};
+window.stopTimer=()=>{
+ if(!timerStart){notify("Start the timer first.");return}
+ const elapsed=Math.max(1,Math.round((Date.now()-timerStart)/60000));
+ $("minutes").value=elapsed;
+ timerStart=null;
+ clearInterval(timerInterval);
+ timerInterval=null;
+ $("timerDisplay").textContent="Duration recorded: "+elapsed+" minutes";
+};
+
+function estimateCalories(activity,minutes){
+ const weight=Number(data.profile?.weight)||60;
+ const n=activity.toLowerCase();
+ let met=3.5;
+ if(/brisk walk|hiking|stairs/.test(n))met=5.5;
+ else if(/walk/.test(n))met=3.5;
+ else if(/sprint/.test(n))met=10;
+ else if(/run|jog/.test(n))met=8;
+ else if(/cycling/.test(n))met=6.5;
+ else if(/swim/.test(n))met=7;
+ else if(/skip|rope/.test(n))met=10;
+ else if(/dance|aerobic/.test(n))met=6;
+ else if(/yoga|stretch|breath|mobility/.test(n))met=2.5;
+ else if(/plank|push|pull|squat|lunge|burpee|dip|mountain|dead hang/.test(n))met=5;
+ else if(/dumbbell|barbell|gym|strength|resistance|workout/.test(n))met=5;
+ return Math.round(met*3.5*weight/200*minutes);
+}
+
 window.saveWorkout=async()=>{
- const n=exerciseName.value.trim();if(!n)return alert("Enter an exercise name.");
- day().workouts.push({name:n,sets:Number(sets.value)||0,reps:Number(reps.value)||0,minutes:Number(minutes.value)||0,distance:Number(distance.value)||0,steps:Number(steps.value)||0,load:Number(load.value)||0,notes:workoutNotes.value,time:new Date().toLocaleTimeString()});
- ["exerciseName","sets","reps","minutes","distance","steps","load","workoutNotes"].forEach(id=>document.getElementById(id).value="");
- await save();renderAll();alert("Workout saved 💪");
+ try{
+  const name=$("exerciseName").value.trim();
+  const duration=Number($("minutes").value)||0;
+  if(!name)throw new Error("Enter an exercise name.");
+  if(duration<=0)throw new Error("Enter workout duration or use the timer.");
+
+  const workout={
+   name,
+   sets:Number($("sets").value)||0,
+   reps:Number($("reps").value)||0,
+   minutes:duration,
+   distance:Number($("distance").value)||0,
+   steps:Number($("steps").value)||0,
+   load:Number($("load").value)||0,
+   calories:estimateCalories(name,duration),
+   notes:$("workoutNotes").value,
+   date:today(),
+   time:new Date().toLocaleTimeString()
+  };
+  currentDay().workouts.push(workout);
+  await saveData();
+
+  ["exerciseName","sets","reps","minutes","distance","steps","load","workoutNotes"].forEach(id=>$(id).value="");
+  renderAll();
+  notify("Workout saved! Estimated "+workout.calories+" kcal burned 🔥");
+ }catch(e){alert("Workout save failed: "+e.message)}
 };
-window.saveTargets=async()=>{data.targets={step:Number(stepTarget.value)||0,weekly:Number(weeklyTarget.value)||0};await save();alert("Targets saved!")};
-window.saveStartDate=async()=>{data.startDate=startDate.value||today();await save();renderAll();alert("Challenge date saved.")};
+
+window.saveTargets=async()=>{
+ try{
+  data.targets={step:Number($("stepTarget").value)||0,weekly:Number($("weeklyTarget").value)||0};
+  await saveData();
+  notify("Targets saved.");
+ }catch(e){alert("Targets save failed: "+e.message)}
+};
+window.saveStartDate=async()=>{
+ try{
+  data.startDate=$("startDate").value||today();
+  await saveData();renderAll();notify("Challenge date saved.");
+ }catch(e){alert("Date save failed: "+e.message)}
+};
 window.exportData=()=>{
  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
- const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="winter-arc-90-backup.json";a.click();URL.revokeObjectURL(a.href);
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;a.download="winter-arc-90-backup.json";a.click();
+ URL.revokeObjectURL(url);
 };
+
 function renderAll(){
- const d=day(),p=data.profile||{};
- greeting.textContent=p.name?"Welcome back, "+p.name+"! 💜":"Welcome to your Winter Arc!";
- const start=new Date((data.startDate||today())+"T00:00:00"),now=new Date(today()+"T00:00:00");
- const elapsed=Math.floor((now-start)/86400000)+1,challenge=Math.min(90,Math.max(1,elapsed));
- dayNo.textContent=challenge+"/90";
- const list=[...defaultHabits,...(data.customHabits||[])],done=d.habits.length;
- habitNo.textContent=done+"/"+list.length;
- habitPercent.textContent=Math.round(done/list.length*100)+"%";
- habitBar.style.width=(done/list.length*100)+"%";
- habits.innerHTML=list.map((n,i)=>`<label class="habit"><input type="checkbox" ${d.habits.includes(i)?"checked":""} onchange="toggleHabit(${i})"><span>${escapeHTML(n)}</span></label>`).join("");
- waterNo.textContent=d.food?.water||0;
- workoutNo.textContent=d.workouts.length;
- reflection.value=d.reflection||"";
- breakfast.value=d.food?.breakfast||"";lunch.value=d.food?.lunch||"";
- dinner.value=d.food?.dinner||"";snacks.value=d.food?.snacks||"";
- water.value=d.food?.water??"";weight.value=d.food?.weight??"";
- history.innerHTML=d.workouts.length?d.workouts.map(w=>`<div class="history"><strong>${escapeHTML(w.name)}</strong><div class="small">${w.sets? w.sets+" sets · ":""}${w.reps?w.reps+" reps · ":""}${w.minutes?w.minutes+" min · ":""}${w.distance?w.distance+" km · ":""}${w.steps?w.steps+" steps · ":""}${w.load?w.load+" kg":""}</div><div class="small">${escapeHTML(w.notes||"")}</div></div>`).join(""):"<p>No workouts logged today yet.</p>";
- renderExercises();renderProgress();
+ const d=currentDay(),p=data.profile||{};
+ $("greeting").textContent=p.name?"Welcome back, "+p.name+"! 💜":"Welcome to your Winter Arc!";
+ const start=new Date((data.startDate||today())+"T00:00:00");
+ const now=new Date(today()+"T00:00:00");
+ const elapsed=Math.floor((now-start)/86400000)+1;
+ $("dayNo").textContent=Math.min(90,Math.max(1,elapsed))+"/90";
+
+ const list=[...defaultHabits,...(data.customHabits||[])];
+ const done=d.habits.length;
+ $("habitNo").textContent=done+"/"+list.length;
+ $("habitPercent").textContent=Math.round(done/list.length*100)+"%";
+ $("habitBar").style.width=(done/list.length*100)+"%";
+
+ $("habits").innerHTML=list.map((n,i)=>
+  `<label class="habit"><input type="checkbox" ${d.habits.includes(i)?"checked":""} onchange="toggleHabit(${i})"><span>${esc(n)}</span></label>`
+ ).join("");
+
+ $("waterNo").textContent=d.food?.water||0;
+ $("workoutNo").textContent=d.workouts.length;
+ $("reflection").value=d.reflection||"";
+ $("breakfast").value=d.food?.breakfast||"";
+ $("lunch").value=d.food?.lunch||"";
+ $("dinner").value=d.food?.dinner||"";
+ $("snacks").value=d.food?.snacks||"";
+ $("water").value=d.food?.water??"";
+ $("weight").value=d.food?.weight??"";
+
+ $("history").innerHTML=d.workouts.length?d.workouts.map(w=>
+  `<div class="history"><strong>${esc(w.name)}</strong>
+  <div class="small">${w.sets?w.sets+" sets · ":""}${w.reps?w.reps+" reps · ":""}${w.minutes?w.minutes+" min · ":""}${w.distance?w.distance+" km · ":""}${w.steps?w.steps+" steps · ":""}${w.load?w.load+" kg · ":""}${w.calories||0} kcal</div>
+  <div class="small">${esc(w.notes||"")}</div></div>`
+ ).join(""):"<p>No workouts logged today yet.</p>";
+
+ renderExercises();
+ renderProgress();
 }
+
 function renderProgress(){
- let all=[],minutes=0,stepsTotal=0,dates=Object.keys(data.days||{}),weights=[];
+ let all=[],minutes=0,stepsTotal=0,dates=Object.keys(data.days||[]),weights=[];
  dates.sort().forEach(date=>{
   const d=data.days[date],ws=d.workouts||[];
-  ws.forEach(w=>{all.push({...w,date});minutes+=Number(w.minutes)||0;stepsTotal+=Number(w.steps)||0});
-  const wt=d.food?.weight;if(wt)weights.push({date,weight:Number(wt)});
+  ws.forEach(w=>{
+   all.push({...w,date});
+   minutes+=Number(w.minutes)||0;
+   stepsTotal+=Number(w.steps)||0;
+  });
+  const wt=d.food?.weight;
+  if(wt)weights.push({date,weight:Number(wt)});
  });
- totalWorkouts.textContent=all.length;totalMinutes.textContent=minutes;totalSteps.textContent=stepsTotal;
- const start=new Date((data.startDate||today())+"T00:00:00"),now=new Date(today()+"T00:00:00");
+ $("totalWorkouts").textContent=all.length;
+ $("totalMinutes").textContent=minutes;
+ $("totalSteps").textContent=stepsTotal;
+
+ const start=new Date((data.startDate||today())+"T00:00:00");
+ const now=new Date(today()+"T00:00:00");
  const days=Math.min(90,Math.max(0,Math.floor((now-start)/86400000)+1));
- challengePercent.textContent=Math.round(days/90*100)+"%";
- records.innerHTML=all.length?all.map(w=>`<div class="item"><strong>${escapeHTML(w.name)}</strong><div class="small">${w.date} · ${w.load?w.load+" kg":""} ${w.reps?w.reps+" reps":""}</div></div>`).join(""):"<p>Your workout records will appear here.</p>";
- weightHistory.innerHTML=weights.length?weights.map(w=>w.date+": "+w.weight+" kg").join(" · "):"No weight entries yet.";
+ $("challengePercent").textContent=Math.round(days/90*100)+"%";
+
+ $("records").innerHTML=all.length?all.map(w=>
+  `<div class="history"><strong>${esc(w.name)}</strong><div class="small">${w.date} · ${w.load?w.load+" kg · ":""}${w.reps?w.reps+" reps":""}</div></div>`
+ ).join(""):"<p>Your workout records will appear here.</p>";
+
+ $("weightHistory").innerHTML=weights.length?
+  weights.map(w=>w.date+": "+w.weight+" kg").join(" · "):
+  "No weight entries yet.";
+
  drawChart(weights);
+
  let completed=dates.filter(date=>(data.days[date].habits||[]).length>0).length;
- calendar.innerHTML=`<p>${completed} days with habits recorded.</p><div class="grid">${Array.from({length:90},(_,i)=>{
-  const date=new Date(start);date.setDate(date.getDate()+i);
-  const key=date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
-  const done=(data.days[key]?.habits||[]).length;
-  return `<div class="history"><strong>Day ${i+1}</strong><div class="small">${key}</div><span class="pill">${done?"✓ Habits logged":"Not logged"}</span></div>`;
- }).join("")}</div>`;
+ $("calendar").innerHTML=`<p>${completed} days with habits recorded.</p><div class="grid">${
+  Array.from({length:90},(_,i)=>{
+   const date=new Date(start);date.setDate(date.getDate()+i);
+   const key=date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
+   const habits=data.days[key]?.habits||[];
+   return `<div class="history"><strong>Day ${i+1}</strong><div class="small">${key}</div><span class="pill">${habits.length?"✓ Habits logged":"Not logged"}</span></div>`;
+  }).join("")
+ }</div>`;
 }
+
 function drawChart(items){
- const c=document.getElementById("chart"),ctx=c.getContext("2d");
- ctx.clearRect(0,0,c.width,c.height);ctx.strokeStyle="#ffffff44";ctx.beginPath();ctx.moveTo(35,15);ctx.lineTo(35,190);ctx.lineTo(680,190);ctx.stroke();
- if(!items.length){ctx.fillStyle="#c6bad9";ctx.font="16px Arial";ctx.fillText("Add weight entries to see your chart.",55,100);return}
- const vals=items.map(x=>x.weight),min=Math.min(...vals)-1,max=Math.max(...vals)+1;
+ const c=$("chart"),ctx=c.getContext("2d");
+ ctx.clearRect(0,0,c.width,c.height);
+ ctx.strokeStyle="#ffffff44";ctx.beginPath();
+ ctx.moveTo(35,15);ctx.lineTo(35,190);ctx.lineTo(680,190);ctx.stroke();
+ if(!items.length){
+  ctx.fillStyle="#c6bad9";ctx.font="16px Arial";
+  ctx.fillText("Add weight entries to see your chart.",55,100);return;
+ }
+ const vals=items.map(x=>x.weight);
+ const min=Math.min(...vals)-1,max=Math.max(...vals)+1;
  ctx.strokeStyle="#ff83bd";ctx.lineWidth=3;ctx.beginPath();
  items.forEach((x,i)=>{
   const px=45+(items.length===1?0:i*620/(items.length-1));
@@ -404,7 +637,10 @@ function drawChart(items){
   if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
   ctx.fillStyle="#ffd477";ctx.fillRect(px-3,py-3,6,6);
  });
- ctx.stroke();ctx.fillStyle="#ffffff";ctx.font="12px Arial";ctx.fillText(max.toFixed(1)+" kg",40,15);ctx.fillText(min.toFixed(1)+" kg",40,185);
+ ctx.stroke();
+ ctx.fillStyle="#ffffff";ctx.font="12px Arial";
+ ctx.fillText(max.toFixed(1)+" kg",40,15);
+ ctx.fillText(min.toFixed(1)+" kg",40,185);
 }
 </script>
 </body>
