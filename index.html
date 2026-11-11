@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#100e19">
+<meta name="theme-color" content="#2B211B">
 <title>Fitness Journal</title>
 <style>
 :root{--bg:#100e19;--panel:#1d192b;--panel2:#292239;--pink:#f17eb5;--gold:#f4c76a;--text:#f8f2ff;--muted:#b7adc5;--line:#493b56}
@@ -100,6 +100,65 @@ input,select,textarea{background:var(--input);color:var(--text);border-color:var
 .exercise-demo{display:grid;grid-template-columns:minmax(0,1fr) minmax(120px,190px);gap:12px;align-items:center}.exercise-stage{height:220px;background:linear-gradient(145deg,#103d2d,#081d17);border:1px solid #b9984c66;border-radius:16px;overflow:hidden;position:relative}#exercise3d{width:100%;height:100%;display:block}.exercise-controls{display:flex;flex-wrap:wrap;gap:6px}.theme-toggle{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.theme-toggle select{max-width:180px}
 @media(max-width:560px){.app-3d-hero{min-height:205px;padding:15px}.avatar-stage{height:180px}.hero-copy{max-width:54%}.exercise-demo{grid-template-columns:1fr}.exercise-stage{height:210px}}
  
+ 
+/* Mocha & Champagne luxury theme — light and dark modes */
+:root{--bg:#211A17;--panel:#30251F;--panel2:#40332B;--emerald:#A98768;--gold:#D8BD91;--text:#F7F0E7;--muted:#C6B8A8;--line:#59483B;--accent:#D8BD91;--input:#261E19;--shadow:rgba(0,0,0,.30)}
+:root[data-theme="light"]{--bg:#F5F0E8;--panel:#FFFCF7;--panel2:#EDE4D8;--emerald:#8A705B;--gold:#A98760;--text:#342820;--muted:#79695B;--line:#DED1C2;--accent:#8A705B;--input:#FFFFFF;--shadow:rgba(70,49,32,.10)}
+body{background:radial-gradient(ellipse at 12% 0%,color-mix(in srgb,var(--emerald) 18%,transparent),transparent 48%),var(--bg);color:var(--text)}
+header{background:linear-gradient(120deg,#49372B,#2B211B);border-color:var(--line)}
+:root[data-theme="light"] header{background:linear-gradient(120deg,#E9DCCB,#F8F3EA)}
+nav{background:var(--bg)}
+button{background:linear-gradient(135deg,#D8BD91,#E9D9BD);color:#38291F;box-shadow:0 5px 15px var(--shadow)}
+button.secondary,.home-link{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+button.danger{background:#8C5148;color:#fff}
+.card{background:var(--panel);border:1px solid var(--line);box-shadow:0 12px 30px var(--shadow);border-radius:20px}.card h2{color:var(--gold)}
+.stat{background:var(--panel2);border:1px solid color-mix(in srgb,var(--gold) 25%,transparent);color:var(--text)}.stat strong{color:var(--gold)}
+input,select,textarea{background:var(--input);color:var(--text);border-color:var(--line)}label{color:var(--muted)}
+.progress{background:var(--panel2)}.progress span{background:linear-gradient(90deg,#A98768,#E4D0AE)}
+.quote-card{background:radial-gradient(circle at 90% 10%,#D8BD9133,transparent 38%),linear-gradient(135deg,#5A4333,#35271F 68%,#211A17);border-color:#D8BD9166}.quote-author{color:#E8D8C5}
+#auth{background:var(--panel);border-color:var(--line)}
+.login-visual{background:radial-gradient(circle at 50% 42%,#B99A79,#72553F 45%,#34261E 85%)}
+.login-brand,.login-kicker,.auth-tagline{color:#F0DDBD}.login-form input{background:var(--input);color:var(--text);border-color:var(--line)}
+.login-form .login-main{background:linear-gradient(100deg,#D8BD91,#F0E2C9);color:#38291F}.login-form .login-create{background:var(--panel2);color:var(--text);border-color:var(--line)}
+.app-3d-hero{background:linear-gradient(120deg,#5A4333,#35271F 65%,#211A17);border-color:#D8BD9166}
+:root[data-theme="light"] .app-3d-hero{background:linear-gradient(120deg,#E9DCCB,#F8F1E6 70%,#E5D7C5)}
+.hero-kicker,.avatar-caption{color:var(--gold)}
+.exercise-stage{background:linear-gradient(145deg,#5A4333,#2B211B);border-color:#D8BD9166}
+:root[data-theme="light"] .exercise-stage{background:linear-gradient(145deg,#E8D8C5,#CDB99F)}
+.calday.done{outline:2px solid var(--gold)}.calday.today{background:color-mix(in srgb,var(--gold) 25%,var(--panel2))}
+.notice{background:var(--panel2);color:var(--muted)}.pill{background:var(--panel2);color:var(--muted)}
+ 
+ 
+/* Navigation tabs: keep every label fully visible on small screens */
+nav{
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  gap:10px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  padding:12px 4px 16px;
+  scroll-snap-type:x proximity;
+}
+nav button{
+  flex:0 0 auto;
+  min-width:max-content;
+  width:auto;
+  white-space:nowrap;
+  padding:13px 18px;
+  border-radius:14px;
+  scroll-snap-align:start;
+  font-size:15px;
+}
+nav::-webkit-scrollbar{height:4px}
+nav::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px}
+@media(max-width:560px){
+  nav{gap:8px;padding:10px 2px 14px}
+  nav button{padding:12px 16px;font-size:14px}
+}
+ 
 </style>
 </head>
 <body>
@@ -174,7 +233,7 @@ input,select,textarea{background:var(--input);color:var(--text);border-color:var
  
 <section id="friends" class="tab hidden"><div class="card"><h2>🤝 Friend Challenges</h2><p class="small">Friend codes and challenge summaries. Personal food and weight records are not shared.</p><h3>Your friend code</h3><div class="stat"><strong id="myFriendCode">Loading...</strong></div><button class="secondary" onclick="copyFriendCode()">Copy friend code</button><h3>Send a friend request</h3><label>Friend's code</label><input id="friendCodeInput"><button onclick="sendFriendRequest()">Send request</button><h3>Incoming requests</h3><div id="incomingRequests"></div><h3>Your friends</h3><div id="friendList"></div><h3>90-day challenge</h3><label>Challenge name</label><input id="challengeName" placeholder="90-day consistency challenge"><label>Friend code</label><input id="challengeFriendCode"><button onclick="createChallenge()">Create challenge</button><div id="challengeList"></div></div></section>
  
-<section id="settings" class="tab hidden"><div class="card"><h2>Appearance</h2><p class="small">Switch between Emerald & Gold light and dark looks.</p><div class="theme-toggle"><label for="themeChoice">App theme</label><select id="themeChoice" onchange="setAppTheme(this.value)"><option value="dark">Emerald & Gold · Dark</option><option value="light">Emerald & Gold · Light</option></select></div></div><div class="card"><h2>Settings</h2><p class="small">Your records are saved to your Firebase account.</p><button class="danger" onclick="signOut()">Log out</button></div></section>
+<section id="settings" class="tab hidden"><div class="card"><h2>Appearance</h2><p class="small">Switch between Mocha & Champagne light and dark looks.</p><div class="theme-toggle"><label for="themeChoice">App theme</label><select id="themeChoice" onchange="setAppTheme(this.value)"><option value="dark">Mocha & Champagne · Dark</option><option value="light">Mocha & Champagne · Light</option></select></div></div><div class="card"><h2>Settings</h2><p class="small">Your records are saved to your Firebase account.</p><button class="danger" onclick="signOut()">Log out</button></div></section>
 <div id="message"></div>
 </section></main>
  
