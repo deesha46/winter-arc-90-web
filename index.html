@@ -3,235 +3,222 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#17102f">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Winter Arc 90</title>
 <style>
-:root{--bg:#130f27;--panel:#251b40;--pink:#ff83bd;--gold:#ffd477;--blue:#79d7ff;--green:#7be0b2;--muted:#c6bad9;--line:#ffffff22}
+:root{--bg:#100e19;--panel:#1d192b;--panel2:#292239;--pink:#f17eb5;--gold:#f4c76a;--text:#f8f2ff;--muted:#b7adc5;--green:#7ed9a5;--red:#ff8585}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top left,#51265d,transparent 40%),radial-gradient(ellipse at bottom right,#123b53,transparent 40%),var(--bg);color:#fff;font-family:system-ui,Arial,sans-serif;padding-bottom:35px}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.wrap{max-width:950px;margin:auto;padding:15px}
-.hidden{display:none!important}
-header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 0}
-.logo{font-size:23px;font-weight:900;background:linear-gradient(90deg,var(--pink),var(--gold));background-clip:text;color:transparent}
-.card{background:linear-gradient(145deg,#30204fef,#201833f5);border:1px solid var(--line);border-radius:20px;padding:18px;margin:13px 0}
-.hero{min-height:185px;padding:25px;border-radius:22px;background:linear-gradient(100deg,#27143bea,#39205d88),url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200") center/cover;display:flex;flex-direction:column;justify-content:center}
-h1{font-size:30px;margin:8px 0}h2{font-size:20px;margin:3px 0 13px}h3{font-size:16px}
-p{color:var(--muted);line-height:1.5}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:22px 18px;background:linear-gradient(120deg,#382044,#19172b);border-bottom:1px solid #49344e}
+h1{font-size:25px;margin:0 0 6px}
+header p{margin:0;color:var(--muted);font-size:13px}
+main{max-width:850px;margin:auto;padding:16px}
+nav{display:flex;gap:7px;overflow:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:5}
+nav button{white-space:nowrap}
+button{background:var(--pink);color:#241323;border:0;border-radius:10px;padding:11px 14px;font-weight:bold;cursor:pointer}
+button.secondary{background:var(--panel2);color:var(--text);border:1px solid #51435e}
+button.danger{background:#713d50;color:white}
+button:disabled{opacity:.5}
+.card{background:var(--panel);border:1px solid #3b3049;border-radius:15px;padding:16px;margin:12px 0}
+h2{font-size:19px;margin:0 0 14px}
+h3{font-size:15px;margin:15px 0 8px}
+p{line-height:1.5}
 .small{font-size:12px;color:var(--muted)}
-label{display:block;font-size:13px;color:var(--muted);margin:10px 0 5px}
-input,select,textarea{width:100%;padding:12px;border-radius:11px;background:#17132c;color:white;border:1px solid var(--line);margin:4px 0 10px}
-textarea{min-height:70px;resize:vertical}
-button.primary{border:0;border-radius:12px;padding:12px 17px;font-weight:800;color:#25132f;background:linear-gradient(100deg,var(--pink),var(--gold))}
-button.secondary{background:#ffffff12;color:white;border:1px solid var(--line);padding:10px 13px;border-radius:11px}
-button.danger{background:#783550;color:white;border:0;padding:10px 13px;border-radius:11px}
-.nav{display:flex;gap:7px;overflow-x:auto;position:sticky;top:0;background:#17112af5;padding:10px 0;z-index:5}
-.nav button{white-space:nowrap;background:#ffffff12;color:#fff;border:1px solid var(--line);border-radius:10px;padding:10px}
-.nav button.active{background:var(--pink);color:#24132f;font-weight:800}
-.page{display:none}.page.active{display:block}
+label{display:block;color:var(--muted);font-size:13px;margin:11px 0 5px}
+input,select,textarea{width:100%;background:#120f1c;color:white;border:1px solid #55465f;border-radius:9px;padding:12px;font-size:15px}
+textarea{min-height:75px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.stat{background:#ffffff0d;border:1px solid var(--line);border-radius:14px;padding:13px;text-align:center}
-.stat strong{display:block;font-size:23px;color:var(--gold)}
-.stat span{font-size:11px;color:var(--muted)}
-.bar{height:10px;border-radius:20px;background:#ffffff20;overflow:hidden;margin:12px 0}
-.bar div{height:100%;background:linear-gradient(90deg,var(--pink),var(--gold))}
-.habit{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
-.habit input{width:20px;margin:0;accent-color:var(--pink)}
-.habit span{flex:1}
-.exercise,.history{padding:12px;margin:7px 0;border-radius:12px;background:#ffffff0b;border:1px solid var(--line)}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.pill{font-size:11px;color:var(--gold);background:#ffffff12;border-radius:30px;padding:5px 9px}
-.avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;background:#44365c;border:2px solid var(--pink)}
-canvas{width:100%;height:190px}
-hr{border:0;border-top:1px solid var(--line);margin:18px 0}
-#notice{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);background:#30204f;border:1px solid var(--pink);padding:12px 18px;border-radius:12px;z-index:50;display:none;max-width:90%;text-align:center}
-@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}h1{font-size:25px}.card{padding:15px}.wrap{padding:11px}}
+.stat{background:var(--panel2);padding:13px;border-radius:12px}
+.stat strong{display:block;font-size:22px;color:var(--gold);margin-top:6px}
+.progress{height:10px;background:#44394f;border-radius:20px;overflow:hidden;margin:10px 0}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--gold));width:0}
+.item{padding:12px 0;border-bottom:1px solid #40354b}
+.item:last-child{border:0}
+.hidden{display:none!important}
+.notice{padding:12px;background:#30263b;border-radius:10px;color:var(--muted);font-size:13px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+#auth{max-width:440px;margin:30px auto}
+#message{color:var(--gold);font-size:13px;margin-top:10px;white-space:pre-wrap}
+@media(max-width:480px){.grid{grid-template-columns:1fr 1fr}main{padding:10px}.card{padding:13px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<section id="authScreen" class="card" style="max-width:430px;margin:8vh auto">
- <div class="logo">WINTER ARC 90 ✨</div>
- <p>Your personal fitness and lifestyle journal.</p>
- <div id="loginBox">
-  <h2>Welcome back</h2>
-  <label>Email</label><input id="email" type="email" placeholder="Email address">
-  <label>Password</label><input id="password" type="password" placeholder="Password">
-  <button class="primary" style="width:100%" onclick="login()">Log in</button>
-  <p><a href="#" onclick="resetPassword();return false" style="color:var(--pink)">Forgot password?</a></p>
-  <p>New user? <a href="#" onclick="showRegister();return false" style="color:var(--gold)">Create account</a></p>
- </div>
- <div id="registerBox" class="hidden">
-  <h2>Create account</h2>
-  <label>Email</label><input id="newEmail" type="email">
-  <label>Password (minimum 6 characters)</label><input id="newPassword" type="password">
-  <button class="primary" style="width:100%" onclick="register()">Create account</button>
-  <p>Already registered? <a href="#" onclick="showLogin();return false" style="color:var(--pink)">Log in</a></p>
- </div>
- <p id="authMessage" class="small"></p>
-</section>
-
-<div id="app" class="hidden">
 <header>
- <div><div class="logo">WINTER ARC 90 ✨</div><div class="small">Progress over perfection.</div></div>
- <button class="secondary" onclick="logout()">Log out</button>
+<h1>❄️ Winter Arc 90</h1>
+<p>Your 90-day journey. Build habits. Track progress. Become stronger.</p>
 </header>
 
-<nav class="nav">
- <button class="active" onclick="tab('home',this)">🏠 Home</button>
- <button onclick="tab('profile',this)">👤 Profile</button>
- <button onclick="tab('food',this)">🥗 Food</button>
- <button onclick="tab('workouts',this)">💪 Workouts</button>
- <button onclick="tab('progress',this)">📈 Progress</button>
- <button onclick="tab('settings',this)">⚙️ Settings</button>
+<main>
+<section id="auth" class="card">
+<h2>Welcome to Winter Arc 90</h2>
+<label>Email</label><input id="email" type="email" placeholder="Your email">
+<label>Password</label><input id="password" type="password" placeholder="Password">
+<div class="actions">
+<button onclick="signIn()">Log in</button>
+<button class="secondary" onclick="register()">Create account</button>
+</div>
+<button class="secondary" onclick="resetPassword()" style="margin-top:10px">Forgot password?</button>
+<div id="authMessage"></div>
+</section>
+
+<section id="app" class="hidden">
+<div class="card">
+<div id="greeting">Welcome to your Winter Arc!</div>
+<div class="small" id="todayLabel"></div>
+</div>
+<nav>
+<button onclick="showTab('home')">Home</button>
+<button onclick="showTab('profile')">Profile</button>
+<button onclick="showTab('food')">Food</button>
+<button onclick="showTab('workouts')">Workouts</button>
+<button onclick="showTab('progress')">Progress</button>
+<button onclick="showTab('friends')">Friends</button>
+<button onclick="showTab('settings')">Settings</button>
 </nav>
 
-<section id="home" class="page active">
- <div class="hero">
-  <span class="pill">YOUR 90-DAY JOURNEY</span>
-  <h1 id="greeting">Welcome to your Winter Arc!</h1>
-  <p>Become a little stronger every day. Your journey, your pace.</p>
- </div>
- <div class="stats">
-  <div class="stat"><strong id="dayNo">1/90</strong><span>Challenge day</span></div>
-  <div class="stat"><strong id="habitNo">0/6</strong><span>Habits completed</span></div>
-  <div class="stat"><strong id="waterNo">0</strong><span>Water glasses</span></div>
-  <div class="stat"><strong id="workoutNo">0</strong><span>Workouts today</span></div>
- </div>
- <div class="card">
-  <div class="row"><h2>Today's habits 🌷</h2><span class="pill" id="habitPercent">0%</span></div>
-  <div class="bar"><div id="habitBar" style="width:0%"></div></div>
-  <div id="habits"></div>
-  <button class="secondary" onclick="addHabit()">＋ Add a habit</button>
- </div>
- <div class="card">
-  <h2>Daily reflection ✍️</h2>
-  <textarea id="reflection" placeholder="How was your day? What are you proud of?"></textarea>
-  <button class="primary" onclick="saveReflection()">Save reflection</button>
- </div>
-</section>
-
-<section id="profile" class="page">
- <div class="card">
-  <h2>My Personal Profile 💜</h2>
-  <div class="row">
-   <img id="avatar" class="avatar" alt="Profile photo">
-   <div style="flex:1"><label>Profile photo (this device)</label><input id="photo" type="file" accept="image/*" onchange="changePhoto(event)"></div>
-  </div>
-  <label>Name</label><input id="name" placeholder="Your name">
-  <div class="grid">
-   <div><label>Age</label><input id="age" type="number"></div>
-   <div><label>Gender</label><select id="gender"><option value="">Choose</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></div>
-   <div><label>Height (cm)</label><input id="height" type="number"></div>
-   <div><label>Current weight (kg)</label><input id="currentWeight" type="number" step=".1"></div>
-   <div><label>Goal weight (kg)</label><input id="goalWeight" type="number" step=".1"></div>
-   <div><label>Fitness goal</label><select id="goal"><option>Healthy lifestyle</option><option>Weight management</option><option>Muscle building</option><option>Strength</option><option>General fitness</option></select></div>
-  </div>
-  <button class="primary" onclick="saveProfile()">Save profile</button>
- </div>
-</section>
-
-<section id="food" class="page">
- <div class="card">
-  <h2>Food & Nutrition 🥑</h2>
-  <label>Breakfast</label><textarea id="breakfast"></textarea>
-  <label>Lunch</label><textarea id="lunch"></textarea>
-  <label>Dinner</label><textarea id="dinner"></textarea>
-  <label>Snacks</label><textarea id="snacks"></textarea>
-  <div class="grid">
-   <div><label>Water (glasses)</label><input id="water" type="number" min="0"></div>
-   <div><label>Today's weight (kg)</label><input id="weight" type="number" step=".1"></div>
-  </div>
-  <button class="primary" onclick="saveFood()">Save food journal</button>
- </div>
- <div class="card"><h2>A gentle reminder 💧</h2><p>Eat balanced meals, drink water and give your body the nourishment it needs. This journal is for awareness, not restriction.</p></div>
-</section>
-
-<section id="workouts" class="page">
- <div class="card">
-  <h2>Workout & Activity Hub 🔥</h2>
-  <p>Choose activities that suit your fitness level. You can set your own step target.</p>
-  <label>Search activities</label><input id="searchExercise" oninput="renderExercises()" placeholder="Search exercises...">
-  <label>Category</label>
-  <select id="category" onchange="renderExercises()">
-   <option>All</option><option>Walking & Steps</option><option>Cardio</option><option>Bodyweight</option><option>Strength & Gym</option><option>Flexibility & Recovery</option>
-  </select>
-  <div id="exerciseList"></div>
- </div>
- <div class="card">
-  <h2>Log a workout 🏋️</h2>
-  <label>Exercise or activity</label><input id="exerciseName" placeholder="e.g. Squats, walking">
-  <div class="grid">
-   <div><label>Sets</label><input id="sets" type="number" min="0"></div>
-   <div><label>Reps</label><input id="reps" type="number" min="0"></div>
-   <div><label>Duration (minutes)</label><input id="minutes" type="number" min="0"></div>
-   <div><label>Distance (km)</label><input id="distance" type="number" min="0" step=".1"></div>
-   <div><label>Steps</label><input id="steps" type="number" min="0"></div>
-   <div><label>Weight lifted (kg)</label><input id="load" type="number" min="0" step=".5"></div>
-  </div>
-  <div class="row">
-   <button class="secondary" onclick="startTimer()">▶ Start timer</button>
-   <button class="secondary" onclick="stopTimer()">⏹ Stop timer</button>
-  </div>
-  <p class="small" id="timerDisplay">Timer not started.</p>
-  <label>Notes</label><textarea id="workoutNotes" placeholder="How did it feel?"></textarea>
-  <button class="primary" onclick="saveWorkout()">＋ Save workout</button>
- </div>
- <div class="card">
-  <h2>Today's workout history</h2><div id="history"></div>
- </div>
- <div class="card">
-  <h2>My activity targets</h2>
-  <label>Daily step target</label><input id="stepTarget" type="number" min="0" value="6000">
-  <label>Weekly workout target</label><input id="weeklyTarget" type="number" min="0" value="4">
-  <button class="secondary" onclick="saveTargets()">Save targets</button>
- </div>
-</section>
-
-<section id="progress" class="page">
- <div class="card">
-  <h2>My Progress 🌟</h2>
-  <div class="stats">
-   <div class="stat"><strong id="totalWorkouts">0</strong><span>Total workouts</span></div>
-   <div class="stat"><strong id="totalMinutes">0</strong><span>Active minutes</span></div>
-   <div class="stat"><strong id="totalSteps">0</strong><span>Steps logged</span></div>
-   <div class="stat"><strong id="challengePercent">0%</strong><span>Challenge progress</span></div>
-  </div>
- </div>
- <div class="card">
-  <h2>Weight journey</h2><canvas id="chart" width="700" height="220"></canvas>
-  <div id="weightHistory" class="small"></div>
- </div>
- <div class="card"><h2>Personal records 🏆</h2><div id="records"></div></div>
- <div class="card"><h2>90-day calendar</h2><div id="calendar"></div></div>
-</section>
-
-<section id="settings" class="page">
- <div class="card">
-  <h2>Settings ⚙️</h2>
-  <label>Challenge start date</label><input id="startDate" type="date">
-  <button class="secondary" onclick="saveStartDate()">Save start date</button>
-  <hr>
-  <h3>Export journal</h3>
-  <p>Download a JSON backup of your journal data.</p>
-  <button class="secondary" onclick="exportData()">Download my data</button>
-  <hr>
-  <p>Your data is saved in your personal Firebase account. Do not share your password.</p>
-  <button class="danger" onclick="logout()">Log out</button>
- </div>
-</section>
+<section id="home" class="tab">
+<div class="card">
+<h2>Today's overview</h2>
+<div class="grid">
+<div class="stat">Steps<strong id="homeSteps">0</strong><span class="small">daily steps</span></div>
+<div class="stat">Workouts<strong id="homeWorkouts">0</strong><span class="small">today</span></div>
+<div class="stat">Current weight<strong id="homeWeight">—</strong><span class="small">kg</span></div>
+<div class="stat">Habits completed<strong id="homeHabits">0</strong><span class="small">today</span></div>
 </div>
 </div>
-<div id="notice"></div>
+<div class="card">
+<h2>Today's habits</h2>
+<div id="habitsList"></div>
+</div>
+<div class="card">
+<h2>Daily reflection</h2>
+<textarea id="reflection" placeholder="How did today go? What are you proud of?"></textarea>
+<button onclick="saveReflection()">Save reflection</button>
+</div>
+</section>
+
+<section id="profile" class="tab hidden">
+<div class="card">
+<h2>My profile</h2>
+<label>Name</label><input id="pName" placeholder="Your name">
+<div class="grid">
+<div><label>Age</label><input id="pAge" type="number" min="1"></div>
+<div><label>Gender</label><select id="pGender"><option value="">Select</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></div>
+</div>
+<label>Height (cm)</label><input id="pHeight" type="number">
+<div class="grid">
+<div><label>Current weight (kg)</label><input id="pWeight" type="number" step=".1"></div>
+<div><label>Goal weight (kg)</label><input id="pGoalWeight" type="number" step=".1"></div>
+</div>
+<label>Fitness goal</label>
+<select id="pGoal"><option>General fitness</option><option>Weight management</option><option>Muscle building</option><option>Strength</option><option>Healthy lifestyle</option></select>
+<button onclick="saveProfile()">Save profile</button>
+</div>
+</section>
+
+<section id="food" class="tab hidden">
+<div class="card">
+<h2>Food & Nutrition Diary</h2>
+<label>Breakfast</label><textarea id="breakfast"></textarea>
+<label>Lunch</label><textarea id="lunch"></textarea>
+<label>Dinner</label><textarea id="dinner"></textarea>
+<label>Snacks</label><textarea id="snacks"></textarea>
+<label>Water (glasses)</label><input id="water" type="number" min="0">
+<button onclick="saveFood()">Save food diary</button>
+</div>
+</section>
+
+<section id="workouts" class="tab hidden">
+<div class="card">
+<h2>Workout & Activity Hub</h2>
+<label>Activity</label>
+<select id="exerciseName">
+<option>Walking</option><option>10,000 steps</option><option>Brisk walking</option><option>Hiking</option><option>Stairs</option><option>Cycling</option><option>Running</option><option>Jogging</option><option>Sprinting</option><option>Skipping rope</option><option>Swimming</option><option>Dancing</option><option>Aerobics</option><option>Push-ups</option><option>Pull-ups</option><option>Squats</option><option>Lunges</option><option>Plank</option><option>Burpees</option><option>Dead hangs</option><option>Dips</option><option>Mountain climbers</option><option>Dumbbell workout</option><option>Barbell workout</option><option>Resistance bands</option><option>Yoga</option><option>Stretching</option><option>Mobility</option><option>Custom workout</option>
+</select>
+<label>Custom activity name (optional)</label><input id="customExercise" placeholder="Enter your own activity">
+<div class="grid">
+<div><label>Duration (minutes)</label><input id="minutes" type="number" min="0"></div>
+<div><label>Sets</label><input id="sets" type="number" min="0"></div>
+<div><label>Reps</label><input id="reps" type="number" min="0"></div>
+<div><label>Distance (km)</label><input id="distance" type="number" step=".1" min="0"></div>
+<div><label>Steps</label><input id="workoutSteps" type="number" min="0"></div>
+<div><label>Weight lifted (kg)</label><input id="load" type="number" step=".5" min="0"></div>
+</div>
+<label>Notes</label><textarea id="workoutNotes"></textarea>
+<button onclick="saveWorkout()">Save workout</button>
+</div>
+<div class="card"><h2>Today's workouts</h2><div id="workoutList"></div></div>
+</section>
+
+<section id="progress" class="tab hidden">
+<div class="card">
+<h2>⚖️ Weight Journey</h2>
+<div class="grid">
+<div class="stat">Starting weight<strong id="startingWeight">—</strong><span class="small">kg</span></div>
+<div class="stat">Current weight<strong id="currentWeight">—</strong><span class="small">kg</span></div>
+<div class="stat">Goal weight<strong id="goalWeight">—</strong><span class="small">kg</span></div>
+<div class="stat">Remaining<strong id="remainingWeight">—</strong><span class="small">kg</span></div>
+</div>
+<p id="weightChange" class="small"></p>
+<div class="progress"><span id="weightProgress"></span></div>
+<p id="weightPercent" class="small">Add your first weigh-in to begin your journey.</p>
+<h3>Add today's weight</h3>
+<label>Weight (kg)</label><input id="todayWeight" type="number" step=".1" min="1" placeholder="e.g. 65.5">
+<button onclick="saveWeight()">Save today's weight</button>
+<h3>Weight history</h3><div id="weightHistory"></div>
+</div>
+<div class="card">
+<h2>Step Tracker</h2>
+<div class="notice">Enter the step count shown in Samsung Health. Direct automatic Samsung Health syncing needs a separate supported Android integration.</div>
+<label>Today's Samsung Health steps</label><input id="todaySteps" type="number" min="0" placeholder="Enter steps">
+<label>Daily step goal</label><input id="stepGoal" type="number" min="1" value="6000">
+<button onclick="saveSteps()">Save steps</button>
+<div class="progress"><span id="stepProgress"></span></div>
+<p id="stepSummary" class="small"></p>
+</div>
+<div class="card">
+<h2>Weekly workout target</h2>
+<label>Workouts per week</label><input id="weeklyTarget" type="number" min="1" max="14">
+<button onclick="saveTargets()">Save target</button>
+<p id="weeklySummary"></p>
+</div>
+</section>
+
+<section id="friends" class="tab hidden">
+<div class="card">
+<h2>🤝 Friend Challenges</h2>
+<p class="small">Share your friend code with someone you trust. Only accepted friends can participate in challenges. Your food diary and weight records are not shared.</p>
+<h3>Your friend code</h3>
+<div class="stat"><strong id="myFriendCode">Loading...</strong></div>
+<button class="secondary" onclick="copyFriendCode()">Copy friend code</button>
+<h3>Send a friend request</h3>
+<label>Friend's code</label><input id="friendCodeInput" placeholder="Enter their friend code">
+<button onclick="sendFriendRequest()">Send request</button>
+<h3>Incoming requests</h3><div id="incomingRequests"></div>
+<h3>Your friends</h3><div id="friendList"></div>
+<h3>90-day challenge</h3>
+<label>Challenge name</label><input id="challengeName" placeholder="e.g. 90-day consistency challenge">
+<label>Friend code of participant</label><input id="challengeFriendCode" placeholder="Enter accepted friend's code">
+<button onclick="createChallenge()">Create challenge</button>
+<div id="challengeList"></div>
+</div>
+</section>
+
+<section id="settings" class="tab hidden">
+<div class="card">
+<h2>Settings</h2>
+<p class="small">Your records are saved to your private Firebase account.</p>
+<button class="danger" onclick="signOut()">Log out</button>
+</div>
+</section>
+<div id="message"></div>
+</section>
+</main>
 
 <script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-import{getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,signOut}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
-import{getFirestore,doc,getDoc,setDoc}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,onAuthStateChanged,signOut as firebaseSignOut} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,collection,addDoc,query,where,getDocs,updateDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 const firebaseConfig={
  apiKey:"AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",
@@ -241,407 +228,183 @@ const firebaseConfig={
  messagingSenderId:"53251809201",
  appId:"1:53251809201:web:565ee6e61037a038692790"
 };
-const fb=initializeApp(firebaseConfig);
-const auth=getAuth(fb);
-const db=getFirestore(fb);
-
-let user=null,photoData="",timerStart=null,timerInterval=null;
-let data={startDate:today(),days:{},profile:{},targets:{step:6000,weekly:4}};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+let user=null,data={startDate:today(),days:{},profile:{},targets:{step:6000,weekly:4},customHabits:[]};
 const $=id=>document.getElementById(id);
-const defaultHabits=["Wake up on time","Drink enough water","Move my body","Eat balanced meals","Read or learn","Sleep on time"];
-const exercises={
- "Walking & Steps":["10,000 steps","Walking","Brisk walking","Hiking","Stair climbing","Cycling"],
- "Cardio":["Running","Jogging","Sprinting","Skipping rope","Swimming","Dancing","Aerobics"],
- "Bodyweight":["Push-ups","Pull-ups","Squats","Lunges","Plank","Burpees","Dead hangs","Dips","Mountain climbers"],
- "Strength & Gym":["Dumbbell workout","Barbell workout","Chest workout","Back workout","Shoulder workout","Arm workout","Leg workout","Core workout","Resistance bands"],
- "Flexibility & Recovery":["Yoga","Stretching","Mobility","Balance exercises","Breathing exercises"]
-};
-
-function today(){
- const d=new Date();
- return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-}
-function esc(s){
- return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-function notify(text){
- const n=$("notice");n.textContent=text;n.style.display="block";
- setTimeout(()=>n.style.display="none",3500);
-}
-function currentDay(date=today()){
- data.days??={};
- data.days[date]??={habits:[],food:{},workouts:[],reflection:""};
- const d=data.days[date];
- if(!Array.isArray(d.habits)){
-  d.habits=Object.keys(d.habits||{}).filter(k=>d.habits[k]).map(Number);
- }
- if(!Array.isArray(d.workouts))d.workouts=[];
- return d;
-}
-async function saveData(){
- if(!user)throw new Error("You are not logged in.");
- await setDoc(doc(db,"users",user.uid),data,{merge:true});
-}
-function authMessage(t){$("authMessage").textContent=t}
-
-window.showRegister=()=>{
- $("loginBox").classList.add("hidden");
- $("registerBox").classList.remove("hidden");
- authMessage("");
-};
-window.showLogin=()=>{
- $("registerBox").classList.add("hidden");
- $("loginBox").classList.remove("hidden");
- authMessage("");
-};
-window.login=async()=>{
- try{
-  await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);
- }catch(e){authMessage(e.message)}
-};
-window.register=async()=>{
- try{
-  await createUserWithEmailAndPassword(auth,$("newEmail").value.trim(),$("newPassword").value);
- }catch(e){authMessage(e.message)}
-};
-window.resetPassword=async()=>{
- const email=$("email").value.trim();
- if(!email)return authMessage("Enter your email first.");
- try{await sendPasswordResetEmail(auth,email);authMessage("Password reset email sent.");}
- catch(e){authMessage(e.message)}
-};
-window.logout=async()=>{if(timerInterval)clearInterval(timerInterval);await signOut(auth)};
-
+function today(){return new Date().toLocaleDateString("en-CA")}
+function day(){if(!data.days[today()])data.days[today()]={habits:[],food:{},workouts:[],reflection:""};let d=data.days[today()];if(!Array.isArray(d.habits))d.habits=[];if(!Array.isArray(d.workouts))d.workouts=[];if(!d.food)d.food={};return d}
+function msg(s){$("message").textContent=s;setTimeout(()=>{$("message").textContent=""},5000)}
+function authMsg(s){$("authMessage").textContent=s}
+window.signIn=async()=>{try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){authMsg(e.message)}};
+window.register=async()=>{try{await createUserWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){authMsg(e.message)}};
+window.resetPassword=async()=>{try{await sendPasswordResetEmail(auth,$("email").value.trim());authMsg("Password reset email sent.")}catch(e){authMsg(e.message)}};
+window.signOut=()=>firebaseSignOut(auth);
 onAuthStateChanged(auth,async u=>{
  user=u;
- if(!u){
-  $("authScreen").classList.remove("hidden");
-  $("app").classList.add("hidden");
-  return;
- }
- $("authScreen").classList.add("hidden");
- $("app").classList.remove("hidden");
+ $("auth").classList.toggle("hidden",!!u);$("app").classList.toggle("hidden",!u);
+ if(!u)return;
  try{
   const snap=await getDoc(doc(db,"users",u.uid));
-  if(snap.exists()){
-   const old=snap.data();
-   data={...data,...old,days:old.days||{},profile:old.profile||{},targets:old.targets||data.targets};
-  }else{
-   await saveData();
-  }
-  photoData=localStorage.getItem("winterPhoto_"+u.uid)||"";
-  fillProfile();
+  if(snap.exists())data={...data,...snap.data(),profile:{...data.profile,...(snap.data().profile||{})},targets:{...data.targets,...(snap.data().targets||{})}};
+  else await saveData();
+  await setupFriendCode();
   renderAll();
- }catch(e){
-  alert("Could not load your journal: "+e.message);
- }
+ }catch(e){msg("Could not load your account: "+e.message)}
 });
+async function saveData(){if(!user)throw Error("Please log in.");await setDoc(doc(db,"users",user.uid),data,{merge:true})}
+function showTab(id){document.querySelectorAll(".tab").forEach(x=>x.classList.add("hidden"));$(id).classList.remove("hidden");renderAll()}
+window.showTab=showTab;
 
-window.tab=(id,button)=>{
- document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
- $(id).classList.add("active");
- document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
- button.classList.add("active");
- if(id==="progress")renderProgress();
-};
-
-function fillProfile(){
- const p=data.profile||{};
- $("name").value=p.name||"";
- $("age").value=p.age||"";
- $("gender").value=p.gender||"";
- $("height").value=p.height||"";
- $("currentWeight").value=p.weight||"";
- $("goalWeight").value=p.goalWeight||"";
- $("goal").value=p.goal||"Healthy lifestyle";
- $("avatar").src=photoData||"";
- $("startDate").value=data.startDate||today();
- $("stepTarget").value=data.targets?.step??6000;
- $("weeklyTarget").value=data.targets?.weekly??4;
+function renderAll(){
+ const d=day(),p=data.profile||{},f=d.food||{};
+ $("todayLabel").textContent=new Date().toDateString();
+ $("greeting").textContent="Welcome"+(p.name?" back, "+p.name:"")+"!";
+ $("homeSteps").textContent=Number(d.steps||0).toLocaleString();
+ $("homeWorkouts").textContent=d.workouts.length;
+ $("homeWeight").textContent=p.weight||"—";
+ $("homeHabits").textContent=d.habits.filter(Boolean).length;
+ $("habitsList").innerHTML="";
+ ["Drink enough water","Move your body","Eat nourishing food","Sleep on time","Read or learn","Daily reflection"].forEach((h,i)=>{
+  const checked=d.habits.includes(i);
+  const div=document.createElement("div");div.className="item";
+  const cb=document.createElement("input");cb.type="checkbox";cb.checked=checked;cb.style.width="auto";cb.style.marginRight="10px";
+  cb.onchange=async()=>{d.habits=cb.checked?[...d.habits,i]:d.habits.filter(x=>x!==i);await saveData();renderAll()};
+  div.append(cb,document.createTextNode(h));$("habitsList").append(div);
+ });
+ $("reflection").value=d.reflection||"";
+ $("pName").value=p.name||"";$("pAge").value=p.age||"";$("pGender").value=p.gender||"";
+ $("pHeight").value=p.height||"";$("pWeight").value=p.weight||"";$("pGoalWeight").value=p.goalWeight||"";$("pGoal").value=p.goal||"General fitness";
+ $("breakfast").value=f.breakfast||"";$("lunch").value=f.lunch||"";$("dinner").value=f.dinner||"";$("snacks").value=f.snacks||"";$("water").value=f.water||"";
+ $("workoutList").innerHTML=d.workouts.map(w=>`<div class="item"><b>${escapeHtml(w.name)}</b><div class="small">${w.minutes||0} min · ${w.sets||0} sets · ${w.reps||0} reps · ${w.distance||0} km · ${w.steps||0} steps</div>${escapeHtml(w.notes||"")}</div>`).join("")||'<p class="small">No workouts logged today.</p>';
+ renderWeight();renderSteps();
+ $("weeklyTarget").value=data.targets.weekly||4;
+ $("weeklySummary").textContent=`Your weekly target is ${data.targets.weekly||4} workouts.`;
+ $("todaySteps").value=d.steps||"";$("stepGoal").value=data.targets.step||6000;
 }
-
-window.changePhoto=e=>{
- const file=e.target.files?.[0];
- if(!file)return;
- if(file.size>2*1024*1024){
-  alert("Please choose a photo smaller than 2 MB.");
-  e.target.value="";
-  return;
- }
- const reader=new FileReader();
- reader.onload=()=>{
-  photoData=reader.result;
-  $("avatar").src=photoData;
-  if(user)localStorage.setItem("winterPhoto_"+user.uid,photoData);
- };
- reader.readAsDataURL(file);
-};
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 
 window.saveProfile=async()=>{
  try{
-  data.profile={
-   name:$("name").value.trim(),
-   age:$("age").value,
-   gender:$("gender").value,
-   height:$("height").value,
-   weight:$("currentWeight").value,
-   goalWeight:$("goalWeight").value,
-   goal:$("goal").value
-  };
-  await saveData();
-  renderAll();
-  notify("Profile saved successfully 💜");
- }catch(e){alert("Profile save failed: "+e.message)}
+  const p=data.profile||{};
+  p.name=$("pName").value.trim();p.age=Number($("pAge").value)||"";p.gender=$("pGender").value;
+  p.height=Number($("pHeight").value)||"";p.weight=Number($("pWeight").value)||"";
+  p.goalWeight=Number($("pGoalWeight").value)||"";p.goal=$("pGoal").value;
+  if(p.weight&&!p.startingWeight)p.startingWeight=p.weight;
+  data.profile=p;await saveData();msg("Profile saved!");renderAll();
+ }catch(e){msg("Profile save failed: "+e.message)}
 };
-
-window.addHabit=async()=>{
- const name=prompt("Enter a new habit:");
- if(!name?.trim())return;
- data.customHabits??=[];
- data.customHabits.push(name.trim());
- try{await saveData();renderAll();notify("Habit added.");}
- catch(e){alert("Could not save habit: "+e.message)}
-};
-window.toggleHabit=async i=>{
- const d=currentDay();
- d.habits=d.habits.includes(i)?d.habits.filter(x=>x!==i):[...d.habits,i];
- try{await saveData();renderAll();}
- catch(e){alert("Could not save habit: "+e.message)}
-};
-
-window.saveReflection=async()=>{
- try{
-  currentDay().reflection=$("reflection").value;
-  await saveData();
-  notify("Daily reflection saved 💜");
- }catch(e){alert("Reflection save failed: "+e.message)}
-};
-
 window.saveFood=async()=>{
- try{
-  currentDay().food={
-   breakfast:$("breakfast").value,
-   lunch:$("lunch").value,
-   dinner:$("dinner").value,
-   snacks:$("snacks").value,
-   water:Number($("water").value)||0,
-   weight:Number($("weight").value)||""
-  };
-  await saveData();
-  renderAll();
-  notify("Food journal saved 🥗");
- }catch(e){alert("Food save failed: "+e.message)}
+ try{day().food={breakfast:$("breakfast").value,lunch:$("lunch").value,dinner:$("dinner").value,snacks:$("snacks").value,water:Number($("water").value)||0,weight:day().food.weight||""};await saveData();msg("Food diary saved!")}
+ catch(e){msg("Food save failed: "+e.message)}
 };
-
-window.renderExercises=()=>{
- const query=$("searchExercise").value.toLowerCase();
- const category=$("category").value;
- let html="";
- Object.entries(exercises).forEach(([cat,names])=>{
-  if(category!=="All"&&category!==cat)return;
-  names.filter(n=>n.toLowerCase().includes(query)).forEach(n=>{
-   html+=`<div class="exercise row"><div><strong>${esc(n)}</strong><div class="small">${esc(cat)}</div></div><button class="secondary" onclick="chooseExercise('${esc(n)}')">Log this</button></div>`;
-  });
- });
- $("exerciseList").innerHTML=html||"<p>No matching activities.</p>";
+window.saveReflection=async()=>{
+ try{day().reflection=$("reflection").value;await saveData();msg("Reflection saved!")}
+ catch(e){msg("Could not save reflection: "+e.message)}
 };
-window.chooseExercise=n=>{
- $("exerciseName").value=n;
- $("exerciseName").scrollIntoView({behavior:"smooth",block:"center"});
-};
-
-window.startTimer=()=>{
- if(timerStart)return;
- timerStart=Date.now();
- $("timerDisplay").textContent="Workout timer running...";
- timerInterval=setInterval(()=>{
-  const seconds=Math.floor((Date.now()-timerStart)/1000);
-  const mm=String(Math.floor(seconds/60)).padStart(2,"0");
-  const ss=String(seconds%60).padStart(2,"0");
-  $("timerDisplay").textContent="Timer: "+mm+":"+ss;
- },1000);
-};
-window.stopTimer=()=>{
- if(!timerStart){notify("Start the timer first.");return}
- const elapsed=Math.max(1,Math.round((Date.now()-timerStart)/60000));
- $("minutes").value=elapsed;
- timerStart=null;
- clearInterval(timerInterval);
- timerInterval=null;
- $("timerDisplay").textContent="Duration recorded: "+elapsed+" minutes";
-};
-
-function estimateCalories(activity,minutes){
- const weight=Number(data.profile?.weight)||60;
- const n=activity.toLowerCase();
- let met=3.5;
- if(/brisk walk|hiking|stairs/.test(n))met=5.5;
- else if(/walk/.test(n))met=3.5;
- else if(/sprint/.test(n))met=10;
- else if(/run|jog/.test(n))met=8;
- else if(/cycling/.test(n))met=6.5;
- else if(/swim/.test(n))met=7;
- else if(/skip|rope/.test(n))met=10;
- else if(/dance|aerobic/.test(n))met=6;
- else if(/yoga|stretch|breath|mobility/.test(n))met=2.5;
- else if(/plank|push|pull|squat|lunge|burpee|dip|mountain|dead hang/.test(n))met=5;
- else if(/dumbbell|barbell|gym|strength|resistance|workout/.test(n))met=5;
- return Math.round(met*3.5*weight/200*minutes);
-}
-
 window.saveWorkout=async()=>{
  try{
-  const name=$("exerciseName").value.trim();
-  const duration=Number($("minutes").value)||0;
-  if(!name)throw new Error("Enter an exercise name.");
-  if(duration<=0)throw new Error("Enter workout duration or use the timer.");
-
-  const workout={
-   name,
-   sets:Number($("sets").value)||0,
-   reps:Number($("reps").value)||0,
-   minutes:duration,
-   distance:Number($("distance").value)||0,
-   steps:Number($("steps").value)||0,
-   load:Number($("load").value)||0,
-   calories:estimateCalories(name,duration),
-   notes:$("workoutNotes").value,
-   date:today(),
-   time:new Date().toLocaleTimeString()
-  };
-  currentDay().workouts.push(workout);
-  await saveData();
-
-  ["exerciseName","sets","reps","minutes","distance","steps","load","workoutNotes"].forEach(id=>$(id).value="");
-  renderAll();
-  notify("Workout saved! Estimated "+workout.calories+" kcal burned 🔥");
- }catch(e){alert("Workout save failed: "+e.message)}
+  const name=$("customExercise").value.trim()||$("exerciseName").value;
+  const w={name,minutes:Number($("minutes").value)||0,sets:Number($("sets").value)||0,reps:Number($("reps").value)||0,distance:Number($("distance").value)||0,steps:Number($("workoutSteps").value)||0,load:Number($("load").value)||0,notes:$("workoutNotes").value,time:new Date().toISOString()};
+  if(!w.minutes&&!w.sets&&!w.reps&&!w.distance&&!w.steps)throw Error("Enter at least one workout detail.");
+  day().workouts.push(w);await saveData();
+  ["customExercise","minutes","sets","reps","distance","workoutSteps","load","workoutNotes"].forEach(id=>$(id).value="");
+  msg("Workout saved!");renderAll();
+ }catch(e){msg("Workout save failed: "+e.message)}
 };
-
-window.saveTargets=async()=>{
+window.saveWeight=async()=>{
  try{
-  data.targets={step:Number($("stepTarget").value)||0,weekly:Number($("weeklyTarget").value)||0};
-  await saveData();
-  notify("Targets saved.");
- }catch(e){alert("Targets save failed: "+e.message)}
+  const weight=Number($("todayWeight").value);
+  if(!weight||weight<1||weight>500)throw Error("Enter a valid weight in kg.");
+  const p=data.profile||{};
+  if(!p.startingWeight)p.startingWeight=Number(p.weight)||weight;
+  p.weight=weight;data.profile=p;
+  day().food={...day().food,weight};
+  await saveData();$("todayWeight").value="";renderAll();msg("Today's weight saved!");
+ }catch(e){msg("Weight save failed: "+e.message)}
 };
-window.saveStartDate=async()=>{
+function renderWeight(){
+ const p=data.profile||{},entries=Object.entries(data.days||{}).filter(([k,v])=>v.food&&Number(v.food.weight)>0).sort((a,b)=>a[0].localeCompare(b[0]));
+ const current=entries.length?Number(entries[entries.length-1][1].food.weight):Number(p.weight)||0;
+ const start=Number(p.startingWeight)||current,goal=Number(p.goalWeight)||0;
+ $("startingWeight").textContent=start||"—";$("currentWeight").textContent=current||"—";$("goalWeight").textContent=goal||"—";
+ const remaining=goal&&current?Math.abs(current-goal):0;
+ $("remainingWeight").textContent=goal&&current?remaining.toFixed(1):"—";
+ let pct=0;
+ if(start&&goal&&start!==goal){pct=start>goal?(start-current)/(start-goal)*100:(current-start)/(goal-start)*100;pct=Math.max(0,Math.min(100,pct))}
+ $("weightProgress").style.width=pct+"%";
+ $("weightPercent").textContent=goal&&current?`${pct.toFixed(1)}% progress toward your goal`:"Add your current and goal weight in Profile to see your journey.";
+ $("weightChange").textContent=start&&current?`Change since starting: ${(start-current)>0?(start-current).toFixed(1)+" kg lost":(start-current)<0?Math.abs(start-current).toFixed(1)+" kg gained":"No change yet"}`:"";
+ $("weightHistory").innerHTML=entries.slice().reverse().map(([date,v])=>`<div class="item">${date} <b style="float:right">${Number(v.food.weight).toFixed(1)} kg</b></div>`).join("")||'<p class="small">Your weigh-ins will appear here.</p>';
+}
+window.saveSteps=async()=>{
+ try{const steps=Number($("todaySteps").value),goal=Number($("stepGoal").value)||6000;if(!Number.isFinite(steps)||steps<0)throw Error("Enter a valid step count.");day().steps=steps;data.targets.step=goal;await saveData();renderAll();msg("Steps saved!")}
+ catch(e){msg("Step save failed: "+e.message)}
+};
+function renderSteps(){const d=day(),steps=Number(d.steps)||0,goal=Number(data.targets.step)||6000;$("stepProgress").style.width=Math.min(100,steps/goal*100)+"%";$("stepSummary").textContent=`${steps.toLocaleString()} / ${goal.toLocaleString()} steps (${Math.round(steps/goal*100)}% of your goal)`;}
+window.saveTargets=async()=>{try{data.targets.weekly=Math.max(1,Number($("weeklyTarget").value)||4);await saveData();msg("Weekly target saved!");renderAll()}catch(e){msg(e.message)}};
+
+/* Friend-code system: friend codes reveal only the account identifier
+   to authenticated users; profile and health records are not exposed. */
+function makeCode(){return "WA90-"+Math.random().toString(36).slice(2,8).toUpperCase()}
+async function setupFriendCode(){
+ const ref=doc(db,"users",user.uid),snap=await getDoc(ref);
+ let code=snap.exists()?snap.data().friendCode:null;
+ if(!code){code=makeCode();data.friendCode=code;await saveData()}
+ $("myFriendCode").textContent=code;
+ await setDoc(doc(db,"friendCodes",code),{uid:user.uid},{merge:true});
+ await loadFriends();
+}
+window.copyFriendCode=async()=>{try{await navigator.clipboard.writeText(data.friendCode||"");msg("Friend code copied!")}catch(e){msg("Your code is "+(data.friendCode||""))}};
+window.sendFriendRequest=async()=>{
  try{
-  data.startDate=$("startDate").value||today();
-  await saveData();renderAll();notify("Challenge date saved.");
- }catch(e){alert("Date save failed: "+e.message)}
+  const code=$("friendCodeInput").value.trim().toUpperCase();
+  if(!code)throw Error("Enter a friend's code.");
+  if(code===data.friendCode)throw Error("You cannot add yourself.");
+  const target=await getDoc(doc(db,"friendCodes",code));
+  if(!target.exists())throw Error("Friend code not found.");
+  const recipient=target.data().uid;
+  const existing=await getDocs(query(collection(db,"friendRequests"),where("from","==",user.uid),where("to","==",recipient),where("status","==","pending")));
+  if(!existing.empty)throw Error("A request is already pending.");
+  await addDoc(collection(db,"friendRequests"),{from:user.uid,to:recipient,fromCode:data.friendCode,toCode:code,status:"pending",createdAt:serverTimestamp()});
+  $("friendCodeInput").value="";msg("Friend request sent!");await loadFriends();
+ }catch(e){msg("Request failed: "+e.message)}
 };
-window.exportData=()=>{
- const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
- const url=URL.createObjectURL(blob);
- const a=document.createElement("a");
- a.href=url;a.download="winter-arc-90-backup.json";a.click();
- URL.revokeObjectURL(url);
-};
-
-function renderAll(){
- const d=currentDay(),p=data.profile||{};
- $("greeting").textContent=p.name?"Welcome back, "+p.name+"! 💜":"Welcome to your Winter Arc!";
- const start=new Date((data.startDate||today())+"T00:00:00");
- const now=new Date(today()+"T00:00:00");
- const elapsed=Math.floor((now-start)/86400000)+1;
- $("dayNo").textContent=Math.min(90,Math.max(1,elapsed))+"/90";
-
- const list=[...defaultHabits,...(data.customHabits||[])];
- const done=d.habits.length;
- $("habitNo").textContent=done+"/"+list.length;
- $("habitPercent").textContent=Math.round(done/list.length*100)+"%";
- $("habitBar").style.width=(done/list.length*100)+"%";
-
- $("habits").innerHTML=list.map((n,i)=>
-  `<label class="habit"><input type="checkbox" ${d.habits.includes(i)?"checked":""} onchange="toggleHabit(${i})"><span>${esc(n)}</span></label>`
- ).join("");
-
- $("waterNo").textContent=d.food?.water||0;
- $("workoutNo").textContent=d.workouts.length;
- $("reflection").value=d.reflection||"";
- $("breakfast").value=d.food?.breakfast||"";
- $("lunch").value=d.food?.lunch||"";
- $("dinner").value=d.food?.dinner||"";
- $("snacks").value=d.food?.snacks||"";
- $("water").value=d.food?.water??"";
- $("weight").value=d.food?.weight??"";
-
- $("history").innerHTML=d.workouts.length?d.workouts.map(w=>
-  `<div class="history"><strong>${esc(w.name)}</strong>
-  <div class="small">${w.sets?w.sets+" sets · ":""}${w.reps?w.reps+" reps · ":""}${w.minutes?w.minutes+" min · ":""}${w.distance?w.distance+" km · ":""}${w.steps?w.steps+" steps · ":""}${w.load?w.load+" kg · ":""}${w.calories||0} kcal</div>
-  <div class="small">${esc(w.notes||"")}</div></div>`
- ).join(""):"<p>No workouts logged today yet.</p>";
-
- renderExercises();
- renderProgress();
-}
-
-function renderProgress(){
- let all=[],minutes=0,stepsTotal=0,dates=Object.keys(data.days||[]),weights=[];
- dates.sort().forEach(date=>{
-  const d=data.days[date],ws=d.workouts||[];
-  ws.forEach(w=>{
-   all.push({...w,date});
-   minutes+=Number(w.minutes)||0;
-   stepsTotal+=Number(w.steps)||0;
-  });
-  const wt=d.food?.weight;
-  if(wt)weights.push({date,weight:Number(wt)});
- });
- $("totalWorkouts").textContent=all.length;
- $("totalMinutes").textContent=minutes;
- $("totalSteps").textContent=stepsTotal;
-
- const start=new Date((data.startDate||today())+"T00:00:00");
- const now=new Date(today()+"T00:00:00");
- const days=Math.min(90,Math.max(0,Math.floor((now-start)/86400000)+1));
- $("challengePercent").textContent=Math.round(days/90*100)+"%";
-
- $("records").innerHTML=all.length?all.map(w=>
-  `<div class="history"><strong>${esc(w.name)}</strong><div class="small">${w.date} · ${w.load?w.load+" kg · ":""}${w.reps?w.reps+" reps":""}</div></div>`
- ).join(""):"<p>Your workout records will appear here.</p>";
-
- $("weightHistory").innerHTML=weights.length?
-  weights.map(w=>w.date+": "+w.weight+" kg").join(" · "):
-  "No weight entries yet.";
-
- drawChart(weights);
-
- let completed=dates.filter(date=>(data.days[date].habits||[]).length>0).length;
- $("calendar").innerHTML=`<p>${completed} days with habits recorded.</p><div class="grid">${
-  Array.from({length:90},(_,i)=>{
-   const date=new Date(start);date.setDate(date.getDate()+i);
-   const key=date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
-   const habits=data.days[key]?.habits||[];
-   return `<div class="history"><strong>Day ${i+1}</strong><div class="small">${key}</div><span class="pill">${habits.length?"✓ Habits logged":"Not logged"}</span></div>`;
-  }).join("")
- }</div>`;
-}
-
-function drawChart(items){
- const c=$("chart"),ctx=c.getContext("2d");
- ctx.clearRect(0,0,c.width,c.height);
- ctx.strokeStyle="#ffffff44";ctx.beginPath();
- ctx.moveTo(35,15);ctx.lineTo(35,190);ctx.lineTo(680,190);ctx.stroke();
- if(!items.length){
-  ctx.fillStyle="#c6bad9";ctx.font="16px Arial";
-  ctx.fillText("Add weight entries to see your chart.",55,100);return;
+async function loadFriends(){
+ if(!user)return;
+ const incoming=await getDocs(query(collection(db,"friendRequests"),where("to","==",user.uid),where("status","==","pending")));
+ $("incomingRequests").innerHTML="";
+ for(const r of incoming.docs){
+  const v=r.data(),div=document.createElement("div");div.className="item";
+  div.textContent="Request from "+v.fromCode+" ";
+  const yes=document.createElement("button");yes.textContent="Accept";yes.onclick=()=>respondRequest(r.id,true);
+  const no=document.createElement("button");no.textContent="Reject";no.className="secondary";no.onclick=()=>respondRequest(r.id,false);
+  div.append(yes,no);$("incomingRequests").append(div);
  }
- const vals=items.map(x=>x.weight);
- const min=Math.min(...vals)-1,max=Math.max(...vals)+1;
- ctx.strokeStyle="#ff83bd";ctx.lineWidth=3;ctx.beginPath();
- items.forEach((x,i)=>{
-  const px=45+(items.length===1?0:i*620/(items.length-1));
-  const py=175-(x.weight-min)/(max-min||1)*140;
-  if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
-  ctx.fillStyle="#ffd477";ctx.fillRect(px-3,py-3,6,6);
- });
- ctx.stroke();
- ctx.fillStyle="#ffffff";ctx.font="12px Arial";
- ctx.fillText(max.toFixed(1)+" kg",40,15);
- ctx.fillText(min.toFixed(1)+" kg",40,185);
+ const accepted1=await getDocs(query(collection(db,"friendRequests"),where("from","==",user.uid),where("status","==","accepted")));
+ const accepted2=await getDocs(query(collection(db,"friendRequests"),where("to","==",user.uid),where("status","==","accepted")));
+ const friends=[...accepted1.docs,...accepted2.docs];
+ $("friendList").innerHTML=friends.map(r=>{const v=r.data();return `<div class="item">${escapeHtml(v.from===user.uid?v.toCode:v.fromCode)}</div>`}).join("")||'<p class="small">No accepted friends yet.</p>';
+ const challenges=await getDocs(query(collection(db,"challenges"),where("participants","array-contains",user.uid)));
+ $("challengeList").innerHTML=challenges.docs.map(r=>`<div class="item"><b>${escapeHtml(r.data().name)}</b><div class="small">90-day challenge · Participants: ${r.data().participants.length}</div></div>`).join("")||'<p class="small">No challenges yet.</p>';
 }
+window.respondRequest=async(id,accepted)=>{
+ try{await updateDoc(doc(db,"friendRequests",id),{status:accepted?"accepted":"rejected"});msg(accepted?"Friend request accepted!":"Request rejected.");await loadFriends()}
+ catch(e){msg("Could not update request: "+e.message)}
+};
+window.createChallenge=async()=>{
+ try{
+  const name=$("challengeName").value.trim(),code=$("challengeFriendCode").value.trim().toUpperCase();
+  if(!name||!code)throw Error("Enter a challenge name and friend's code.");
+  const target=await getDoc(doc(db,"friendCodes",code));
+  if(!target.exists())throw Error("Friend code not found.");
+  const friend=target.data().uid;
+  const accepted=await getDocs(query(collection(db,"friendRequests"),where("status","==","accepted")));
+  const isFriend=accepted.docs.some(r=>{const v=r.data();return (v.from===user.uid&&v.to===friend)||(v.to===user.uid&&v.from===friend)});
+  if(!isFriend)throw Error("You can only challenge an accepted friend.");
+  await addDoc(collection(db,"challenges"),{name,participants:[user.uid,friend],createdBy:user.uid,createdAt:serverTimestamp(),durationDays:90});
+  $("challengeName").value="";$("challengeFriendCode").value="";msg("90-day challenge created!");await loadFriends();
+ }catch(e){msg("Challenge failed: "+e.message)}
+};
 </script>
 </body>
 </html>
