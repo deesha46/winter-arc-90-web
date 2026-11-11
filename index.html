@@ -64,7 +64,8 @@
 <div class="card"><h2>❄️ My 90-Day Winter Arc</h2>
 <label>Choose your journey start date</label>
 <input id="journeyStartDate" type="date">
-<button onclick="saveJourneyStart()">Save start date</button>
+<button id="saveJourneyButton" type="button" onclick="saveJourneyStart()">Save start date</button>
+<p id="journeySaveMessage" class="small"></p>
 <div class="stat" style="margin-top:12px">
 <div id="journeyStatus">Choose your start date.</div>
 <strong id="journeyDay">—</strong>
@@ -139,18 +140,36 @@ function renderJourney(){
  else if(diff<90){let n=diff+1;$("journeyStatus").textContent="Your Winter Arc is active!";$("journeyDay").textContent="Day "+n+" of 90";$("journeyDetails").textContent="Started: "+start+" · "+(90-n)+" day(s) remaining."; $("journeyProgress").style.width=(n/90*100)+"%"}
  else{$("journeyStatus").textContent="Your 90-day journey is complete!";$("journeyDay").textContent="90 of 90 days";$("journeyDetails").textContent="Started: "+start+" · Completed after 90 days."; $("journeyProgress").style.width="100%"}
 }
-window.saveJourneyStart=async()=>{
- try{
-  let value=$("journeyStartDate").value;
-  if(!value)throw Error("Please choose a journey start date.");
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(value))throw Error("Please choose a valid date.");
-  let check=new Date(value+"T00:00:00");
-  if(isNaN(check.getTime())||check.toISOString().slice(0,10)!==value)throw Error("Please choose a valid date.");
-  data.journeyStartDate=value;
-  await saveData();
-  renderJourney();
-  msg("Your journey start date has been saved.");
- }catch(e){msg("Could not save start date: "+e.message)}
+window.saveJourneyStart = async () => {
+  const status = $("journeySaveMessage");
+  const button = $("saveJourneyButton");
+
+  try {
+    const value = $("journeyStartDate").value;
+
+    if (!value) {
+      status.textContent = "Please select a start date.";
+      return;
+    }
+
+    button.disabled = true;
+    status.textContent = "Saving your start date...";
+
+    await setDoc(
+      doc(db, "users", user.uid),
+      { journeyStartDate: value },
+      { merge: true }
+    );
+
+    data.journeyStartDate = value;
+    renderJourney();
+
+    status.textContent = "Your journey start date is saved successfully!";
+  } catch (error) {
+    status.textContent = "Save failed: " + error.message;
+  } finally {
+    button.disabled = false;
+  }
 };
 
 function renderHabits(){
