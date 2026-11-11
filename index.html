@@ -61,21 +61,16 @@
 <div class="card"><h2>Today's workouts</h2><div id="workoutList"></div><h3>Today's estimated calories burned</h3><div class="stat"><strong id="dailyCalories">0 kcal</strong></div></div></section>
 
 <section id="progress" class="tab hidden">
- <div class="card">
-<h2>❄️ My 90-Day Winter Arc</h2>
-
+<div class="card"><h2>❄️ My 90-Day Winter Arc</h2>
 <label>Choose your journey start date</label>
 <input id="journeyStartDate" type="date">
-
 <button onclick="saveJourneyStart()">Save start date</button>
-
 <div class="stat" style="margin-top:12px">
 <div id="journeyStatus">Choose your start date.</div>
 <strong id="journeyDay">—</strong>
 <div class="progress"><span id="journeyProgress"></span></div>
 <p id="journeyDetails" class="small"></p>
-</div>
- </div>
+</div></div>
 <div class="card"><h2>⚖️ Weight Journey</h2><div class="grid">
 <div class="stat">Starting weight<strong id="startingWeight">—</strong><span class="small">kg</span></div><div class="stat">Current weight<strong id="currentWeight">—</strong><span class="small">kg</span></div><div class="stat">Goal weight<strong id="goalWeight">—</strong><span class="small">kg</span></div><div class="stat">Remaining<strong id="remainingWeight">—</strong><span class="small">kg</span></div></div>
 <p id="weightChange" class="small"></p><div class="progress"><span id="weightProgress"></span></div><p id="weightPercent" class="small">Add your first weigh-in.</p>
@@ -98,11 +93,11 @@
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,onAuthStateChanged,signOut as firebaseSignOut}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
-import{getFirestore,doc,getDoc,setDoc,collection,addDoc,query,where,getDocs,updateDoc}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+import{getFirestore,doc,getDoc,setDoc,collection,addDoc,query,where,getDocs,updateDoc,deleteDoc}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 const firebaseConfig={apiKey:"AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",authDomain:"winterarc90web-5d889.firebaseapp.com",projectId:"winterarc90web-5d889",storageBucket:"winterarc90web-5d889.firebasestorage.app",messagingSenderId:"53251809201",appId:"1:53251809201:web:565ee6e61037a038692790"};
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app),$=id=>document.getElementById(id);
-let user=null,data={startDate:today(),days:{},profile:{},targets:{step:6000,weekly:4},customHabits:[],routines:[]},editingFood=-1,editingWorkout=-1;
+let user=null,data={days:{},profile:{},targets:{step:6000,weekly:4},customHabits:[],routines:[]},editingFood=-1,editingWorkout=-1;
 const defaultHabits=["Drink enough water","Move your body","Eat nourishing food","Sleep on time","Read or learn","Daily reflection"];
 
 function today(){let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
@@ -128,9 +123,36 @@ function renderAll(){
  let d=day(),p=data.profile||{};$("todayLabel").textContent=new Date().toDateString();$("greeting").textContent="Welcome"+(p.name?", "+p.name:"")+"!";
  $("homeSteps").textContent=(d.steps||0).toLocaleString();$("homeWorkouts").textContent=d.workouts.length;$("homeWeight").textContent=p.weight||"—";$("homeHabits").textContent=d.habits.filter(Boolean).length;$("reflection").value=d.reflection||"";
  $("pName").value=p.name||"";$("pAge").value=p.age||"";$("pGender").value=p.gender||"";$("pHeight").value=p.height||"";$("pWeight").value=p.weight||"";$("pGoalWeight").value=p.goalWeight||"";$("pGoal").value=p.goal||"General fitness";
- $("water").value=d.food.water||"";$("todaySteps").value=d.steps||"";$("stepGoal").value=data.targets.step||6000;$("weeklyTarget").value=data.targets.weekly||4;$("weeklySummary").textContent=`Weekly workout target: ${data.targets.weekly||4}`;
- renderHabits();renderRoutines();renderFood();renderWorkouts();renderWeight();renderSteps();renderCalories();
+ $("water").value=d.food.water||"";$("todaySteps").value=d.steps||"";$("stepGoal").value=data.targets.step||6000;$("weeklyTarget").value=data.targets.weekly||4;
+ $("weeklySummary").textContent=`Weekly workout target: ${data.targets.weekly||4}`;
+ renderJourney();renderHabits();renderRoutines();renderFood();renderWorkouts();renderWeight();renderSteps();renderCalories();
 }
+
+function renderJourney(){
+ let start=data.journeyStartDate||"";
+ $("journeyStartDate").value=start;
+ if(!start){$("journeyStatus").textContent="Choose your start date."; $("journeyDay").textContent="—";$("journeyDetails").textContent="Your 90-day journey has not been scheduled yet."; $("journeyProgress").style.width="0%";return}
+ let now=new Date(today()+"T00:00:00"),begin=new Date(start+"T00:00:00");
+ if(isNaN(begin.getTime())){$("journeyStatus").textContent="Please choose a valid start date.";return}
+ let diff=Math.floor((now-begin)/86400000);
+ if(diff<0){$("journeyStatus").textContent="Your journey is scheduled!";$("journeyDay").textContent="Starts in "+Math.abs(diff)+" day(s)";$("journeyDetails").textContent="Your Day 1 begins on "+start+". Your journey will finish after 90 days."; $("journeyProgress").style.width="0%"}
+ else if(diff<90){let n=diff+1;$("journeyStatus").textContent="Your Winter Arc is active!";$("journeyDay").textContent="Day "+n+" of 90";$("journeyDetails").textContent="Started: "+start+" · "+(90-n)+" day(s) remaining."; $("journeyProgress").style.width=(n/90*100)+"%"}
+ else{$("journeyStatus").textContent="Your 90-day journey is complete!";$("journeyDay").textContent="90 of 90 days";$("journeyDetails").textContent="Started: "+start+" · Completed after 90 days."; $("journeyProgress").style.width="100%"}
+}
+window.saveJourneyStart=async()=>{
+ try{
+  let value=$("journeyStartDate").value;
+  if(!value)throw Error("Please choose a journey start date.");
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(value))throw Error("Please choose a valid date.");
+  let check=new Date(value+"T00:00:00");
+  if(isNaN(check.getTime())||check.toISOString().slice(0,10)!==value)throw Error("Please choose a valid date.");
+  data.journeyStartDate=value;
+  await saveData();
+  renderJourney();
+  msg("Your journey start date has been saved.");
+ }catch(e){msg("Could not save start date: "+e.message)}
+};
+
 function renderHabits(){
  let d=day(),all=[...defaultHabits,...data.customHabits];$("habitsList").innerHTML="";
  all.forEach((h,i)=>{let row=document.createElement("div");row.className="item";let cb=document.createElement("input");cb.type="checkbox";cb.checked=d.habits.includes(i);cb.style.width="auto";cb.onchange=async()=>{d.habits=cb.checked?[...d.habits,i]:d.habits.filter(x=>x!==i);await saveData();renderAll()};row.append(cb,document.createTextNode(" "+h));
@@ -165,7 +187,30 @@ function renderWorkouts(){$("workoutList").innerHTML=day().workouts.map((w,i)=>`
 function renderCalories(){let total=day().workouts.reduce((s,w)=>s+(Number(w.calories)||caloriesFor(w.name,w.minutes||0)),0);$("dailyCalories").textContent=total+" kcal";$("homeCalories").textContent=total;let week=0,now=new Date();for(let i=0;i<7;i++){let d=new Date(now);d.setDate(now.getDate()-i);let k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;(data.days[k]?.workouts||[]).forEach(w=>week+=Number(w.calories)||caloriesFor(w.name,w.minutes||0))}$("weeklyCalories").textContent=week+" kcal"}
 
 window.saveWeight=async()=>{try{let w=Number($("todayWeight").value);if(!w||w<1||w>500)throw Error("Enter valid weight.");let p=data.profile||{};if(!p.startingWeight)p.startingWeight=Number(p.weight)||w;p.weight=w;data.profile=p;day().food.weight=w;await saveData();$("todayWeight").value="";renderAll();msg("Weight saved.")}catch(e){msg(e.message)}};
-function renderWeight(){let p=data.profile||{},a=Object.entries(data.days).filter(([k,v])=>v.food&&Number(v.food.weight)>0).sort((x,y)=>x[0].localeCompare(y[0])),cur=a.length?Number(a[a.length-1][1].food.weight):Number(p.weight)||0,start=Number(p.startingWeight)||cur,goal=Number(p.goalWeight)||0;$("startingWeight").textContent=start||"—";$("currentWeight").textContent=cur||"—";$("goalWeight").textContent=goal||"—";$("remainingWeight").textContent=goal&&cur?Math.abs(cur-goal).toFixed(1):"—";let pct=0;if(start&&goal&&start!==goal)pct=Math.max(0,Math.min(100,start>goal?(start-cur)/(start-goal)*100:(cur-start)/(goal-start)*100));$("weightProgress").style.width=pct+"%";$("weightPercent").textContent=goal&&cur?pct.toFixed(1)+"% progress toward goal":"Add current and goal weight in Profile."; $("weightChange").textContent=start&&cur?`Change since start: ${start>cur?(start-cur).toFixed(1)+" kg lost":start<cur?(cur-start).toFixed(1)+" kg gained":"No change yet"}`:"";$("weightHistory").innerHTML=a.slice().reverse().map(([date,v])=>`<div class="item">${date}<b style="float:right">${Number(v.food.weight).toFixed(1)} kg</b></div>`).join("")||'<p class="small">No weigh-ins yet.</p>'}
+
+window.deleteWeight=async date=>{
+ if(!confirm("Delete the weight log for "+date+"?"))return;
+ try{
+  if(!data.days[date]||!data.days[date].food||!Number(data.days[date].food.weight))throw Error("Weight log not found.");
+  delete data.days[date].food.weight;
+  let remaining=Object.entries(data.days).filter(([k,v])=>v.food&&Number(v.food.weight)>0).sort((a,b)=>a[0].localeCompare(b[0]));
+  let p=data.profile||{};
+  p.weight=remaining.length?Number(remaining[remaining.length-1][1].food.weight):Number(p.startingWeight)||0;
+  data.profile=p;
+  await saveData();
+  renderAll();
+  msg("Weight log deleted.");
+ }catch(e){msg("Could not delete weight log: "+e.message)}
+};
+
+function renderWeight(){
+ let p=data.profile||{},a=Object.entries(data.days).filter(([k,v])=>v.food&&Number(v.food.weight)>0).sort((x,y)=>x[0].localeCompare(y[0])),cur=a.length?Number(a[a.length-1][1].food.weight):Number(p.weight)||0,start=Number(p.startingWeight)||cur,goal=Number(p.goalWeight)||0;
+ $("startingWeight").textContent=start||"—";$("currentWeight").textContent=cur||"—";$("goalWeight").textContent=goal||"—";$("remainingWeight").textContent=goal&&cur?Math.abs(cur-goal).toFixed(1):"—";
+ let pct=0;if(start&&goal&&start!==goal)pct=Math.max(0,Math.min(100,start>goal?(start-cur)/(start-goal)*100:(cur-start)/(goal-start)*100));
+ $("weightProgress").style.width=pct+"%";$("weightPercent").textContent=goal&&cur?pct.toFixed(1)+"% progress toward goal":"Add current and goal weight in Profile.";
+ $("weightChange").textContent=start&&cur?`Change since start: ${start>cur?(start-cur).toFixed(1)+" kg lost":start<cur?(cur-start).toFixed(1)+" kg gained":"No change yet"}`:"";
+ $("weightHistory").innerHTML=a.slice().reverse().map(([date,v])=>`<div class="item">${date}<b style="float:right">${Number(v.food.weight).toFixed(1)} kg</b><div class="actions"><button class="danger" onclick="deleteWeight('${date}')">Delete log</button></div></div>`).join("")||'<p class="small">No weigh-ins yet.</p>';
+}
 window.saveSteps=async()=>{try{let s=Number($("todaySteps").value),g=Number($("stepGoal").value)||6000;if(!Number.isFinite(s)||s<0)throw Error("Enter valid steps.");day().steps=s;data.targets.step=g;await saveData();renderAll();msg("Steps saved.")}catch(e){msg(e.message)}};
 function renderSteps(){let s=Number(day().steps)||0,g=Number(data.targets.step)||6000;$("stepProgress").style.width=Math.min(100,s/g*100)+"%";$("stepSummary").textContent=`${s.toLocaleString()} / ${g.toLocaleString()} steps (${Math.round(s/g*100)}% of goal)`}
 window.saveTargets=async()=>{try{data.targets.weekly=Math.max(1,Number($("weeklyTarget").value)||4);await saveData();renderAll();msg("Target saved.")}catch(e){msg(e.message)}};
