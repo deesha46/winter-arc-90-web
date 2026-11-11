@@ -44,6 +44,41 @@ body{background:radial-gradient(ellipse at 12% 0%,#30203d 0%,var(--bg) 55%);back
 #authMessage{min-height:22px;color:#ffb4c7;font-size:12px;margin-top:8px;overflow-wrap:anywhere}
 @keyframes floatOrb{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-12px) rotate(5deg)}}
 @media(max-width:620px){#auth{margin:12px auto}.login-shell{grid-template-columns:1fr}.login-visual{min-height:310px;padding:22px}.login-orb{width:125px;height:125px;margin:15px auto 10px}.login-orb span{font-size:56px}.login-visual h2{font-size:25px}.login-form{padding:25px 22px}}
+ 
+/* Full-app 3D motion layer: lightweight CSS, mobile-friendly, no external libraries */
+:root{--pinkGlow:#ff9bd0;--violetGlow:#a879ff}
+html{scroll-behavior:smooth}
+header{position:relative;overflow:hidden;box-shadow:0 12px 35px #0005}
+header:after{content:"";position:absolute;width:210px;height:210px;right:-75px;top:-115px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff8,#f17eb588 24%,#9a59d755 55%,transparent 72%);filter:blur(2px);animation:headerFloat 8s ease-in-out infinite;pointer-events:none}
+@keyframes headerFloat{50%{transform:translate(-25px,35px) scale(1.12)}}
+#app>.app-3d-hero{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:172px;padding:22px 24px;overflow:hidden;border:1px solid #b878d866;border-radius:22px;background:radial-gradient(circle at 80% 35%,#9a55d744,transparent 35%),linear-gradient(125deg,#34203f,#1d192b 62%,#30203e);box-shadow:0 18px 38px #05030d77,inset 0 1px #ffffff18;margin:12px 0 18px;}
+.app-3d-hero:before,.app-3d-hero:after{content:"";position:absolute;border-radius:50%;pointer-events:none;z-index:-1}
+.app-3d-hero:before{width:190px;height:190px;right:55px;top:-105px;background:radial-gradient(circle at 35% 30%,#fff9,#f7a8d8aa 18%,#a95bd788 50%,#392052 75%);box-shadow:inset -18px -20px 28px #160e2b99,0 0 45px #dc8dff55;animation:heroOrb 6s ease-in-out infinite}
+.app-3d-hero:after{width:95px;height:95px;right:18px;bottom:-48px;background:radial-gradient(circle at 35% 30%,#fff8,#f4c76a99 25%,#b36bd255 68%,transparent);animation:heroOrb 5s ease-in-out infinite reverse}
+.hero-copy{position:relative;z-index:1;max-width:70%}.hero-kicker{font-size:10px;letter-spacing:2.5px;font-weight:800;color:var(--gold)}.hero-copy h2{font-size:clamp(22px,5vw,30px);line-height:1.12;margin:9px 0;color:#fff}.hero-copy p{font-size:13px;line-height:1.5;color:#d8c9e2;margin:0}.hero-3d-icon{position:relative;z-index:1;flex:0 0 112px;width:112px;height:112px;border-radius:34px;display:grid;place-items:center;font-size:62px;transform:perspective(500px) rotateY(-17deg) rotateX(9deg);background:linear-gradient(145deg,#ffffff38,#ffffff08);border:1px solid #ffffff55;box-shadow:12px 15px 25px #09051188,inset 4px 4px 10px #ffffff35,inset -8px -9px 18px #0b061a66;animation:iconBob 3.8s ease-in-out infinite}
+@keyframes heroOrb{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(13px) rotate(12deg)}}
+@keyframes iconBob{0%,100%{transform:perspective(500px) rotateY(-17deg) rotateX(9deg) translateY(0)}50%{transform:perspective(500px) rotateY(9deg) rotateX(-5deg) translateY(-9px)}}
+.card{transform:perspective(1000px) translateZ(0);box-shadow:0 12px 28px #05030d44,inset 0 1px #ffffff08;transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
+.card:hover{transform:perspective(1000px) translateY(-3px) rotateX(.6deg);border-color:#875d91;box-shadow:0 18px 34px #05030d66,0 0 22px #d77bff12}
+.stat{box-shadow:inset 0 1px #ffffff13,0 7px 16px #08051055;transform:translateZ(0);transition:transform .25s ease}
+.stat:hover{transform:translateY(-4px) rotateX(4deg)}
+button{position:relative;overflow:hidden;box-shadow:0 7px 0 #9d4e7c,0 12px 22px #f17eb533,inset 0 1px #ffffff55;transition:transform .16s ease,box-shadow .16s ease,filter .16s ease}
+button:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 9px 0 #9d4e7c,0 16px 26px #f17eb544,inset 0 1px #ffffff66}
+button:active{transform:translateY(4px) scale(.985);box-shadow:0 2px 0 #9d4e7c,0 5px 12px #f17eb322}
+nav button{box-shadow:0 5px 0 #9d4e7c,0 8px 16px #f17eb522}
+.progress{height:12px;border:1px solid #ffffff18;box-shadow:inset 0 2px 5px #08051088}
+.progress span{border-radius:20px;box-shadow:0 0 14px #f17eb599;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.item{transition:background .2s ease,padding .2s ease;border-radius:9px}.item:hover{background:#ffffff08;padding-left:8px;padding-right:8px}
+#habitsList .item{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+#habitsList .item input[type=checkbox]{accent-color:var(--pink);width:20px;height:20px;cursor:pointer}
+#habitsList .item.habit-done{background:linear-gradient(90deg,#f17eb51b,transparent);animation:habitPop .38s ease}
+#habitsList .item.habit-done:after{content:"✨ DONE";margin-left:auto;color:var(--gold);font-size:10px;font-weight:800;letter-spacing:1px;animation:doneGlow 1.4s ease-in-out infinite alternate}
+@keyframes habitPop{0%{transform:scale(.97)}65%{transform:scale(1.015)}100%{transform:scale(1)}}
+@keyframes doneGlow{to{text-shadow:0 0 12px #f4c76a;opacity:.7}}
+.auth-emblem,.login-orb{box-shadow:inset -15px -18px 28px #180d2b88,0 18px 35px #07030e77,0 0 38px #e5a6ff55}
+@media(max-width:520px){#app>.app-3d-hero{min-height:145px;padding:18px 16px}.hero-3d-icon{flex-basis:82px;width:82px;height:82px;border-radius:26px;font-size:46px}.hero-copy{max-width:68%}.hero-copy p{font-size:12px}.card:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+ 
 </style>
 </head>
 <body>
@@ -75,6 +110,7 @@ body{background:radial-gradient(ellipse at 12% 0%,#30203d 0%,var(--bg) 55%);back
  </div>
 </div></section>
 <section id="app" class="hidden">
+<div class="app-3d-hero"><div class="hero-copy"><div class="hero-kicker">YOUR 90-DAY GLOW-UP</div><h2>Stronger every day. ✨</h2><p>Small wins become big changes. Keep showing up for yourself.</p></div><div class="hero-3d-icon" aria-hidden="true">🏋️‍♀️</div></div>
 <div class="card"><div id="greeting">Welcome to your Fitness Journal!</div><div class="small" id="todayLabel"></div></div>
 <nav><button onclick="showTab('home')">Home</button><button onclick="showTab('profile')">Profile</button><button onclick="showTab('food')">Food</button><button onclick="showTab('workouts')">Workouts</button><button onclick="showTab('progress')">Progress</button><button onclick="showTab('lifestyle')">Lifestyle</button><button onclick="showTab('photos')">Photos</button><button onclick="showTab('friends')">Friends</button><button onclick="showTab('settings')">Settings</button></nav>
  
@@ -251,7 +287,7 @@ function renderJourney(){let start=data.journeyStartDate||"";$("journeyStartDate
 function fmtDate(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
 window.saveJourneyStart=async()=>{let status=$("journeySaveMessage"),button=$("saveJourneyButton");try{if(!user)throw Error("Please log in again.");let value=$("journeyStartDate").value;if(!value)throw Error("Please select a start date.");let dt=new Date(value+"T00:00:00");if(isNaN(dt.getTime())||fmtDate(dt)!==value)throw Error("Please choose a valid date.");button.disabled=true;status.textContent="Saving your start date...";await setDoc(doc(db,"users",user.uid),{journeyStartDate:value},{merge:true});data.journeyStartDate=value;renderJourney();status.textContent="Your journey start date is saved successfully!"}catch(e){status.textContent="Save failed: "+e.message}finally{button.disabled=false}};
 function renderStreaks(){let start=data.journeyStartDate;if(!start){$("currentStreak").textContent="0 days";$("bestStreak").textContent="0 days";return}let dates=Object.keys(data.days||{}).filter(k=>data.days[k]?.checkin?.done&&k>=start).sort(),best=0,run=0,prev=null;for(let k of dates){let d=new Date(k+"T00:00:00");if(prev&&Math.round((d-prev)/86400000)===1)run++;else run=1;best=Math.max(best,run);prev=d}let cur=0,check=new Date(today()+"T00:00:00");for(let i=0;i<90;i++){let k=fmtDate(check);if(data.days[k]?.checkin?.done)cur++;else break;check.setDate(check.getDate()-1)}$("currentStreak").textContent=cur+" days";$("bestStreak").textContent=best+" days"}
-function renderHabits(){let d=day(),all=[...defaultHabits,...data.customHabits];$("habitsList").innerHTML="";all.forEach((h,i)=>{let row=document.createElement("div");row.className="item";let cb=document.createElement("input");cb.type="checkbox";cb.checked=d.habits.includes(i);cb.onchange=async()=>{d.habits=cb.checked?[...d.habits,i]:d.habits.filter(x=>x!==i);await saveData();renderAll()};row.append(cb,document.createTextNode(" "+h));if(i>=defaultHabits.length){let e=document.createElement("button");e.className="secondary";e.textContent="Edit";e.onclick=()=>editHabit(i-defaultHabits.length);let del=document.createElement("button");del.className="danger";del.textContent="Delete";del.onclick=()=>deleteHabit(i-defaultHabits.length);row.append(e,del)}$("habitsList").append(row)})}
+function renderHabits(){let d=day(),all=[...defaultHabits,...data.customHabits];$("habitsList").innerHTML="";all.forEach((h,i)=>{let row=document.createElement("div");row.className="item"+(d.habits.includes(i)?" habit-done":"");let cb=document.createElement("input");cb.type="checkbox";cb.checked=d.habits.includes(i);cb.onchange=async()=>{d.habits=cb.checked?[...d.habits,i]:d.habits.filter(x=>x!==i);await saveData();renderAll()};row.append(cb,document.createTextNode(" "+h));if(i>=defaultHabits.length){let e=document.createElement("button");e.className="secondary";e.textContent="Edit";e.onclick=()=>editHabit(i-defaultHabits.length);let del=document.createElement("button");del.className="danger";del.textContent="Delete";del.onclick=()=>deleteHabit(i-defaultHabits.length);row.append(e,del)}$("habitsList").append(row)})}
 window.addHabit=async()=>{let v=$("newHabit").value.trim();if(!v)return msg("Enter a habit name.");data.customHabits.push(v);$("newHabit").value="";try{await saveData();renderAll();msg("Habit added.")}catch(e){msg(e.message)}};
 window.editHabit=async i=>{let v=prompt("Edit habit",data.customHabits[i]);if(v===null)return;if(!v.trim())return msg("Name cannot be empty.");data.customHabits[i]=v.trim();try{await saveData();renderAll()}catch(e){msg(e.message)}};
 window.deleteHabit=async i=>{if(!confirm("Delete this habit?"))return;data.customHabits.splice(i,1);try{await saveData();renderAll()}catch(e){msg(e.message)}};
