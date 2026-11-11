@@ -30,16 +30,18 @@ textarea{min-height:85px;resize:vertical}
 .stat{background:#1b2a40;border-radius:12px;padding:14px;text-align:center;flex:1}
 .stat strong{font-size:25px;color:#8dcaff;display:block;margin-bottom:5px}
 .progress{height:9px;background:#26364b;border-radius:20px;overflow:hidden;margin:12px 0}
-.progress div{height:100%;background:#83c5ff;width:0}
+.progress div{height:100%;background:#83c5ff;width:0;transition:width .3s}
 .check{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #26364b}
 .check input{width:19px;height:19px;margin:0;accent-color:#83c5ff}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#101a29;border-top:1px solid #28384e;display:flex;justify-content:center;gap:5px;padding:10px 3px calc(10px + env(safe-area-inset-bottom));z-index:5}
 .nav button{background:transparent;color:#aab8cb;border:0;padding:8px 5px;font-size:11px;flex:1;max-width:90px}
 .nav button.active{color:#83c5ff}
 .hidden{display:none!important}
-.notice{padding:12px;border-radius:10px;background:#1b2a40;margin:10px 0;color:#a9d7ff}
+.notice{padding:12px;border-radius:10px;background:#1b2a40;margin:10px 0;color:#a9d7ff;overflow-wrap:anywhere}
+.error{background:#592d39;color:#fff}
 .auth{max-width:420px;margin:12vh auto;padding:25px}
 .small{font-size:12px}
+button:disabled{opacity:.6;cursor:not-allowed}
 </style>
 </head>
 
@@ -47,18 +49,18 @@ textarea{min-height:85px;resize:vertical}
 
 <div id="authScreen" class="auth">
   <div class="logo">❄ WINTER ARC 90</div>
-  <h1 id="authTitle">Your new beginning.</h1>
+  <h1>Your new beginning.</h1>
   <p class="muted">90 days. One commitment. A stronger you.</p>
 
   <div class="card">
-    <input id="email" type="email" placeholder="Email address">
-    <input id="password" type="password" placeholder="Password">
+    <input id="email" type="email" placeholder="Email address" autocomplete="email">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
 
     <button class="primary" id="loginBtn">Log In</button>
     <button class="secondary" id="registerBtn" style="width:100%;margin-top:10px">Create Account</button>
     <button class="secondary" id="resetBtn" style="width:100%;margin-top:10px">Forgot Password?</button>
 
-    <p id="authMessage" class="notice hidden"></p>
+    <p id="authMessage" class="notice hidden" role="status"></p>
   </div>
   <p class="muted small">Your account and personal records are private.</p>
 </div>
@@ -79,7 +81,7 @@ textarea{min-height:85px;resize:vertical}
     <h2>Your 90-day journey</h2>
     <div class="row">
       <div class="stat"><strong id="dayNumber">1</strong><span class="small">Current day</span></div>
-      <div class="stat"><strong id="daysLeft">90</strong><span class="small">Days remaining</span></div>
+      <div class="stat"><strong id="daysLeft">89</strong><span class="small">Days remaining</span></div>
       <div class="stat"><strong id="completion">0%</strong><span class="small">Today's habits</span></div>
     </div>
     <div class="progress"><div id="mainProgress"></div></div>
@@ -113,7 +115,7 @@ textarea{min-height:85px;resize:vertical}
     <textarea id="snacks" placeholder="Any snacks?"></textarea>
     <label>Water intake (glasses)</label>
     <input id="water" type="number" min="0" max="50" placeholder="8">
-    <button class="primary saveBtn">Save Food Diary</button>
+    <button class="primary saveBtn" data-type="food">Save Food Diary</button>
   </div>
 </section>
 
@@ -130,7 +132,7 @@ textarea{min-height:85px;resize:vertical}
     <input id="steps" type="number" min="0" placeholder="5000">
     <label>How did you feel?</label>
     <textarea id="fitnessNotes" placeholder="Describe your energy and mood..."></textarea>
-    <button class="primary saveBtn">Save Fitness Record</button>
+    <button class="primary saveBtn" data-type="fitness">Save Fitness Record</button>
   </div>
 </section>
 
@@ -166,6 +168,7 @@ textarea{min-height:85px;resize:vertical}
 </nav>
 
 <script type="module">
+
 import {initializeApp}
 from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 
@@ -201,60 +204,76 @@ const db = getFirestore(app);
 let currentUser = null;
 let userData = {};
 let currentDate = localDate();
+let saving = false;
 
 function localDate(){
  const d = new Date();
  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 }
 
-function showMessage(message){
+function showMessage(message,isError=false){
  const el=document.getElementById("authMessage");
  el.textContent=message;
- el.classList.remove("hidden");
+ el.classList.remove("hidden","error");
+ if(isError)el.classList.add("error");
 }
 
-async function saveData(){
- if(!currentUser)return;
- try{
-  await setDoc(doc(db,"users",currentUser.uid),userData);
- }catch(e){
-  alert("Save failed: "+e.message);
- }
+function firebaseError(error){
+ const messages={
+  "auth/email-already-in-use":"This email already has an account. Please log in.",
+  "auth/invalid-email":"Please enter a valid email address.",
+  "auth/weak-password":"Choose a stronger password with at least 6 characters.",
+  "auth/invalid-credential":"Email or password is incorrect.",
+  "auth/user-not-found":"No account was found with this email.",
+  "auth/wrong-password":"Incorrect password.",
+  "auth/too-many-requests":"Too many attempts. Please try again later.",
+  "auth/network-request-failed":"Network error. Check your internet connection."
+ };
+ return messages[error.code] || error.message || "Something went wrong.";
 }
 
 function getDay(){
  return userData.days?.[currentDate] || {};
 }
 
+async function saveData(){
+ if(!currentUser || saving)return false;
+
+ saving=true;
+ try{
+  await setDoc(doc(db,"users",currentUser.uid),userData);
+  return true;
+ }catch(e){
+  alert("Save failed: "+e.message);
+  return false;
+ }finally{
+  saving=false;
+ }
+}
+
 async function loadData(user){
  currentUser=user;
+
  const ref=doc(db,"users",user.uid);
  const snap=await getDoc(ref);
 
  if(snap.exists()){
   userData=snap.data();
+  if(!userData.startDate)userData.startDate=currentDate;
+  if(!userData.days)userData.days={};
  }else{
   userData={
    startDate:currentDate,
    days:{}
   };
-  await saveData();
+  await setDoc(ref,userData);
  }
-
- if(!userData.days)userData.days={};
 
  document.getElementById("authScreen").classList.add("hidden");
  document.getElementById("mainApp").classList.remove("hidden");
  document.getElementById("navigation").classList.remove("hidden");
 
  render();
-}
-
-function updateDay(key,value){
- if(!userData.days[currentDate])userData.days[currentDate]={};
- userData.days[currentDate][key]=value;
- saveData();
- renderStats();
 }
 
 const habits=[
@@ -267,6 +286,14 @@ const habits=[
  "Sleep on time"
 ];
 
+async function updateDay(key,value){
+ if(!userData.days[currentDate])userData.days[currentDate]={};
+ userData.days[currentDate][key]=value;
+
+ renderStats();
+ await saveData();
+}
+
 function renderHabits(){
  const list=document.getElementById("habitList");
  list.innerHTML="";
@@ -275,17 +302,18 @@ function renderHabits(){
  habits.forEach((habit,i)=>{
   const label=document.createElement("label");
   label.className="check";
+
   const input=document.createElement("input");
   input.type="checkbox";
   input.checked=!!day["habit"+i];
 
   input.addEventListener("change",()=>{
    updateDay("habit"+i,input.checked);
-   renderStats();
   });
 
   const span=document.createElement("span");
   span.textContent=habit;
+
   label.append(input,span);
   list.appendChild(label);
  });
@@ -297,12 +325,15 @@ function renderStats(){
  const percent=Math.round(done/habits.length*100);
 
  document.getElementById("completion").textContent=percent+"%";
- document.getElementById("mainProgress").style.width=percent+"%";
 
- let total=0,workouts=0;
+ let total=0,workouts=0,completedDays=0;
+
  Object.values(userData.days||{}).forEach(d=>{
-  total+=habits.filter((h,i)=>d["habit"+i]).length;
-  if(d.workout&&d.workout.trim())workouts++;
+  const count=habits.filter((h,i)=>d["habit"+i]).length;
+  total+=count;
+
+  if(count===habits.length)completedDays++;
+  if(d.workout && d.workout.trim())workouts++;
  });
 
  document.getElementById("totalHabits").textContent=total;
@@ -315,22 +346,32 @@ function renderStats(){
 
  document.getElementById("dayNumber").textContent=current;
  document.getElementById("daysLeft").textContent=90-current;
- document.getElementById("mainProgress").style.width=(current/90*100)+"%";
- document.getElementById("progressBar").style.width=(current/90*100)+"%";
- document.getElementById("progressLabel").textContent=(current)+" of 90 days reached";
+
+ const challengePercent=Math.round(current/90*100);
+ document.getElementById("mainProgress").style.width=challengePercent+"%";
+ document.getElementById("progressBar").style.width=challengePercent+"%";
+
+ document.getElementById("progressLabel").textContent=
+ completedDays+" fully completed days. Day "+current+" of 90.";
 }
 
 function render(){
  currentDate=localDate();
+
  document.getElementById("todayText").textContent=
-  new Date().toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+  new Date().toLocaleDateString(undefined,{
+   weekday:"long",year:"numeric",month:"long",day:"numeric"
+  });
 
  document.getElementById("startText").textContent=
   "Challenge started: "+userData.startDate;
 
  const day=getDay();
- ["breakfast","lunch","dinner","snacks","water",
- "workout","duration","steps","fitnessNotes","reflection"].forEach(id=>{
+
+ [
+  "breakfast","lunch","dinner","snacks","water",
+  "workout","duration","steps","fitnessNotes","reflection"
+ ].forEach(id=>{
   document.getElementById(id).value=day[id]??"";
  });
 
@@ -338,50 +379,80 @@ function render(){
  renderStats();
 }
 
-document.getElementById("registerBtn").onclick=async()=>{
+async function runAuth(action){
+ const buttons=["loginBtn","registerBtn","resetBtn"];
+ buttons.forEach(id=>document.getElementById(id).disabled=true);
+
  try{
+  await action();
+ }catch(e){
+  showMessage(firebaseError(e),true);
+ }finally{
+  buttons.forEach(id=>document.getElementById(id).disabled=false);
+ }
+}
+
+document.getElementById("registerBtn").onclick=()=>{
+ runAuth(async()=>{
   const email=document.getElementById("email").value.trim();
   const password=document.getElementById("password").value;
+
+  if(!email)throw Error("Please enter your email address.");
   if(password.length<6)throw Error("Password must contain at least 6 characters.");
+
   await createUserWithEmailAndPassword(auth,email,password);
- }catch(e){showMessage(e.message);}
+ });
 };
 
-document.getElementById("loginBtn").onclick=async()=>{
- try{
-  await signInWithEmailAndPassword(
-   auth,
-   document.getElementById("email").value.trim(),
-   document.getElementById("password").value
-  );
- }catch(e){showMessage(e.message);}
-};
-
-document.getElementById("resetBtn").onclick=async()=>{
- try{
+document.getElementById("loginBtn").onclick=()=>{
+ runAuth(async()=>{
   const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
+
+  if(!email || !password)throw Error("Enter your email and password.");
+
+  await signInWithEmailAndPassword(auth,email,password);
+ });
+};
+
+document.getElementById("resetBtn").onclick=()=>{
+ runAuth(async()=>{
+  const email=document.getElementById("email").value.trim();
+
   if(!email)throw Error("Enter your email address first.");
+
   await sendPasswordResetEmail(auth,email);
   showMessage("Password reset email sent. Check your inbox.");
- }catch(e){showMessage(e.message);}
+ });
 };
 
-document.getElementById("logoutBtn").onclick=()=>signOut(auth);
+document.getElementById("logoutBtn").onclick=async()=>{
+ try{
+  await signOut(auth);
+ }catch(e){
+  alert(e.message);
+ }
+};
 
 document.querySelectorAll(".nav button").forEach(btn=>{
  btn.onclick=()=>{
   document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
+
   document.querySelectorAll("#mainApp section").forEach(s=>s.classList.add("hidden"));
+
   document.getElementById(btn.dataset.page).classList.remove("hidden");
  };
 });
 
 function readFields(ids){
  const result={};
+
  ids.forEach(id=>{
-  result[id]=document.getElementById(id).value;
+  const el=document.getElementById(id);
+  result[id]=el.value;
  });
+
  return result;
 }
 
@@ -389,20 +460,36 @@ document.querySelectorAll(".saveBtn").forEach(btn=>{
  btn.onclick=async()=>{
   const day=getDay();
 
-  if(btn.parentElement.parentElement.id==="foodPage"){
-   Object.assign(day,readFields(["breakfast","lunch","dinner","snacks","water"]));
+  if(!userData.days[currentDate])userData.days[currentDate]={};
+
+  if(btn.dataset.type==="food"){
+   Object.assign(day,readFields([
+    "breakfast","lunch","dinner","snacks","water"
+   ]));
   }else{
-   Object.assign(day,readFields(["workout","duration","steps","fitnessNotes"]));
+   Object.assign(day,readFields([
+    "workout","duration","steps","fitnessNotes"
+   ]));
   }
 
-  await saveData();
-  alert("Your record has been saved!");
+  const success=await saveData();
+
+  if(success){
+   alert("Your record has been saved!");
+   renderStats();
+  }
  };
 });
 
 document.getElementById("saveReflection").onclick=async()=>{
- updateDay("reflection",document.getElementById("reflection").value);
- alert("Reflection saved!");
+ const success=await updateDay(
+  "reflection",
+  document.getElementById("reflection").value
+ );
+
+ if(success!==false){
+  alert("Reflection saved!");
+ }
 };
 
 onAuthStateChanged(auth,async user=>{
@@ -410,15 +497,22 @@ onAuthStateChanged(auth,async user=>{
   try{
    await loadData(user);
   }catch(e){
-   alert("Unable to load your account: "+e.message);
+   currentUser=null;
+   document.getElementById("mainApp").classList.add("hidden");
+   document.getElementById("navigation").classList.add("hidden");
+   document.getElementById("authScreen").classList.remove("hidden");
+   showMessage("Unable to load your account: "+e.message,true);
   }
  }else{
   currentUser=null;
+  userData={};
+
   document.getElementById("authScreen").classList.remove("hidden");
   document.getElementById("mainApp").classList.add("hidden");
   document.getElementById("navigation").classList.add("hidden");
  }
 });
+
 </script>
 
 </body>
