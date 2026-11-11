@@ -4,168 +4,611 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080d18">
+<meta name="theme-color" content="#17102f">
 <title>Winter Arc 90</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#080d18;color:#f4f7fc;font-family:Arial,sans-serif}
+:root{
+--ink:#f8f6ff;
+--muted:#c4bddb;
+--panel:rgba(35,25,66,.85);
+--line:rgba(255,255,255,.13);
+--pink:#ff6fae;
+--blue:#69d5ff;
+--gold:#ffd166;
+--purple:#a78bfa;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+margin:0;
+background:
+radial-gradient(ellipse at 10% 0%,#45246d,transparent 36%),
+radial-gradient(ellipse at 100% 25%,#123d68,transparent 35%),
+linear-gradient(145deg,#100b25,#17102f 52%,#081d36);
+background-attachment:fixed;
+color:var(--ink);
+font-family:system-ui,Arial,sans-serif;
+min-height:100vh;
+}
+
 button,input,textarea{font:inherit}
 button{cursor:pointer}
-.app{max-width:520px;margin:auto;min-height:100vh;padding:20px 17px 100px}
-header{display:flex;justify-content:space-between;align-items:center;padding:15px 0 25px}
-.logo{font-size:23px;font-weight:800;color:#8dcaff}
-.muted{color:#9aa9bd}
-.card{background:#131d2d;border:1px solid #26364b;border-radius:17px;padding:19px;margin:15px 0}
-h1{font-size:29px;margin:12px 0}
-h2{font-size:19px;margin-bottom:14px}
-h3{font-size:15px;margin-bottom:10px}
-p{line-height:1.6}
-input,textarea{width:100%;padding:14px;margin:7px 0;background:#0a1321;color:white;border:1px solid #34445b;border-radius:10px}
-textarea{min-height:85px;resize:vertical}
-.primary{background:#83c5ff;color:#07111e;border:0;padding:15px;border-radius:11px;font-weight:bold;width:100%;margin-top:10px}
-.secondary{background:#26364b;color:white;border:0;padding:12px;border-radius:10px}
-.danger{background:#592d39;color:#fff;border:0;padding:10px;border-radius:9px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.stat{background:#1b2a40;border-radius:12px;padding:14px;text-align:center;flex:1}
-.stat strong{font-size:25px;color:#8dcaff;display:block;margin-bottom:5px}
-.progress{height:9px;background:#26364b;border-radius:20px;overflow:hidden;margin:12px 0}
-.progress div{height:100%;background:#83c5ff;width:0;transition:width .3s}
-.check{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #26364b}
-.check input{width:19px;height:19px;margin:0;accent-color:#83c5ff}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#101a29;border-top:1px solid #28384e;display:flex;justify-content:center;gap:5px;padding:10px 3px calc(10px + env(safe-area-inset-bottom));z-index:5}
-.nav button{background:transparent;color:#aab8cb;border:0;padding:8px 5px;font-size:11px;flex:1;max-width:90px}
-.nav button.active{color:#83c5ff}
 .hidden{display:none!important}
-.notice{padding:12px;border-radius:10px;background:#1b2a40;margin:10px 0;color:#a9d7ff;overflow-wrap:anywhere}
-.error{background:#592d39;color:#fff}
-.auth{max-width:420px;margin:12vh auto;padding:25px}
+.muted{color:var(--muted)}
 .small{font-size:12px}
-button:disabled{opacity:.6;cursor:not-allowed}
+
+.app{
+max-width:760px;
+margin:auto;
+padding:18px 16px 105px;
+}
+
+.logo{
+font-weight:900;
+font-size:23px;
+background:linear-gradient(90deg,#fff,#ff91c5,#7bdcff);
+background-clip:text;
+color:transparent;
+}
+
+header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:12px 2px 22px;
+}
+
+.pill,.secondary{
+border:1px solid var(--line);
+background:rgba(255,255,255,.09);
+color:white;
+padding:11px 14px;
+border-radius:12px;
+}
+
+.hero{
+border-radius:28px;
+min-height:250px;
+padding:26px 23px;
+background:
+linear-gradient(90deg,rgba(15,10,35,.94),rgba(15,10,35,.48)),
+url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&auto=format&fit=crop&q=85')
+center/cover;
+border:1px solid var(--line);
+box-shadow:0 18px 45px #0005;
+}
+
+.eyebrow{
+font-size:11px;
+font-weight:800;
+letter-spacing:2px;
+color:#ffb5d4;
+}
+
+.hero h1{
+font-size:clamp(30px,7vw,46px);
+line-height:1.05;
+margin:12px 0;
+}
+
+.hero p{
+max-width:390px;
+color:#eee7ff;
+line-height:1.6;
+}
+
+.gradient-btn{
+border:0;
+border-radius:13px;
+padding:13px 18px;
+font-weight:800;
+color:#21102d;
+background:linear-gradient(100deg,#ff8ab8,#ffd166);
+box-shadow:0 7px 22px #ff6fae33;
+}
+
+.card{
+background:var(--panel);
+backdrop-filter:blur(16px);
+border:1px solid var(--line);
+border-radius:22px;
+padding:19px;
+margin:16px 0;
+box-shadow:0 14px 35px #0002;
+}
+
+.card h2{font-size:19px;margin:0 0 14px}
+
+.section-title{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin:24px 2px 8px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.stat{
+padding:15px 9px;
+text-align:center;
+border:1px solid var(--line);
+border-radius:17px;
+background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035));
+}
+
+.stat strong{
+display:block;
+font-size:27px;
+color:var(--blue);
+}
+
+.stat:nth-child(2) strong{color:var(--pink)}
+.stat:nth-child(3) strong{color:var(--gold)}
+.stat span{font-size:11px;color:var(--muted)}
+
+.progress{
+height:11px;
+background:#ffffff20;
+border-radius:99px;
+overflow:hidden;
+margin:14px 0 8px;
+}
+
+.progress>div{
+height:100%;
+width:0;
+background:linear-gradient(90deg,var(--pink),var(--gold),var(--blue));
+border-radius:99px;
+transition:width .3s;
+}
+
+.habit{
+display:flex;
+align-items:center;
+gap:12px;
+padding:12px 2px;
+border-bottom:1px solid var(--line);
+}
+
+.habit input{
+width:20px;
+height:20px;
+accent-color:var(--pink);
+}
+
+.habit span{flex:1}
+.habit.done span{
+text-decoration:line-through;
+color:var(--muted);
+}
+
+.quote{
+background:linear-gradient(110deg,#653b83,#1b5b79);
+border:0;
+}
+
+.quote p{
+font-size:18px;
+line-height:1.5;
+}
+
+.photo-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.photo-tile{
+min-height:145px;
+border:1px dashed #ffffff55;
+border-radius:16px;
+overflow:hidden;
+display:grid;
+place-items:center;
+background:#ffffff0b;
+position:relative;
+text-align:center;
+}
+
+.photo-tile img{
+width:100%;
+height:100%;
+min-height:145px;
+object-fit:cover;
+position:absolute;
+inset:0;
+}
+
+.photo-tile label{
+z-index:1;
+background:#100b25cc;
+padding:9px 12px;
+border-radius:10px;
+font-size:12px;
+}
+
+.photo-tile input{display:none}
+
+.field{
+display:block;
+margin:12px 0 5px;
+font-size:13px;
+color:#e7ddff;
+}
+
+.input,textarea{
+width:100%;
+padding:13px 14px;
+margin:6px 0;
+background:#100d25;
+color:white;
+border:1px solid var(--line);
+border-radius:12px;
+outline:none;
+}
+
+.input:focus,textarea:focus{
+border-color:var(--blue);
+}
+
+textarea{
+min-height:85px;
+resize:vertical;
+}
+
+.two{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.chart-wrap{
+height:210px;
+width:100%;
+}
+
+.chart-wrap canvas{
+width:100%;
+height:100%;
+}
+
+.full{
+width:100%;
+margin-top:9px;
+}
+
+.nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+z-index:10;
+display:flex;
+justify-content:center;
+gap:5px;
+padding:9px 5px calc(9px + env(safe-area-inset-bottom));
+background:rgba(15,11,35,.94);
+backdrop-filter:blur(18px);
+border-top:1px solid var(--line);
+}
+
+.nav button{
+flex:1;
+max-width:130px;
+background:transparent;
+border:0;
+color:#b9b1d0;
+padding:7px 2px;
+font-size:11px;
+}
+
+.nav button b{
+display:block;
+font-size:20px;
+margin-bottom:2px;
+}
+
+.nav button.active{color:#ff91c5}
+
+.notice{
+background:#30264c;
+border:1px solid var(--line);
+border-radius:12px;
+padding:12px;
+margin:10px 0;
+color:#ffe5f1;
+}
+
+.auth{
+max-width:440px;
+margin:10vh auto;
+padding:20px;
+}
+
+.auth .hero{min-height:180px}
+
+.toast{
+position:fixed;
+top:12px;
+left:50%;
+transform:translateX(-50%);
+z-index:20;
+background:#173d43;
+border:1px solid #70e1b2;
+padding:11px 16px;
+border-radius:12px;
+}
+
+@media(max-width:430px){
+.app{padding-left:13px;padding-right:13px}
+.card{padding:16px}
+.stats{gap:7px}
+.stat strong{font-size:23px}
+.hero{padding:22px 18px}
+}
 </style>
 </head>
 
 <body>
 
 <div id="authScreen" class="auth">
-  <div class="logo">❄ WINTER ARC 90</div>
-  <h1>Your new beginning.</h1>
-  <p class="muted">90 days. One commitment. A stronger you.</p>
 
-  <div class="card">
-    <input id="email" type="email" placeholder="Email address" autocomplete="email">
-    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+<div class="hero">
+<div class="eyebrow">YOUR NEXT CHAPTER STARTS NOW</div>
+<h1>Winter Arc <span style="color:#ff91c5">90</span> ❄️</h1>
+<p>90 days of showing up, growing stronger and becoming your own favourite version.</p>
+</div>
 
-    <button class="primary" id="loginBtn">Log In</button>
-    <button class="secondary" id="registerBtn" style="width:100%;margin-top:10px">Create Account</button>
-    <button class="secondary" id="resetBtn" style="width:100%;margin-top:10px">Forgot Password?</button>
+<div class="card">
+<h2>Welcome back ✨</h2>
 
-    <p id="authMessage" class="notice hidden" role="status"></p>
-  </div>
-  <p class="muted small">Your account and personal records are private.</p>
+<input class="input" id="email" type="email" placeholder="Email address">
+
+<input class="input" id="password" type="password" placeholder="Password">
+
+<button class="gradient-btn full" id="loginBtn">Log in</button>
+
+<button class="secondary full" id="registerBtn">Create account</button>
+
+<button class="secondary full" id="resetBtn">Forgot password?</button>
+
+<p id="authMessage" class="notice hidden"></p>
+</div>
+
+<p class="muted small" style="text-align:center">
+Your journal is linked to your Firebase account.
+</p>
+
 </div>
 
 <div id="mainApp" class="app hidden">
 
 <header>
-  <div class="logo">❄ Winter Arc 90</div>
-  <button class="secondary" id="logoutBtn">Log out</button>
+<div class="logo">❄ WINTER ARC 90</div>
+<button class="pill" id="logoutBtn">Log out ↗</button>
 </header>
 
 <section id="homePage">
-  <p class="muted">YOUR PERSONAL TRANSFORMATION</p>
-  <h1>Welcome to your Winter Arc.</h1>
-  <p class="muted" id="todayText"></p>
 
-  <div class="card">
-    <h2>Your 90-day journey</h2>
-    <div class="row">
-      <div class="stat"><strong id="dayNumber">1</strong><span class="small">Current day</span></div>
-      <div class="stat"><strong id="daysLeft">89</strong><span class="small">Days remaining</span></div>
-      <div class="stat"><strong id="completion">0%</strong><span class="small">Today's habits</span></div>
-    </div>
-    <div class="progress"><div id="mainProgress"></div></div>
-    <p class="muted small" id="startText"></p>
-  </div>
+<div class="hero">
+<div class="eyebrow">YOUR PERSONAL TRANSFORMATION</div>
 
-  <div class="card">
-    <h2>Today's habits</h2>
-    <div id="habitList"></div>
-    <p class="muted small">Your daily checklist saves automatically.</p>
-  </div>
+<h1>Make this season<br>your strongest yet.</h1>
 
-  <div class="card">
-    <h2>Daily motivation</h2>
-    <p id="quote">Small steps every day create extraordinary change.</p>
-  </div>
-</section>
+<p id="todayText"></p>
 
-<section id="foodPage" class="hidden">
-  <p class="muted">NUTRITION JOURNAL</p>
-  <h1>Food & Nutrition</h1>
-  <div class="card">
-    <h2>Today's food diary</h2>
-    <label>Breakfast</label>
-    <textarea id="breakfast" placeholder="What did you eat?"></textarea>
-    <label>Lunch</label>
-    <textarea id="lunch" placeholder="What did you eat?"></textarea>
-    <label>Dinner</label>
-    <textarea id="dinner" placeholder="What did you eat?"></textarea>
-    <label>Snacks</label>
-    <textarea id="snacks" placeholder="Any snacks?"></textarea>
-    <label>Water intake (glasses)</label>
-    <input id="water" type="number" min="0" max="50" placeholder="8">
-    <button class="primary saveBtn" data-type="food">Save Food Diary</button>
-  </div>
-</section>
+<button class="gradient-btn" onclick="document.getElementById('habitCard').scrollIntoView({behavior:'smooth'})">
+Start today's habits ✨
+</button>
+</div>
 
-<section id="fitnessPage" class="hidden">
-  <p class="muted">MOVEMENT & EXERCISE</p>
-  <h1>Fitness Tracker</h1>
-  <div class="card">
-    <h2>Today's workout</h2>
-    <label>Workout activity</label>
-    <textarea id="workout" placeholder="Walking, gym, yoga, running..."></textarea>
-    <label>Workout duration (minutes)</label>
-    <input id="duration" type="number" min="0" placeholder="30">
-    <label>Steps taken</label>
-    <input id="steps" type="number" min="0" placeholder="5000">
-    <label>How did you feel?</label>
-    <textarea id="fitnessNotes" placeholder="Describe your energy and mood..."></textarea>
-    <button class="primary saveBtn" data-type="fitness">Save Fitness Record</button>
-  </div>
-</section>
+<div class="section-title">
+<h2>Your 90-day journey</h2>
+<span class="muted small" id="startText"></span>
+</div>
 
-<section id="progressPage" class="hidden">
-  <p class="muted">YOUR JOURNEY SO FAR</p>
-  <h1>Progress</h1>
-  <div class="card">
-    <h2>Your statistics</h2>
-    <div class="row">
-      <div class="stat"><strong id="totalHabits">0</strong><span class="small">Habits completed</span></div>
-      <div class="stat"><strong id="totalWorkouts">0</strong><span class="small">Workout days</span></div>
-    </div>
-    <div style="margin-top:20px">
-      <h3>90-day challenge</h3>
-      <div class="progress"><div id="progressBar"></div></div>
-      <p id="progressLabel" class="muted small">0 of 90 days completed</p>
-    </div>
-  </div>
-  <div class="card">
-    <h2>Daily reflection</h2>
-    <textarea id="reflection" placeholder="What went well today? What can you improve tomorrow?"></textarea>
-    <button class="primary" id="saveReflection">Save Reflection</button>
-  </div>
-</section>
+<div class="card">
+<div class="stats">
+
+<div class="stat">
+<strong id="dayNumber">1</strong>
+<span>CHALLENGE DAY</span>
+</div>
+
+<div class="stat">
+<strong id="streak">0 🔥</strong>
+<span>DAY STREAK</span>
+</div>
+
+<div class="stat">
+<strong id="completion">0%</strong>
+<span>TODAY'S HABITS</span>
+</div>
 
 </div>
 
+<div class="progress"><div id="mainProgress"></div></div>
+
+<p class="muted small" id="daysLabel"></p>
+</div>
+
+<div class="card" id="habitCard">
+<h2>Today's habits 🌈</h2>
+<div id="habitList"></div>
+<p class="muted small">Tick each habit as you complete it. Changes save automatically.</p>
+</div>
+
+<div class="card quote">
+<div class="eyebrow">A LITTLE REMINDER</div>
+<p id="quote">Small steps every day create extraordinary change.</p>
+<span class="small">Keep your promise to yourself. 💜</span>
+</div>
+
+<div class="card">
+<h2>Progress photos 📸</h2>
+<p class="muted small">Photos stay on this device and are not uploaded to Firebase.</p>
+
+<div class="photo-grid">
+<div class="photo-tile" id="beforeTile">
+<label for="beforePhoto">＋ Add starting photo</label>
+<input id="beforePhoto" type="file" accept="image/*">
+</div>
+
+<div class="photo-tile" id="afterTile">
+<label for="afterPhoto">＋ Add latest photo</label>
+<input id="afterPhoto" type="file" accept="image/*">
+</div>
+</div>
+</div>
+
+</section>
+
+<section id="foodPage" class="hidden">
+
+<div class="hero" style="min-height:180px;background-image:linear-gradient(90deg,rgba(15,10,35,.92),rgba(15,10,35,.3)),url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1000&auto=format&fit=crop&q=85')">
+
+<div class="eyebrow">NOURISH TO FLOURISH</div>
+<h1>Food & nutrition 🥑</h1>
+<p>Fuel your day with meals that make you feel good.</p>
+
+</div>
+
+<div class="card">
+<h2>Today's food diary</h2>
+
+<label class="field">Breakfast</label>
+<textarea id="breakfast" placeholder="Oats, fruit, eggs..."></textarea>
+
+<label class="field">Lunch</label>
+<textarea id="lunch" placeholder="What did you enjoy?"></textarea>
+
+<label class="field">Dinner</label>
+<textarea id="dinner" placeholder="A nourishing dinner..."></textarea>
+
+<label class="field">Snacks</label>
+<textarea id="snacks" placeholder="Snacks and treats..."></textarea>
+
+<div class="two">
+
+<div>
+<label class="field">Water (glasses)</label>
+<input class="input" id="water" type="number" min="0" max="50">
+</div>
+
+<div>
+<label class="field">Weight (kg)</label>
+<input class="input" id="weight" type="number" min="0" step=".1">
+</div>
+
+</div>
+
+<button class="gradient-btn full" id="saveFood">Save food diary 💗</button>
+</div>
+
+<div class="card">
+<h2>Weight journey ⚖️</h2>
+<p class="muted small">Focus on strength, energy and healthy habits.</p>
+<div class="chart-wrap"><canvas id="weightChart"></canvas></div>
+<p class="muted small" id="weightLabel"></p>
+</div>
+
+</section>
+
+<section id="fitnessPage" class="hidden">
+
+<div class="hero" style="min-height:180px;background-image:linear-gradient(90deg,rgba(15,10,35,.92),rgba(15,10,35,.3)),url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&auto=format&fit=crop&q=85')">
+
+<div class="eyebrow">MOVE WITH PURPOSE</div>
+<h1>Fitness & movement 💪</h1>
+<p>Every bit of movement counts.</p>
+
+</div>
+
+<div class="card">
+<h2>Today's workout</h2>
+
+<label class="field">Activity</label>
+<textarea id="workout" placeholder="Walking, gym, yoga, dance..."></textarea>
+
+<div class="two">
+
+<div>
+<label class="field">Minutes</label>
+<input class="input" id="duration" type="number" min="0">
+</div>
+
+<div>
+<label class="field">Steps</label>
+<input class="input" id="steps" type="number" min="0">
+</div>
+
+</div>
+
+<label class="field">Mood / energy after movement</label>
+<textarea id="fitnessNotes" placeholder="How did you feel?"></textarea>
+
+<button class="gradient-btn full" id="saveFitness">Save workout 🔥</button>
+</div>
+
+<div class="card">
+<h2>Weekly movement</h2>
+<div class="chart-wrap"><canvas id="activityChart"></canvas></div>
+</div>
+
+</section>
+
+<section id="progressPage" class="hidden">
+
+<div class="hero" style="min-height:180px;background-image:linear-gradient(90deg,rgba(15,10,35,.92),rgba(15,10,35,.3)),url('https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1000&auto=format&fit=crop&q=85')">
+
+<div class="eyebrow">LOOK HOW FAR YOU'VE COME</div>
+<h1>Your progress ✨</h1>
+<p>Consistency over perfection. Every check-in matters.</p>
+
+</div>
+
+<div class="card">
+<h2>Your challenge stats</h2>
+
+<div class="stats">
+<div class="stat"><strong id="totalHabits">0</strong><span>HABITS DONE</span></div>
+<div class="stat"><strong id="totalWorkouts">0</strong><span>WORKOUT DAYS</span></div>
+<div class="stat"><strong id="bestStreak">0</strong><span>BEST STREAK</span></div>
+</div>
+
+<div class="progress"><div id="progressBar"></div></div>
+<p class="muted small" id="progressLabel"></p>
+</div>
+
+<div class="card">
+<h2>Weekly habit consistency 🌟</h2>
+<div class="chart-wrap"><canvas id="habitChart"></canvas></div>
+</div>
+
+<div class="card">
+<h2>Daily reflection 📝</h2>
+<textarea id="reflection" placeholder="What went well today? What are you proud of?"></textarea>
+<button class="gradient-btn full" id="saveReflection">Save reflection</button>
+</div>
+
+</section>
+</div>
+
 <nav id="navigation" class="nav hidden">
-  <button class="active" data-page="homePage">⌂<br>Home</button>
-  <button data-page="foodPage">♧<br>Food</button>
-  <button data-page="fitnessPage">✦<br>Fitness</button>
-  <button data-page="progressPage">▥<br>Progress</button>
+<button class="active" data-page="homePage"><b>⌂</b>Home</button>
+<button data-page="foodPage"><b>🥑</b>Food</button>
+<button data-page="fitnessPage"><b>⚡</b>Fitness</button>
+<button data-page="progressPage"><b>✦</b>Progress</button>
 </nav>
+
+<div id="toast" class="toast hidden"></div>
 
 <script type="module">
 
@@ -173,347 +616,549 @@ import {initializeApp}
 from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 
 import {
- getAuth,
- createUserWithEmailAndPassword,
- signInWithEmailAndPassword,
- sendPasswordResetEmail,
- onAuthStateChanged,
- signOut
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+sendPasswordResetEmail,
+onAuthStateChanged,
+signOut
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
 import {
- getFirestore,
- doc,
- getDoc,
- setDoc
+getFirestore,
+doc,
+getDoc,
+setDoc
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 const firebaseConfig = {
- apiKey: "AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",
- authDomain: "winterarc90web-5d889.firebaseapp.com",
- projectId: "winterarc90web-5d889",
- storageBucket: "winterarc90web-5d889.firebasestorage.app",
- messagingSenderId: "53251809201",
- appId: "1:53251809201:web:565ee6e61037a038692790"
+apiKey:"AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",
+authDomain:"winterarc90web-5d889.firebaseapp.com",
+projectId:"winterarc90web-5d889",
+storageBucket:"winterarc90web-5d889.firebasestorage.app",
+messagingSenderId:"53251809201",
+appId:"1:53251809201:web:565ee6e61037a038692790"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 
-let currentUser = null;
-let userData = {};
-let currentDate = localDate();
-let saving = false;
+let currentUser=null;
+let userData={};
+let currentDate=localDate();
+
+const habits=[
+"Wake up on time",
+"Drink enough water",
+"Move your body",
+"Eat nourishing meals",
+"Read or learn something",
+"Take a mindful break",
+"Sleep on time"
+];
+
+const quotes=[
+"You do not need to be perfect. You just need to keep showing up. 💜",
+"One small promise kept today becomes confidence tomorrow. ✨",
+"Your pace is valid. Keep moving forward. 🌷",
+"Progress is built on the days you feel like giving up. 🔥",
+"Be proud of the effort nobody else sees. 🌙"
+];
 
 function localDate(){
- const d = new Date();
- return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const d=new Date();
+return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 }
 
-function showMessage(message,isError=false){
- const el=document.getElementById("authMessage");
- el.textContent=message;
- el.classList.remove("hidden","error");
- if(isError)el.classList.add("error");
+function dayData(date=currentDate){
+return userData.days?.[date]||{};
 }
 
-function firebaseError(error){
- const messages={
-  "auth/email-already-in-use":"This email already has an account. Please log in.",
-  "auth/invalid-email":"Please enter a valid email address.",
-  "auth/weak-password":"Choose a stronger password with at least 6 characters.",
-  "auth/invalid-credential":"Email or password is incorrect.",
-  "auth/user-not-found":"No account was found with this email.",
-  "auth/wrong-password":"Incorrect password.",
-  "auth/too-many-requests":"Too many attempts. Please try again later.",
-  "auth/network-request-failed":"Network error. Check your internet connection."
- };
- return messages[error.code] || error.message || "Something went wrong.";
+function toast(msg){
+const t=document.getElementById("toast");
+t.textContent=msg;
+t.classList.remove("hidden");
+setTimeout(()=>t.classList.add("hidden"),2200);
 }
 
-function getDay(){
- return userData.days?.[currentDate] || {};
+function authMessage(msg){
+const e=document.getElementById("authMessage");
+e.textContent=msg;
+e.classList.remove("hidden");
 }
 
 async function saveData(){
- if(!currentUser || saving)return false;
-
- saving=true;
- try{
-  await setDoc(doc(db,"users",currentUser.uid),userData);
-  return true;
- }catch(e){
-  alert("Save failed: "+e.message);
-  return false;
- }finally{
-  saving=false;
- }
+if(!currentUser)return;
+await setDoc(doc(db,"users",currentUser.uid),userData);
 }
 
 async function loadData(user){
- currentUser=user;
+currentUser=user;
+const snap=await getDoc(doc(db,"users",user.uid));
 
- const ref=doc(db,"users",user.uid);
- const snap=await getDoc(ref);
-
- if(snap.exists()){
-  userData=snap.data();
-  if(!userData.startDate)userData.startDate=currentDate;
-  if(!userData.days)userData.days={};
- }else{
-  userData={
-   startDate:currentDate,
-   days:{}
-  };
-  await setDoc(ref,userData);
- }
-
- document.getElementById("authScreen").classList.add("hidden");
- document.getElementById("mainApp").classList.remove("hidden");
- document.getElementById("navigation").classList.remove("hidden");
-
- render();
+if(snap.exists()){
+userData=snap.data();
+}else{
+userData={startDate:currentDate,days:{}};
+await saveData();
 }
 
-const habits=[
- "Wake up on time",
- "Drink enough water",
- "Exercise or move",
- "Eat balanced meals",
- "Read or learn something",
- "Limit unnecessary screen time",
- "Sleep on time"
-];
+if(!userData.days)userData.days={};
+if(!userData.startDate)userData.startDate=currentDate;
+
+document.getElementById("authScreen").classList.add("hidden");
+document.getElementById("mainApp").classList.remove("hidden");
+document.getElementById("navigation").classList.remove("hidden");
+
+render();
+}
+
+function challengeDay(){
+const start=new Date(userData.startDate+"T00:00:00");
+const today=new Date(currentDate+"T00:00:00");
+return Math.min(90,Math.max(1,Math.floor((today-start)/86400000)+1));
+}
+
+function completedCount(d){
+return habits.filter((_,i)=>!!d["habit"+i]).length;
+}
+
+function streakInfo(){
+let streak=0,best=0,run=0;
+const start=new Date(userData.startDate+"T00:00:00");
+const today=new Date(currentDate+"T00:00:00");
+const days=Math.min(90,Math.max(1,Math.floor((today-start)/86400000)+1));
+
+for(let i=0;i<days;i++){
+const dt=new Date(start);
+dt.setDate(start.getDate()+i);
+const key=dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+const full=completedCount(dayData(key))===habits.length;
+
+if(full){
+run++;
+best=Math.max(best,run);
+}else{
+run=0;
+}
+}
+
+for(let i=days-1;i>=0;i--){
+const dt=new Date(start);
+dt.setDate(start.getDate()+i);
+const key=dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+
+if(completedCount(dayData(key))===habits.length){
+streak++;
+}else{
+break;
+}
+}
+
+return{streak,best};
+}
 
 async function updateDay(key,value){
- if(!userData.days[currentDate])userData.days[currentDate]={};
- userData.days[currentDate][key]=value;
+if(!userData.days[currentDate]){
+userData.days[currentDate]={};
+}
 
- renderStats();
- await saveData();
+userData.days[currentDate][key]=value;
+
+try{
+await saveData();
+renderStats();
+}catch(e){
+toast("Save failed: "+e.message);
+}
 }
 
 function renderHabits(){
- const list=document.getElementById("habitList");
- list.innerHTML="";
- const day=getDay();
+const list=document.getElementById("habitList");
+list.innerHTML="";
+const day=dayData();
 
- habits.forEach((habit,i)=>{
-  const label=document.createElement("label");
-  label.className="check";
+habits.forEach((habit,i)=>{
+const label=document.createElement("label");
+label.className="habit"+(day["habit"+i]?" done":"");
 
-  const input=document.createElement("input");
-  input.type="checkbox";
-  input.checked=!!day["habit"+i];
+const input=document.createElement("input");
+input.type="checkbox";
+input.checked=!!day["habit"+i];
 
-  input.addEventListener("change",()=>{
-   updateDay("habit"+i,input.checked);
-  });
+input.addEventListener("change",async()=>{
+label.classList.toggle("done",input.checked);
+await updateDay("habit"+i,input.checked);
+});
 
-  const span=document.createElement("span");
-  span.textContent=habit;
+const span=document.createElement("span");
+span.textContent=habit;
 
-  label.append(input,span);
-  list.appendChild(label);
- });
+label.append(input,span);
+list.append(label);
+});
 }
 
 function renderStats(){
- const day=getDay();
- const done=habits.filter((h,i)=>day["habit"+i]).length;
- const percent=Math.round(done/habits.length*100);
+const day=dayData();
+const done=completedCount(day);
+const percent=Math.round(done/habits.length*100);
+const d=challengeDay();
+const s=streakInfo();
 
- document.getElementById("completion").textContent=percent+"%";
+document.getElementById("completion").textContent=percent+"%";
+document.getElementById("mainProgress").style.width=(d/90*100)+"%";
+document.getElementById("dayNumber").textContent=d;
+document.getElementById("streak").textContent=s.streak+" 🔥";
+document.getElementById("daysLabel").textContent=(90-d)+" days to go — keep going!";
 
- let total=0,workouts=0,completedDays=0;
+let total=0,workouts=0;
 
- Object.values(userData.days||{}).forEach(d=>{
-  const count=habits.filter((h,i)=>d["habit"+i]).length;
-  total+=count;
+Object.values(userData.days||{}).forEach(x=>{
+total+=completedCount(x);
+if(x.workout&&x.workout.trim())workouts++;
+});
 
-  if(count===habits.length)completedDays++;
-  if(d.workout && d.workout.trim())workouts++;
- });
+document.getElementById("totalHabits").textContent=total;
+document.getElementById("totalWorkouts").textContent=workouts;
+document.getElementById("bestStreak").textContent=s.best;
+document.getElementById("progressBar").style.width=(d/90*100)+"%";
+document.getElementById("progressLabel").textContent="Day "+d+" of 90";
 
- document.getElementById("totalHabits").textContent=total;
- document.getElementById("totalWorkouts").textContent=workouts;
-
- const start=new Date(userData.startDate+"T00:00:00");
- const today=new Date(currentDate+"T00:00:00");
- const diff=Math.max(0,Math.floor((today-start)/86400000));
- const current=Math.min(90,diff+1);
-
- document.getElementById("dayNumber").textContent=current;
- document.getElementById("daysLeft").textContent=90-current;
-
- const challengePercent=Math.round(current/90*100);
- document.getElementById("mainProgress").style.width=challengePercent+"%";
- document.getElementById("progressBar").style.width=challengePercent+"%";
-
- document.getElementById("progressLabel").textContent=
- completedDays+" fully completed days. Day "+current+" of 90.";
+drawCharts();
 }
 
 function render(){
- currentDate=localDate();
+currentDate=localDate();
 
- document.getElementById("todayText").textContent=
-  new Date().toLocaleDateString(undefined,{
-   weekday:"long",year:"numeric",month:"long",day:"numeric"
-  });
+document.getElementById("todayText").textContent=
+new Date().toLocaleDateString(undefined,{
+weekday:"long",
+year:"numeric",
+month:"long",
+day:"numeric"
+});
 
- document.getElementById("startText").textContent=
-  "Challenge started: "+userData.startDate;
+document.getElementById("startText").textContent=
+"Started "+userData.startDate;
 
- const day=getDay();
+const day=dayData();
 
- [
-  "breakfast","lunch","dinner","snacks","water",
-  "workout","duration","steps","fitnessNotes","reflection"
- ].forEach(id=>{
-  document.getElementById(id).value=day[id]??"";
- });
+[
+"breakfast","lunch","dinner","snacks","water","weight",
+"workout","duration","steps","fitnessNotes","reflection"
+].forEach(id=>{
+const el=document.getElementById(id);
+if(el)el.value=day[id]??"";
+});
 
- renderHabits();
- renderStats();
+document.getElementById("quote").textContent=
+quotes[challengeDay()%quotes.length];
+
+renderHabits();
+renderStats();
+loadPhoto("before");
+loadPhoto("after");
 }
 
-async function runAuth(action){
- const buttons=["loginBtn","registerBtn","resetBtn"];
- buttons.forEach(id=>document.getElementById(id).disabled=true);
+async function saveFields(ids){
+const d=dayData();
 
- try{
-  await action();
- }catch(e){
-  showMessage(firebaseError(e),true);
- }finally{
-  buttons.forEach(id=>document.getElementById(id).disabled=false);
- }
+ids.forEach(id=>{
+d[id]=document.getElementById(id).value.trim();
+});
+
+userData.days[currentDate]=d;
+
+try{
+await saveData();
+toast("Saved successfully ✨");
+renderStats();
+}catch(e){
+toast("Save failed: "+e.message);
+}
 }
 
-document.getElementById("registerBtn").onclick=()=>{
- runAuth(async()=>{
-  const email=document.getElementById("email").value.trim();
-  const password=document.getElementById("password").value;
+document.getElementById("registerBtn").onclick=async()=>{
+try{
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
 
-  if(!email)throw Error("Please enter your email address.");
-  if(password.length<6)throw Error("Password must contain at least 6 characters.");
+if(password.length<6){
+throw Error("Password must contain at least 6 characters.");
+}
 
-  await createUserWithEmailAndPassword(auth,email,password);
- });
+await createUserWithEmailAndPassword(auth,email,password);
+
+}catch(e){
+authMessage(e.message);
+}
 };
 
-document.getElementById("loginBtn").onclick=()=>{
- runAuth(async()=>{
-  const email=document.getElementById("email").value.trim();
-  const password=document.getElementById("password").value;
-
-  if(!email || !password)throw Error("Enter your email and password.");
-
-  await signInWithEmailAndPassword(auth,email,password);
- });
+document.getElementById("loginBtn").onclick=async()=>{
+try{
+await signInWithEmailAndPassword(
+auth,
+document.getElementById("email").value.trim(),
+document.getElementById("password").value
+);
+}catch(e){
+authMessage(e.message);
+}
 };
 
-document.getElementById("resetBtn").onclick=()=>{
- runAuth(async()=>{
-  const email=document.getElementById("email").value.trim();
+document.getElementById("resetBtn").onclick=async()=>{
+try{
+const email=document.getElementById("email").value.trim();
 
-  if(!email)throw Error("Enter your email address first.");
+if(!email)throw Error("Enter your email first.");
 
-  await sendPasswordResetEmail(auth,email);
-  showMessage("Password reset email sent. Check your inbox.");
- });
+await sendPasswordResetEmail(auth,email);
+authMessage("Password reset email sent. Check your inbox.");
+
+}catch(e){
+authMessage(e.message);
+}
 };
 
-document.getElementById("logoutBtn").onclick=async()=>{
- try{
-  await signOut(auth);
- }catch(e){
-  alert(e.message);
- }
+document.getElementById("logoutBtn").onclick=()=>{
+signOut(auth);
 };
 
 document.querySelectorAll(".nav button").forEach(btn=>{
- btn.onclick=()=>{
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
+btn.onclick=()=>{
+document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
 
-  document.querySelectorAll("#mainApp section").forEach(s=>s.classList.add("hidden"));
+document.querySelectorAll("#mainApp section").forEach(s=>s.classList.add("hidden"));
 
-  document.getElementById(btn.dataset.page).classList.remove("hidden");
- };
+document.getElementById(btn.dataset.page).classList.remove("hidden");
+
+drawCharts();
+};
 });
 
-function readFields(ids){
- const result={};
-
- ids.forEach(id=>{
-  const el=document.getElementById(id);
-  result[id]=el.value;
- });
-
- return result;
-}
-
-document.querySelectorAll(".saveBtn").forEach(btn=>{
- btn.onclick=async()=>{
-  const day=getDay();
-
-  if(!userData.days[currentDate])userData.days[currentDate]={};
-
-  if(btn.dataset.type==="food"){
-   Object.assign(day,readFields([
-    "breakfast","lunch","dinner","snacks","water"
-   ]));
-  }else{
-   Object.assign(day,readFields([
-    "workout","duration","steps","fitnessNotes"
-   ]));
-  }
-
-  const success=await saveData();
-
-  if(success){
-   alert("Your record has been saved!");
-   renderStats();
-  }
- };
-});
-
-document.getElementById("saveReflection").onclick=async()=>{
- const success=await updateDay(
-  "reflection",
-  document.getElementById("reflection").value
- );
-
- if(success!==false){
-  alert("Reflection saved!");
- }
+document.getElementById("saveFood").onclick=()=>{
+saveFields(["breakfast","lunch","dinner","snacks","water","weight"]);
 };
 
-onAuthStateChanged(auth,async user=>{
- if(user){
-  try{
-   await loadData(user);
-  }catch(e){
-   currentUser=null;
-   document.getElementById("mainApp").classList.add("hidden");
-   document.getElementById("navigation").classList.add("hidden");
-   document.getElementById("authScreen").classList.remove("hidden");
-   showMessage("Unable to load your account: "+e.message,true);
-  }
- }else{
-  currentUser=null;
-  userData={};
+document.getElementById("saveFitness").onclick=()=>{
+saveFields(["workout","duration","steps","fitnessNotes"]);
+};
 
-  document.getElementById("authScreen").classList.remove("hidden");
-  document.getElementById("mainApp").classList.add("hidden");
-  document.getElementById("navigation").classList.add("hidden");
- }
+document.getElementById("saveReflection").onclick=()=>{
+saveFields(["reflection"]);
+};
+
+function drawChart(id,values,labels){
+const canvas=document.getElementById(id);
+if(!canvas)return;
+
+const rect=canvas.getBoundingClientRect();
+const w=Math.max(280,rect.width*devicePixelRatio);
+const h=Math.max(160,rect.height*devicePixelRatio);
+
+canvas.width=w;
+canvas.height=h;
+
+const c=canvas.getContext("2d");
+c.clearRect(0,0,w,h);
+
+const pad=32*devicePixelRatio;
+const usableW=w-pad*1.5;
+const usableH=h-pad*1.5;
+
+const nums=values.map(v=>Number(v)||0);
+const max=Math.max(1,...nums);
+const min=Math.min(0,...nums);
+
+c.strokeStyle="rgba(255,255,255,.15)";
+c.lineWidth=devicePixelRatio;
+
+for(let j=0;j<4;j++){
+const y=pad+j*usableH/3;
+c.beginPath();
+c.moveTo(pad,y);
+c.lineTo(w-pad/2,y);
+c.stroke();
+}
+
+if(!nums.length)return;
+
+const pts=nums.map((v,i)=>({
+x:pad+(nums.length===1?usableW/2:i*usableW/(nums.length-1)),
+y:pad+usableH-(v-min)/(max-min||1)*usableH
+}));
+
+const grad=c.createLinearGradient(0,pad,0,h-pad);
+grad.addColorStop(0,"rgba(255,111,174,.38)");
+grad.addColorStop(1,"rgba(105,213,255,.02)");
+
+c.beginPath();
+pts.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));
+c.lineTo(pts[pts.length-1].x,h-pad/2);
+c.lineTo(pts[0].x,h-pad/2);
+c.closePath();
+c.fillStyle=grad;
+c.fill();
+
+c.beginPath();
+pts.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));
+c.strokeStyle="#ff91c5";
+c.lineWidth=3*devicePixelRatio;
+c.stroke();
+
+pts.forEach((p,i)=>{
+c.beginPath();
+c.arc(p.x,p.y,4*devicePixelRatio,0,Math.PI*2);
+c.fillStyle="#7bdcff";
+c.fill();
+
+if(labels[i]){
+c.fillStyle="#c4bddb";
+c.textAlign="center";
+c.font=(10*devicePixelRatio)+"px system-ui";
+c.fillText(labels[i],p.x,h-5*devicePixelRatio);
+}
+});
+}
+
+function lastSeven(){
+const labels=[],keys=[];
+
+for(let i=6;i>=0;i--){
+const d=new Date(currentDate+"T00:00:00");
+d.setDate(d.getDate()-i);
+
+keys.push(
+d.getFullYear()+"-"+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+String(d.getDate()).padStart(2,"0")
+);
+
+labels.push(d.toLocaleDateString(undefined,{weekday:"short"}));
+}
+
+return{keys,labels};
+}
+
+function drawCharts(){
+const {keys,labels}=lastSeven();
+
+drawChart(
+"weightChart",
+keys.map(k=>dayData(k).weight||0),
+labels
+);
+
+const weights=keys.map(k=>Number(dayData(k).weight)||0).filter(Boolean);
+
+document.getElementById("weightLabel").textContent=
+weights.length?
+"Latest logged weight: "+weights[weights.length-1]+" kg":
+"Add a weight entry to see your trend.";
+
+drawChart(
+"activityChart",
+keys.map(k=>Number(dayData(k).duration)||0),
+labels
+);
+
+drawChart(
+"habitChart",
+keys.map(k=>completedCount(dayData(k))),
+labels
+);
+}
+
+function photoKey(which){
+return "winterarc90-photo-"+(currentUser?.uid||"guest")+"-"+which;
+}
+
+function loadPhoto(which){
+const tile=document.getElementById(which+"Tile");
+if(!tile)return;
+
+const old=tile.querySelector("img");
+if(old)old.remove();
+
+const src=localStorage.getItem(photoKey(which));
+
+if(src){
+const img=document.createElement("img");
+img.src=src;
+tile.prepend(img);
+
+const label=tile.querySelector("label");
+label.textContent=which==="before"?
+"Change starting photo":
+"Change latest photo";
+}
+}
+
+async function compressPhoto(file){
+return new Promise((resolve,reject)=>{
+const reader=new FileReader();
+
+reader.onerror=reject;
+
+reader.onload=()=>{
+const img=new Image();
+
+img.onload=()=>{
+const scale=Math.min(1,900/Math.max(img.width,img.height));
+
+const canvas=document.createElement("canvas");
+canvas.width=Math.round(img.width*scale);
+canvas.height=Math.round(img.height*scale);
+
+canvas.getContext("2d").drawImage(
+img,0,0,canvas.width,canvas.height
+);
+
+resolve(canvas.toDataURL("image/jpeg",.78));
+};
+
+img.onerror=reject;
+img.src=reader.result;
+};
+
+reader.readAsDataURL(file);
+});
+}
+
+["before","after"].forEach(which=>{
+document.getElementById(which+"Photo").addEventListener("change",async e=>{
+const file=e.target.files[0];
+if(!file)return;
+
+try{
+const data=await compressPhoto(file);
+localStorage.setItem(photoKey(which),data);
+loadPhoto(which);
+toast("Photo saved on this device 📸");
+}catch(err){
+toast("Could not save this photo");
+}
+});
+});
+
+onAuthStateChanged(auth,async user=>{
+if(user){
+try{
+await loadData(user);
+}catch(e){
+alert("Unable to load account: "+e.message);
+}
+}else{
+currentUser=null;
+document.getElementById("authScreen").classList.remove("hidden");
+document.getElementById("mainApp").classList.add("hidden");
+document.getElementById("navigation").classList.add("hidden");
+}
 });
 
 </script>
-
 </body>
 </html>
