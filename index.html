@@ -1,0 +1,425 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d18">
+<title>Winter Arc 90</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080d18;color:#f4f7fc;font-family:Arial,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:520px;margin:auto;min-height:100vh;padding:20px 17px 100px}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 0 25px}
+.logo{font-size:23px;font-weight:800;color:#8dcaff}
+.muted{color:#9aa9bd}
+.card{background:#131d2d;border:1px solid #26364b;border-radius:17px;padding:19px;margin:15px 0}
+h1{font-size:29px;margin:12px 0}
+h2{font-size:19px;margin-bottom:14px}
+h3{font-size:15px;margin-bottom:10px}
+p{line-height:1.6}
+input,textarea{width:100%;padding:14px;margin:7px 0;background:#0a1321;color:white;border:1px solid #34445b;border-radius:10px}
+textarea{min-height:85px;resize:vertical}
+.primary{background:#83c5ff;color:#07111e;border:0;padding:15px;border-radius:11px;font-weight:bold;width:100%;margin-top:10px}
+.secondary{background:#26364b;color:white;border:0;padding:12px;border-radius:10px}
+.danger{background:#592d39;color:#fff;border:0;padding:10px;border-radius:9px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.stat{background:#1b2a40;border-radius:12px;padding:14px;text-align:center;flex:1}
+.stat strong{font-size:25px;color:#8dcaff;display:block;margin-bottom:5px}
+.progress{height:9px;background:#26364b;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress div{height:100%;background:#83c5ff;width:0}
+.check{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #26364b}
+.check input{width:19px;height:19px;margin:0;accent-color:#83c5ff}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#101a29;border-top:1px solid #28384e;display:flex;justify-content:center;gap:5px;padding:10px 3px calc(10px + env(safe-area-inset-bottom));z-index:5}
+.nav button{background:transparent;color:#aab8cb;border:0;padding:8px 5px;font-size:11px;flex:1;max-width:90px}
+.nav button.active{color:#83c5ff}
+.hidden{display:none!important}
+.notice{padding:12px;border-radius:10px;background:#1b2a40;margin:10px 0;color:#a9d7ff}
+.auth{max-width:420px;margin:12vh auto;padding:25px}
+.small{font-size:12px}
+</style>
+</head>
+
+<body>
+
+<div id="authScreen" class="auth">
+  <div class="logo">❄ WINTER ARC 90</div>
+  <h1 id="authTitle">Your new beginning.</h1>
+  <p class="muted">90 days. One commitment. A stronger you.</p>
+
+  <div class="card">
+    <input id="email" type="email" placeholder="Email address">
+    <input id="password" type="password" placeholder="Password">
+
+    <button class="primary" id="loginBtn">Log In</button>
+    <button class="secondary" id="registerBtn" style="width:100%;margin-top:10px">Create Account</button>
+    <button class="secondary" id="resetBtn" style="width:100%;margin-top:10px">Forgot Password?</button>
+
+    <p id="authMessage" class="notice hidden"></p>
+  </div>
+  <p class="muted small">Your account and personal records are private.</p>
+</div>
+
+<div id="mainApp" class="app hidden">
+
+<header>
+  <div class="logo">❄ Winter Arc 90</div>
+  <button class="secondary" id="logoutBtn">Log out</button>
+</header>
+
+<section id="homePage">
+  <p class="muted">YOUR PERSONAL TRANSFORMATION</p>
+  <h1>Welcome to your Winter Arc.</h1>
+  <p class="muted" id="todayText"></p>
+
+  <div class="card">
+    <h2>Your 90-day journey</h2>
+    <div class="row">
+      <div class="stat"><strong id="dayNumber">1</strong><span class="small">Current day</span></div>
+      <div class="stat"><strong id="daysLeft">90</strong><span class="small">Days remaining</span></div>
+      <div class="stat"><strong id="completion">0%</strong><span class="small">Today's habits</span></div>
+    </div>
+    <div class="progress"><div id="mainProgress"></div></div>
+    <p class="muted small" id="startText"></p>
+  </div>
+
+  <div class="card">
+    <h2>Today's habits</h2>
+    <div id="habitList"></div>
+    <p class="muted small">Your daily checklist saves automatically.</p>
+  </div>
+
+  <div class="card">
+    <h2>Daily motivation</h2>
+    <p id="quote">Small steps every day create extraordinary change.</p>
+  </div>
+</section>
+
+<section id="foodPage" class="hidden">
+  <p class="muted">NUTRITION JOURNAL</p>
+  <h1>Food & Nutrition</h1>
+  <div class="card">
+    <h2>Today's food diary</h2>
+    <label>Breakfast</label>
+    <textarea id="breakfast" placeholder="What did you eat?"></textarea>
+    <label>Lunch</label>
+    <textarea id="lunch" placeholder="What did you eat?"></textarea>
+    <label>Dinner</label>
+    <textarea id="dinner" placeholder="What did you eat?"></textarea>
+    <label>Snacks</label>
+    <textarea id="snacks" placeholder="Any snacks?"></textarea>
+    <label>Water intake (glasses)</label>
+    <input id="water" type="number" min="0" max="50" placeholder="8">
+    <button class="primary saveBtn">Save Food Diary</button>
+  </div>
+</section>
+
+<section id="fitnessPage" class="hidden">
+  <p class="muted">MOVEMENT & EXERCISE</p>
+  <h1>Fitness Tracker</h1>
+  <div class="card">
+    <h2>Today's workout</h2>
+    <label>Workout activity</label>
+    <textarea id="workout" placeholder="Walking, gym, yoga, running..."></textarea>
+    <label>Workout duration (minutes)</label>
+    <input id="duration" type="number" min="0" placeholder="30">
+    <label>Steps taken</label>
+    <input id="steps" type="number" min="0" placeholder="5000">
+    <label>How did you feel?</label>
+    <textarea id="fitnessNotes" placeholder="Describe your energy and mood..."></textarea>
+    <button class="primary saveBtn">Save Fitness Record</button>
+  </div>
+</section>
+
+<section id="progressPage" class="hidden">
+  <p class="muted">YOUR JOURNEY SO FAR</p>
+  <h1>Progress</h1>
+  <div class="card">
+    <h2>Your statistics</h2>
+    <div class="row">
+      <div class="stat"><strong id="totalHabits">0</strong><span class="small">Habits completed</span></div>
+      <div class="stat"><strong id="totalWorkouts">0</strong><span class="small">Workout days</span></div>
+    </div>
+    <div style="margin-top:20px">
+      <h3>90-day challenge</h3>
+      <div class="progress"><div id="progressBar"></div></div>
+      <p id="progressLabel" class="muted small">0 of 90 days completed</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Daily reflection</h2>
+    <textarea id="reflection" placeholder="What went well today? What can you improve tomorrow?"></textarea>
+    <button class="primary" id="saveReflection">Save Reflection</button>
+  </div>
+</section>
+
+</div>
+
+<nav id="navigation" class="nav hidden">
+  <button class="active" data-page="homePage">⌂<br>Home</button>
+  <button data-page="foodPage">♧<br>Food</button>
+  <button data-page="fitnessPage">✦<br>Fitness</button>
+  <button data-page="progressPage">▥<br>Progress</button>
+</nav>
+
+<script type="module">
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+
+import {
+ getAuth,
+ createUserWithEmailAndPassword,
+ signInWithEmailAndPassword,
+ sendPasswordResetEmail,
+ onAuthStateChanged,
+ signOut
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+
+import {
+ getFirestore,
+ doc,
+ getDoc,
+ setDoc
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+const firebaseConfig = {
+ apiKey: "AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",
+ authDomain: "winterarc90web-5d889.firebaseapp.com",
+ projectId: "winterarc90web-5d889",
+ storageBucket: "winterarc90web-5d889.firebasestorage.app",
+ messagingSenderId: "53251809201",
+ appId: "1:53251809201:web:565ee6e61037a038692790"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUser = null;
+let userData = {};
+let currentDate = localDate();
+
+function localDate(){
+ const d = new Date();
+ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+
+function showMessage(message){
+ const el=document.getElementById("authMessage");
+ el.textContent=message;
+ el.classList.remove("hidden");
+}
+
+async function saveData(){
+ if(!currentUser)return;
+ try{
+  await setDoc(doc(db,"users",currentUser.uid),userData);
+ }catch(e){
+  alert("Save failed: "+e.message);
+ }
+}
+
+function getDay(){
+ return userData.days?.[currentDate] || {};
+}
+
+async function loadData(user){
+ currentUser=user;
+ const ref=doc(db,"users",user.uid);
+ const snap=await getDoc(ref);
+
+ if(snap.exists()){
+  userData=snap.data();
+ }else{
+  userData={
+   startDate:currentDate,
+   days:{}
+  };
+  await saveData();
+ }
+
+ if(!userData.days)userData.days={};
+
+ document.getElementById("authScreen").classList.add("hidden");
+ document.getElementById("mainApp").classList.remove("hidden");
+ document.getElementById("navigation").classList.remove("hidden");
+
+ render();
+}
+
+function updateDay(key,value){
+ if(!userData.days[currentDate])userData.days[currentDate]={};
+ userData.days[currentDate][key]=value;
+ saveData();
+ renderStats();
+}
+
+const habits=[
+ "Wake up on time",
+ "Drink enough water",
+ "Exercise or move",
+ "Eat balanced meals",
+ "Read or learn something",
+ "Limit unnecessary screen time",
+ "Sleep on time"
+];
+
+function renderHabits(){
+ const list=document.getElementById("habitList");
+ list.innerHTML="";
+ const day=getDay();
+
+ habits.forEach((habit,i)=>{
+  const label=document.createElement("label");
+  label.className="check";
+  const input=document.createElement("input");
+  input.type="checkbox";
+  input.checked=!!day["habit"+i];
+
+  input.addEventListener("change",()=>{
+   updateDay("habit"+i,input.checked);
+   renderStats();
+  });
+
+  const span=document.createElement("span");
+  span.textContent=habit;
+  label.append(input,span);
+  list.appendChild(label);
+ });
+}
+
+function renderStats(){
+ const day=getDay();
+ const done=habits.filter((h,i)=>day["habit"+i]).length;
+ const percent=Math.round(done/habits.length*100);
+
+ document.getElementById("completion").textContent=percent+"%";
+ document.getElementById("mainProgress").style.width=percent+"%";
+
+ let total=0,workouts=0;
+ Object.values(userData.days||{}).forEach(d=>{
+  total+=habits.filter((h,i)=>d["habit"+i]).length;
+  if(d.workout&&d.workout.trim())workouts++;
+ });
+
+ document.getElementById("totalHabits").textContent=total;
+ document.getElementById("totalWorkouts").textContent=workouts;
+
+ const start=new Date(userData.startDate+"T00:00:00");
+ const today=new Date(currentDate+"T00:00:00");
+ const diff=Math.max(0,Math.floor((today-start)/86400000));
+ const current=Math.min(90,diff+1);
+
+ document.getElementById("dayNumber").textContent=current;
+ document.getElementById("daysLeft").textContent=90-current;
+ document.getElementById("mainProgress").style.width=(current/90*100)+"%";
+ document.getElementById("progressBar").style.width=(current/90*100)+"%";
+ document.getElementById("progressLabel").textContent=(current)+" of 90 days reached";
+}
+
+function render(){
+ currentDate=localDate();
+ document.getElementById("todayText").textContent=
+  new Date().toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+
+ document.getElementById("startText").textContent=
+  "Challenge started: "+userData.startDate;
+
+ const day=getDay();
+ ["breakfast","lunch","dinner","snacks","water",
+ "workout","duration","steps","fitnessNotes","reflection"].forEach(id=>{
+  document.getElementById(id).value=day[id]??"";
+ });
+
+ renderHabits();
+ renderStats();
+}
+
+document.getElementById("registerBtn").onclick=async()=>{
+ try{
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
+  if(password.length<6)throw Error("Password must contain at least 6 characters.");
+  await createUserWithEmailAndPassword(auth,email,password);
+ }catch(e){showMessage(e.message);}
+};
+
+document.getElementById("loginBtn").onclick=async()=>{
+ try{
+  await signInWithEmailAndPassword(
+   auth,
+   document.getElementById("email").value.trim(),
+   document.getElementById("password").value
+  );
+ }catch(e){showMessage(e.message);}
+};
+
+document.getElementById("resetBtn").onclick=async()=>{
+ try{
+  const email=document.getElementById("email").value.trim();
+  if(!email)throw Error("Enter your email address first.");
+  await sendPasswordResetEmail(auth,email);
+  showMessage("Password reset email sent. Check your inbox.");
+ }catch(e){showMessage(e.message);}
+};
+
+document.getElementById("logoutBtn").onclick=()=>signOut(auth);
+
+document.querySelectorAll(".nav button").forEach(btn=>{
+ btn.onclick=()=>{
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  document.querySelectorAll("#mainApp section").forEach(s=>s.classList.add("hidden"));
+  document.getElementById(btn.dataset.page).classList.remove("hidden");
+ };
+});
+
+function readFields(ids){
+ const result={};
+ ids.forEach(id=>{
+  result[id]=document.getElementById(id).value;
+ });
+ return result;
+}
+
+document.querySelectorAll(".saveBtn").forEach(btn=>{
+ btn.onclick=async()=>{
+  const day=getDay();
+
+  if(btn.parentElement.parentElement.id==="foodPage"){
+   Object.assign(day,readFields(["breakfast","lunch","dinner","snacks","water"]));
+  }else{
+   Object.assign(day,readFields(["workout","duration","steps","fitnessNotes"]));
+  }
+
+  await saveData();
+  alert("Your record has been saved!");
+ };
+});
+
+document.getElementById("saveReflection").onclick=async()=>{
+ updateDay("reflection",document.getElementById("reflection").value);
+ alert("Reflection saved!");
+};
+
+onAuthStateChanged(auth,async user=>{
+ if(user){
+  try{
+   await loadData(user);
+  }catch(e){
+   alert("Unable to load your account: "+e.message);
+  }
+ }else{
+  currentUser=null;
+  document.getElementById("authScreen").classList.remove("hidden");
+  document.getElementById("mainApp").classList.add("hidden");
+  document.getElementById("navigation").classList.add("hidden");
+ }
+});
+</script>
+
+</body>
+</html>
