@@ -2,409 +2,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Winter Arc 90</title>
 <style>
-:root{--bg:#100e19;--panel:#1d192b;--panel2:#292239;--pink:#f17eb5;--gold:#f4c76a;--text:#f8f2ff;--muted:#b7adc5;--green:#7ed9a5;--red:#ff8585}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{padding:22px 18px;background:linear-gradient(120deg,#382044,#19172b);border-bottom:1px solid #49344e}
-h1{font-size:25px;margin:0 0 6px}
-header p{margin:0;color:var(--muted);font-size:13px}
-main{max-width:850px;margin:auto;padding:16px}
-nav{display:flex;gap:7px;overflow:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:5}
-nav button{white-space:nowrap}
-button{background:var(--pink);color:#241323;border:0;border-radius:10px;padding:11px 14px;font-weight:bold;cursor:pointer}
-button.secondary{background:var(--panel2);color:var(--text);border:1px solid #51435e}
-button.danger{background:#713d50;color:white}
-button:disabled{opacity:.5}
-.card{background:var(--panel);border:1px solid #3b3049;border-radius:15px;padding:16px;margin:12px 0}
-h2{font-size:19px;margin:0 0 14px}
-h3{font-size:15px;margin:15px 0 8px}
-p{line-height:1.5}
-.small{font-size:12px;color:var(--muted)}
-label{display:block;color:var(--muted);font-size:13px;margin:11px 0 5px}
-input,select,textarea{width:100%;background:#120f1c;color:white;border:1px solid #55465f;border-radius:9px;padding:12px;font-size:15px}
-textarea{min-height:75px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.stat{background:var(--panel2);padding:13px;border-radius:12px}
-.stat strong{display:block;font-size:22px;color:var(--gold);margin-top:6px}
-.progress{height:10px;background:#44394f;border-radius:20px;overflow:hidden;margin:10px 0}
-.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--gold));width:0}
-.item{padding:12px 0;border-bottom:1px solid #40354b}
-.item:last-child{border:0}
-.hidden{display:none!important}
-.notice{padding:12px;background:#30263b;border-radius:10px;color:var(--muted);font-size:13px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-#auth{max-width:440px;margin:30px auto}
-#message{color:var(--gold);font-size:13px;margin-top:10px;white-space:pre-wrap}
-@media(max-width:480px){.grid{grid-template-columns:1fr 1fr}main{padding:10px}.card{padding:13px}}
-</style>
-</head>
+:root{--bg:#100e19;--panel:#1d192b;--panel2:#292239;--pink:#f17eb5;--gold:#f4c76a;--text:#f8f2ff;--muted:#b7adc5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}header{padding:22px 18px;background:linear-gradient(120deg,#382044,#19172b);border-bottom:1px solid #49344e}h1{font-size:25px;margin:0 0 6px}header p{margin:0;color:var(--muted);font-size:13px}main{max-width:850px;margin:auto;padding:14px}nav{display:flex;gap:7px;overflow:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:5}button{background:var(--pink);color:#241323;border:0;border-radius:10px;padding:10px 13px;font-weight:bold;cursor:pointer;margin:3px}button.secondary{background:var(--panel2);color:var(--text);border:1px solid #51435e}button.danger{background:#713d50;color:white}nav button{white-space:nowrap}.card{background:var(--panel);border:1px solid #3b3049;border-radius:15px;padding:16px;margin:12px 0}h2{font-size:19px;margin:0 0 14px}h3{font-size:15px;margin:15px 0 8px}.small{font-size:12px;color:var(--muted)}label{display:block;color:var(--muted);font-size:13px;margin:11px 0 5px}input,select,textarea{width:100%;background:#120f1c;color:white;border:1px solid #55465f;border-radius:9px;padding:12px;font-size:15px}textarea{min-height:65px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{background:var(--panel2);padding:13px;border-radius:12px}.stat strong{display:block;font-size:22px;color:var(--gold);margin-top:6px}.progress{height:10px;background:#44394f;border-radius:20px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--gold));width:0}.item{padding:12px 0;border-bottom:1px solid #40354b}.hidden{display:none!important}.notice{padding:12px;background:#30263b;border-radius:10px;color:var(--muted);font-size:13px}.actions,.item-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.home-link{display:block;text-align:left;width:100%;background:var(--panel2);color:var(--text);border:1px solid #51435e;padding:15px;margin:7px 0;border-radius:12px}.home-link b{display:block;color:var(--gold);font-size:16px;margin-bottom:4px}#auth{max-width:440px;margin:30px auto}#message{color:var(--gold);font-size:13px;margin-top:10px;white-space:pre-wrap}@media(max-width:480px){main{padding:9px}.card{padding:13px}}
+</style></head>
 <body>
-<header>
-<h1>❄️ Winter Arc 90</h1>
-<p>Your 90-day journey. Build habits. Track progress. Become stronger.</p>
-</header>
-
+<header><h1>❄️ Winter Arc 90</h1><p>Your 90-day journey. Build habits. Track progress. Become stronger.</p></header>
 <main>
-<section id="auth" class="card">
-<h2>Welcome to Winter Arc 90</h2>
-<label>Email</label><input id="email" type="email" placeholder="Your email">
-<label>Password</label><input id="password" type="password" placeholder="Password">
-<div class="actions">
-<button onclick="signIn()">Log in</button>
-<button class="secondary" onclick="register()">Create account</button>
-</div>
-<button class="secondary" onclick="resetPassword()" style="margin-top:10px">Forgot password?</button>
-<div id="authMessage"></div>
-</section>
-
+<section id="auth" class="card"><h2>Welcome to Winter Arc 90</h2><label>Email</label><input id="email" type="email" placeholder="Your email"><label>Password</label><input id="password" type="password" placeholder="Your password"><div class="actions"><button onclick="signIn()">Log in</button><button class="secondary" onclick="register()">Create account</button></div><button class="secondary" onclick="resetPassword()">Forgot password?</button><div id="authMessage"></div></section>
 <section id="app" class="hidden">
-<div class="card">
-<div id="greeting">Welcome to your Winter Arc!</div>
-<div class="small" id="todayLabel"></div>
-</div>
-<nav>
-<button onclick="showTab('home')">Home</button>
-<button onclick="showTab('profile')">Profile</button>
-<button onclick="showTab('food')">Food</button>
-<button onclick="showTab('workouts')">Workouts</button>
-<button onclick="showTab('progress')">Progress</button>
-<button onclick="showTab('friends')">Friends</button>
-<button onclick="showTab('settings')">Settings</button>
-</nav>
+<div class="card"><div id="greeting">Welcome to your Winter Arc!</div><div class="small" id="todayLabel"></div></div>
+<nav><button onclick="showTab('home')">Home</button><button onclick="showTab('profile')">Profile</button><button onclick="showTab('food')">Food</button><button onclick="showTab('workouts')">Workouts</button><button onclick="showTab('progress')">Progress</button><button onclick="showTab('friends')">Friends</button><button onclick="showTab('settings')">Settings</button></nav>
 
 <section id="home" class="tab">
-<div class="card">
-<h2>Today's overview</h2>
-<div class="grid">
-<div class="stat">Steps<strong id="homeSteps">0</strong><span class="small">daily steps</span></div>
-<div class="stat">Workouts<strong id="homeWorkouts">0</strong><span class="small">today</span></div>
-<div class="stat">Current weight<strong id="homeWeight">—</strong><span class="small">kg</span></div>
-<div class="stat">Habits completed<strong id="homeHabits">0</strong><span class="small">today</span></div>
+<div class="card"><h2>Today's overview</h2><div class="grid">
+<div class="stat">Steps<strong id="homeSteps">0</strong></div>
+<div class="stat">Workouts<strong id="homeWorkouts">0</strong></div>
+<div class="stat">Current weight<strong id="homeWeight">—</strong></div>
+<div class="stat">Habits completed<strong id="homeHabits">0</strong></div>
+<div class="stat">Calories burned<strong id="homeCalories">0</strong><span class="small">estimated kcal</span></div>
+</div></div>
+<div class="card"><h2>Quick navigation</h2>
+<button class="home-link" onclick="showTab('workouts')"><b>🏋️ Workouts</b><span class="small">Open workout tracker, add/edit activities and see calories burned</span></button>
+<button class="home-link" onclick="showTab('progress')"><b>📈 Progress</b><span class="small">Open weight journey, step tracker and weekly totals</span></button>
+<button class="home-link" onclick="showTab('food')"><b>🥗 Food diary</b><span class="small">Add, edit or delete meals and snacks</span></button>
+<button class="home-link" onclick="showTab('profile')"><b>👤 My profile</b><span class="small">Update body details and fitness goal</span></button>
 </div>
-</div>
-<div class="card">
-<h2>Today's habits</h2>
-<div id="habitsList"></div>
-</div>
-<div class="card">
-<h2>Daily reflection</h2>
-<textarea id="reflection" placeholder="How did today go? What are you proud of?"></textarea>
-<button onclick="saveReflection()">Save reflection</button>
-</div>
+<div class="card"><h2>Daily habits</h2><div id="habitsList"></div><h3>Add a habit</h3><input id="newHabit" placeholder="e.g. Meditate 10 minutes"><button onclick="addHabit()">Add habit</button></div>
+<div class="card"><h2>My routines</h2><label>Routine name</label><input id="routineName" placeholder="e.g. Morning routine"><label>Routine steps (one per line)</label><textarea id="routineSteps"></textarea><button onclick="addRoutine()">Add routine</button><div id="routineList"></div></div>
+<div class="card"><h2>Daily reflection</h2><textarea id="reflection" placeholder="How did today go?"></textarea><button onclick="saveReflection()">Save reflection</button></div>
 </section>
 
-<section id="profile" class="tab hidden">
-<div class="card">
-<h2>My profile</h2>
-<label>Name</label><input id="pName" placeholder="Your name">
-<div class="grid">
-<div><label>Age</label><input id="pAge" type="number" min="1"></div>
-<div><label>Gender</label><select id="pGender"><option value="">Select</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></div>
-</div>
+<section id="profile" class="tab hidden"><div class="card"><h2>My profile</h2>
+<label>Name</label><input id="pName">
+<div class="grid"><div><label>Age</label><input id="pAge" type="number"></div><div><label>Gender</label><select id="pGender"><option value="">Select</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></div></div>
 <label>Height (cm)</label><input id="pHeight" type="number">
-<div class="grid">
-<div><label>Current weight (kg)</label><input id="pWeight" type="number" step=".1"></div>
-<div><label>Goal weight (kg)</label><input id="pGoalWeight" type="number" step=".1"></div>
-</div>
-<label>Fitness goal</label>
-<select id="pGoal"><option>General fitness</option><option>Weight management</option><option>Muscle building</option><option>Strength</option><option>Healthy lifestyle</option></select>
-<button onclick="saveProfile()">Save profile</button>
-</div>
-</section>
+<div class="grid"><div><label>Current weight (kg)</label><input id="pWeight" type="number" step=".1"></div><div><label>Goal weight (kg)</label><input id="pGoalWeight" type="number" step=".1"></div></div>
+<label>Fitness goal</label><select id="pGoal"><option>General fitness</option><option>Weight management</option><option>Muscle building</option><option>Strength</option><option>Healthy lifestyle</option></select><button onclick="saveProfile()">Save profile</button></div></section>
 
-<section id="food" class="tab hidden">
-<div class="card">
-<h2>Food & Nutrition Diary</h2>
-<label>Breakfast</label><textarea id="breakfast"></textarea>
-<label>Lunch</label><textarea id="lunch"></textarea>
-<label>Dinner</label><textarea id="dinner"></textarea>
-<label>Snacks</label><textarea id="snacks"></textarea>
-<label>Water (glasses)</label><input id="water" type="number" min="0">
-<button onclick="saveFood()">Save food diary</button>
-</div>
-</section>
+<section id="food" class="tab hidden"><div class="card"><h2>Food & Nutrition Diary</h2>
+<label>Meal</label><select id="foodMeal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snacks</option></select>
+<label>Food / drink</label><input id="foodName" placeholder="e.g. 2 idlis and sambar">
+<div class="grid"><div><label>Quantity</label><input id="foodQuantity" placeholder="e.g. 2 pieces"></div><div><label>Calories (optional)</label><input id="foodCalories" type="number" min="0" placeholder="kcal"></div></div>
+<button id="foodSaveButton" onclick="saveFoodEntry()">Add food</button><button class="secondary hidden" id="foodCancelButton" onclick="cancelFoodEdit()">Cancel edit</button>
+<h3>Today's food</h3><div id="foodList"></div><label>Water (glasses)</label><input id="water" type="number" min="0"><button onclick="saveWater()">Save water</button>
+</div></section>
 
-<section id="workouts" class="tab hidden">
-<div class="card">
-<h2>Workout & Activity Hub</h2>
-<label>Activity</label>
-<select id="exerciseName">
-<option>Walking</option><option>10,000 steps</option><option>Brisk walking</option><option>Hiking</option><option>Stairs</option><option>Cycling</option><option>Running</option><option>Jogging</option><option>Sprinting</option><option>Skipping rope</option><option>Swimming</option><option>Dancing</option><option>Aerobics</option><option>Push-ups</option><option>Pull-ups</option><option>Squats</option><option>Lunges</option><option>Plank</option><option>Burpees</option><option>Dead hangs</option><option>Dips</option><option>Mountain climbers</option><option>Dumbbell workout</option><option>Barbell workout</option><option>Resistance bands</option><option>Yoga</option><option>Stretching</option><option>Mobility</option><option>Custom workout</option>
-</select>
-<label>Custom activity name (optional)</label><input id="customExercise" placeholder="Enter your own activity">
-<div class="grid">
-<div><label>Duration (minutes)</label><input id="minutes" type="number" min="0"></div>
-<div><label>Sets</label><input id="sets" type="number" min="0"></div>
-<div><label>Reps</label><input id="reps" type="number" min="0"></div>
-<div><label>Distance (km)</label><input id="distance" type="number" step=".1" min="0"></div>
-<div><label>Steps</label><input id="workoutSteps" type="number" min="0"></div>
-<div><label>Weight lifted (kg)</label><input id="load" type="number" step=".5" min="0"></div>
-</div>
+<section id="workouts" class="tab hidden"><div class="card"><h2>Workout & Activity Hub</h2>
+<label>Activity</label><select id="exerciseName">
+<option>Walking</option><option>Brisk walking</option><option>Hiking</option><option>Stairs</option><option>Cycling</option><option>Running</option><option>Jogging</option><option>Sprinting</option><option>Skipping rope</option><option>Swimming</option><option>Dancing</option><option>Aerobics</option><option>Push-ups</option><option>Pull-ups</option><option>Squats</option><option>Lunges</option><option>Plank</option><option>Burpees</option><option>Dead hangs</option><option>Dips</option><option>Mountain climbers</option><option>Dumbbell workout</option><option>Barbell workout</option><option>Resistance bands</option><option>Yoga</option><option>Stretching</option><option>Mobility</option><option>Custom workout</option></select>
+<label>Custom activity name (optional)</label><input id="customExercise" placeholder="Enter own activity">
+<div class="grid"><div><label>Duration (minutes)</label><input id="minutes" type="number" min="0"></div><div><label>Sets</label><input id="sets" type="number" min="0"></div><div><label>Reps</label><input id="reps" type="number" min="0"></div><div><label>Distance (km)</label><input id="distance" type="number" step=".1" min="0"></div><div><label>Steps</label><input id="workoutSteps" type="number" min="0"></div><div><label>Weight lifted (kg)</label><input id="load" type="number" step=".5" min="0"></div></div>
 <label>Notes</label><textarea id="workoutNotes"></textarea>
-<button onclick="saveWorkout()">Save workout</button>
-</div>
-<div class="card"><h2>Today's workouts</h2><div id="workoutList"></div></div>
-</section>
+<button id="workoutSaveButton" onclick="saveWorkout()">Save workout</button><button class="secondary hidden" id="workoutCancelButton" onclick="cancelWorkoutEdit()">Cancel edit</button>
+<p class="small">Calories are estimates based on activity type, duration and your profile weight.</p></div>
+<div class="card"><h2>Today's workouts</h2><div id="workoutList"></div><h3>Today's estimated calories burned</h3><div class="stat"><strong id="dailyCalories">0 kcal</strong></div></div></section>
 
 <section id="progress" class="tab hidden">
-<div class="card">
-<h2>⚖️ Weight Journey</h2>
-<div class="grid">
-<div class="stat">Starting weight<strong id="startingWeight">—</strong><span class="small">kg</span></div>
-<div class="stat">Current weight<strong id="currentWeight">—</strong><span class="small">kg</span></div>
-<div class="stat">Goal weight<strong id="goalWeight">—</strong><span class="small">kg</span></div>
-<div class="stat">Remaining<strong id="remainingWeight">—</strong><span class="small">kg</span></div>
-</div>
-<p id="weightChange" class="small"></p>
-<div class="progress"><span id="weightProgress"></span></div>
-<p id="weightPercent" class="small">Add your first weigh-in to begin your journey.</p>
-<h3>Add today's weight</h3>
-<label>Weight (kg)</label><input id="todayWeight" type="number" step=".1" min="1" placeholder="e.g. 65.5">
-<button onclick="saveWeight()">Save today's weight</button>
-<h3>Weight history</h3><div id="weightHistory"></div>
-</div>
-<div class="card">
-<h2>Step Tracker</h2>
-<div class="notice">Enter the step count shown in Samsung Health. Direct automatic Samsung Health syncing needs a separate supported Android integration.</div>
-<label>Today's Samsung Health steps</label><input id="todaySteps" type="number" min="0" placeholder="Enter steps">
-<label>Daily step goal</label><input id="stepGoal" type="number" min="1" value="6000">
-<button onclick="saveSteps()">Save steps</button>
-<div class="progress"><span id="stepProgress"></span></div>
-<p id="stepSummary" class="small"></p>
-</div>
-<div class="card">
-<h2>Weekly workout target</h2>
-<label>Workouts per week</label><input id="weeklyTarget" type="number" min="1" max="14">
-<button onclick="saveTargets()">Save target</button>
-<p id="weeklySummary"></p>
-</div>
+<div class="card"><h2>⚖️ Weight Journey</h2><div class="grid">
+<div class="stat">Starting weight<strong id="startingWeight">—</strong><span class="small">kg</span></div><div class="stat">Current weight<strong id="currentWeight">—</strong><span class="small">kg</span></div><div class="stat">Goal weight<strong id="goalWeight">—</strong><span class="small">kg</span></div><div class="stat">Remaining<strong id="remainingWeight">—</strong><span class="small">kg</span></div></div>
+<p id="weightChange" class="small"></p><div class="progress"><span id="weightProgress"></span></div><p id="weightPercent" class="small">Add your first weigh-in.</p>
+<label>Today's weight (kg)</label><input id="todayWeight" type="number" step=".1" min="1"><button onclick="saveWeight()">Save today's weight</button><h3>Weight history</h3><div id="weightHistory"></div></div>
+<div class="card"><h2>Step Tracker</h2><div class="notice">Enter the daily step count shown in Samsung Health. Automatic Samsung Health syncing needs a separate supported Android integration.</div>
+<label>Today's Samsung Health steps</label><input id="todaySteps" type="number" min="0"><label>Daily step goal</label><input id="stepGoal" type="number" min="1"><button onclick="saveSteps()">Save steps</button><div class="progress"><span id="stepProgress"></span></div><p id="stepSummary" class="small"></p></div>
+<div class="card"><h2>Weekly targets</h2><label>Workouts per week</label><input id="weeklyTarget" type="number" min="1" max="14"><button onclick="saveTargets()">Save target</button><p id="weeklySummary"></p><h3>Weekly estimated calories burned</h3><strong id="weeklyCalories">0 kcal</strong></div>
 </section>
 
-<section id="friends" class="tab hidden">
-<div class="card">
-<h2>🤝 Friend Challenges</h2>
-<p class="small">Share your friend code with someone you trust. Only accepted friends can participate in challenges. Your food diary and weight records are not shared.</p>
-<h3>Your friend code</h3>
-<div class="stat"><strong id="myFriendCode">Loading...</strong></div>
-<button class="secondary" onclick="copyFriendCode()">Copy friend code</button>
-<h3>Send a friend request</h3>
-<label>Friend's code</label><input id="friendCodeInput" placeholder="Enter their friend code">
-<button onclick="sendFriendRequest()">Send request</button>
-<h3>Incoming requests</h3><div id="incomingRequests"></div>
-<h3>Your friends</h3><div id="friendList"></div>
-<h3>90-day challenge</h3>
-<label>Challenge name</label><input id="challengeName" placeholder="e.g. 90-day consistency challenge">
-<label>Friend code of participant</label><input id="challengeFriendCode" placeholder="Enter accepted friend's code">
-<button onclick="createChallenge()">Create challenge</button>
-<div id="challengeList"></div>
-</div>
-</section>
+<section id="friends" class="tab hidden"><div class="card"><h2>🤝 Friend Challenges</h2><p class="small">Friend codes and challenge summaries. Personal food and weight records are not shared.</p>
+<h3>Your friend code</h3><div class="stat"><strong id="myFriendCode">Loading...</strong></div><button class="secondary" onclick="copyFriendCode()">Copy friend code</button>
+<h3>Send a friend request</h3><label>Friend's code</label><input id="friendCodeInput"><button onclick="sendFriendRequest()">Send request</button>
+<h3>Incoming requests</h3><div id="incomingRequests"></div><h3>Your friends</h3><div id="friendList"></div>
+<h3>90-day challenge</h3><label>Challenge name</label><input id="challengeName" placeholder="90-day consistency challenge"><label>Friend code</label><input id="challengeFriendCode"><button onclick="createChallenge()">Create challenge</button><div id="challengeList"></div></div></section>
 
-<section id="settings" class="tab hidden">
-<div class="card">
-<h2>Settings</h2>
-<p class="small">Your records are saved to your private Firebase account.</p>
-<button class="danger" onclick="signOut()">Log out</button>
-</div>
-</section>
+<section id="settings" class="tab hidden"><div class="card"><h2>Settings</h2><p class="small">Your records are saved to your Firebase account.</p><button class="danger" onclick="signOut()">Log out</button></div></section>
 <div id="message"></div>
-</section>
-</main>
+</section></main>
 
 <script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,onAuthStateChanged,signOut as firebaseSignOut} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
-import {getFirestore,doc,getDoc,setDoc,collection,addDoc,query,where,getDocs,updateDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+import{initializeApp}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,onAuthStateChanged,signOut as firebaseSignOut}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+import{getFirestore,doc,getDoc,setDoc,collection,addDoc,query,where,getDocs,updateDoc}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
-const firebaseConfig={
- apiKey:"AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",
- authDomain:"winterarc90web-5d889.firebaseapp.com",
- projectId:"winterarc90web-5d889",
- storageBucket:"winterarc90web-5d889.firebasestorage.app",
- messagingSenderId:"53251809201",
- appId:"1:53251809201:web:565ee6e61037a038692790"
-};
-const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
-let user=null,data={startDate:today(),days:{},profile:{},targets:{step:6000,weekly:4},customHabits:[]};
-const $=id=>document.getElementById(id);
-function today(){return new Date().toLocaleDateString("en-CA")}
-function day(){if(!data.days[today()])data.days[today()]={habits:[],food:{},workouts:[],reflection:""};let d=data.days[today()];if(!Array.isArray(d.habits))d.habits=[];if(!Array.isArray(d.workouts))d.workouts=[];if(!d.food)d.food={};return d}
+const firebaseConfig={apiKey:"AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",authDomain:"winterarc90web-5d889.firebaseapp.com",projectId:"winterarc90web-5d889",storageBucket:"winterarc90web-5d889.firebasestorage.app",messagingSenderId:"53251809201",appId:"1:53251809201:web:565ee6e61037a038692790"};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app),$=id=>document.getElementById(id);
+let user=null,data={startDate:today(),days:{},profile:{},targets:{step:6000,weekly:4},customHabits:[],routines:[]},editingFood=-1,editingWorkout=-1;
+const defaultHabits=["Drink enough water","Move your body","Eat nourishing food","Sleep on time","Read or learn","Daily reflection"];
+
+function today(){let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function day(date=today()){if(!data.days[date])data.days[date]={habits:[],food:{},workouts:[],reflection:""};let d=data.days[date];if(!Array.isArray(d.habits))d.habits=[];if(!Array.isArray(d.workouts))d.workouts=[];if(!d.food)d.food={};if(!Array.isArray(d.food.entries))d.food.entries=[];return d}
 function msg(s){$("message").textContent=s;setTimeout(()=>{$("message").textContent=""},5000)}
-function authMsg(s){$("authMessage").textContent=s}
-window.signIn=async()=>{try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){authMsg(e.message)}};
-window.register=async()=>{try{await createUserWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){authMsg(e.message)}};
-window.resetPassword=async()=>{try{await sendPasswordResetEmail(auth,$("email").value.trim());authMsg("Password reset email sent.")}catch(e){authMsg(e.message)}};
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+window.signIn=async()=>{try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){$("authMessage").textContent=e.message}};
+window.register=async()=>{try{await createUserWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){$("authMessage").textContent=e.message}};
+window.resetPassword=async()=>{try{await sendPasswordResetEmail(auth,$("email").value.trim());$("authMessage").textContent="Password reset email sent."}catch(e){$("authMessage").textContent=e.message}};
 window.signOut=()=>firebaseSignOut(auth);
+
 onAuthStateChanged(auth,async u=>{
- user=u;
- $("auth").classList.toggle("hidden",!!u);$("app").classList.toggle("hidden",!u);
- if(!u)return;
- try{
-  const snap=await getDoc(doc(db,"users",u.uid));
-  if(snap.exists())data={...data,...snap.data(),profile:{...data.profile,...(snap.data().profile||{})},targets:{...data.targets,...(snap.data().targets||{})}};
-  else await saveData();
-  await setupFriendCode();
-  renderAll();
- }catch(e){msg("Could not load your account: "+e.message)}
+ user=u;$("auth").classList.toggle("hidden",!!u);$("app").classList.toggle("hidden",!u);if(!u)return;
+ try{let s=await getDoc(doc(db,"users",u.uid));if(s.exists()){let old=s.data();data={...data,...old,profile:{...data.profile,...(old.profile||{})},targets:{...data.targets,...(old.targets||{})},routines:Array.isArray(old.routines)?old.routines:[],customHabits:Array.isArray(old.customHabits)?old.customHabits:[]};migrateFood()}else await saveData();await setupFriendCode();renderAll()}catch(e){msg("Could not load account: "+e.message)}
 });
+function migrateFood(){for(let d of Object.values(data.days||{})){if(!d.food)d.food={};if(!Array.isArray(d.food.entries)){d.food.entries=[];["breakfast","lunch","dinner","snacks"].forEach(m=>{if(d.food[m])d.food.entries.push({meal:m[0].toUpperCase()+m.slice(1),name:String(d.food[m]),quantity:"",calories:0})})}}}
 async function saveData(){if(!user)throw Error("Please log in.");await setDoc(doc(db,"users",user.uid),data,{merge:true})}
-function showTab(id){document.querySelectorAll(".tab").forEach(x=>x.classList.add("hidden"));$(id).classList.remove("hidden");renderAll()}
-window.showTab=showTab;
+
+window.showTab=id=>{document.querySelectorAll(".tab").forEach(x=>x.classList.add("hidden"));$(id).classList.remove("hidden");renderAll();window.scrollTo({top:0,behavior:"smooth"})};
 
 function renderAll(){
- const d=day(),p=data.profile||{},f=d.food||{};
- $("todayLabel").textContent=new Date().toDateString();
- $("greeting").textContent="Welcome"+(p.name?" back, "+p.name:"")+"!";
- $("homeSteps").textContent=Number(d.steps||0).toLocaleString();
- $("homeWorkouts").textContent=d.workouts.length;
- $("homeWeight").textContent=p.weight||"—";
- $("homeHabits").textContent=d.habits.filter(Boolean).length;
- $("habitsList").innerHTML="";
- ["Drink enough water","Move your body","Eat nourishing food","Sleep on time","Read or learn","Daily reflection"].forEach((h,i)=>{
-  const checked=d.habits.includes(i);
-  const div=document.createElement("div");div.className="item";
-  const cb=document.createElement("input");cb.type="checkbox";cb.checked=checked;cb.style.width="auto";cb.style.marginRight="10px";
-  cb.onchange=async()=>{d.habits=cb.checked?[...d.habits,i]:d.habits.filter(x=>x!==i);await saveData();renderAll()};
-  div.append(cb,document.createTextNode(h));$("habitsList").append(div);
- });
- $("reflection").value=d.reflection||"";
- $("pName").value=p.name||"";$("pAge").value=p.age||"";$("pGender").value=p.gender||"";
- $("pHeight").value=p.height||"";$("pWeight").value=p.weight||"";$("pGoalWeight").value=p.goalWeight||"";$("pGoal").value=p.goal||"General fitness";
- $("breakfast").value=f.breakfast||"";$("lunch").value=f.lunch||"";$("dinner").value=f.dinner||"";$("snacks").value=f.snacks||"";$("water").value=f.water||"";
- $("workoutList").innerHTML=d.workouts.map(w=>`<div class="item"><b>${escapeHtml(w.name)}</b><div class="small">${w.minutes||0} min · ${w.sets||0} sets · ${w.reps||0} reps · ${w.distance||0} km · ${w.steps||0} steps</div>${escapeHtml(w.notes||"")}</div>`).join("")||'<p class="small">No workouts logged today.</p>';
- renderWeight();renderSteps();
- $("weeklyTarget").value=data.targets.weekly||4;
- $("weeklySummary").textContent=`Your weekly target is ${data.targets.weekly||4} workouts.`;
- $("todaySteps").value=d.steps||"";$("stepGoal").value=data.targets.step||6000;
+ let d=day(),p=data.profile||{};$("todayLabel").textContent=new Date().toDateString();$("greeting").textContent="Welcome"+(p.name?", "+p.name:"")+"!";
+ $("homeSteps").textContent=(d.steps||0).toLocaleString();$("homeWorkouts").textContent=d.workouts.length;$("homeWeight").textContent=p.weight||"—";$("homeHabits").textContent=d.habits.filter(Boolean).length;$("reflection").value=d.reflection||"";
+ $("pName").value=p.name||"";$("pAge").value=p.age||"";$("pGender").value=p.gender||"";$("pHeight").value=p.height||"";$("pWeight").value=p.weight||"";$("pGoalWeight").value=p.goalWeight||"";$("pGoal").value=p.goal||"General fitness";
+ $("water").value=d.food.water||"";$("todaySteps").value=d.steps||"";$("stepGoal").value=data.targets.step||6000;$("weeklyTarget").value=data.targets.weekly||4;$("weeklySummary").textContent=`Weekly workout target: ${data.targets.weekly||4}`;
+ renderHabits();renderRoutines();renderFood();renderWorkouts();renderWeight();renderSteps();renderCalories();
 }
-function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderHabits(){
+ let d=day(),all=[...defaultHabits,...data.customHabits];$("habitsList").innerHTML="";
+ all.forEach((h,i)=>{let row=document.createElement("div");row.className="item";let cb=document.createElement("input");cb.type="checkbox";cb.checked=d.habits.includes(i);cb.style.width="auto";cb.onchange=async()=>{d.habits=cb.checked?[...d.habits,i]:d.habits.filter(x=>x!==i);await saveData();renderAll()};row.append(cb,document.createTextNode(" "+h));
+ if(i>=defaultHabits.length){let e=document.createElement("button");e.className="secondary";e.textContent="Edit";e.onclick=()=>editHabit(i-defaultHabits.length);let del=document.createElement("button");del.className="danger";del.textContent="Delete";del.onclick=()=>deleteHabit(i-defaultHabits.length);row.append(e,del)}$("habitsList").append(row)})
+}
+window.addHabit=async()=>{let v=$("newHabit").value.trim();if(!v)return msg("Enter a habit name.");data.customHabits.push(v);$("newHabit").value="";try{await saveData();renderAll();msg("Habit added.")}catch(e){msg(e.message)}};
+window.editHabit=async i=>{let v=prompt("Edit habit",data.customHabits[i]);if(v===null)return;if(!v.trim())return msg("Name cannot be empty.");data.customHabits[i]=v.trim();try{await saveData();renderAll()}catch(e){msg(e.message)}};
+window.deleteHabit=async i=>{if(!confirm("Delete this habit? Historical check-ins are retained."))return;data.customHabits.splice(i,1);try{await saveData();renderAll()}catch(e){msg(e.message)}};
 
-window.saveProfile=async()=>{
- try{
-  const p=data.profile||{};
-  p.name=$("pName").value.trim();p.age=Number($("pAge").value)||"";p.gender=$("pGender").value;
-  p.height=Number($("pHeight").value)||"";p.weight=Number($("pWeight").value)||"";
-  p.goalWeight=Number($("pGoalWeight").value)||"";p.goal=$("pGoal").value;
-  if(p.weight&&!p.startingWeight)p.startingWeight=p.weight;
-  data.profile=p;await saveData();msg("Profile saved!");renderAll();
- }catch(e){msg("Profile save failed: "+e.message)}
-};
-window.saveFood=async()=>{
- try{day().food={breakfast:$("breakfast").value,lunch:$("lunch").value,dinner:$("dinner").value,snacks:$("snacks").value,water:Number($("water").value)||0,weight:day().food.weight||""};await saveData();msg("Food diary saved!")}
- catch(e){msg("Food save failed: "+e.message)}
-};
-window.saveReflection=async()=>{
- try{day().reflection=$("reflection").value;await saveData();msg("Reflection saved!")}
- catch(e){msg("Could not save reflection: "+e.message)}
-};
-window.saveWorkout=async()=>{
- try{
-  const name=$("customExercise").value.trim()||$("exerciseName").value;
-  const w={name,minutes:Number($("minutes").value)||0,sets:Number($("sets").value)||0,reps:Number($("reps").value)||0,distance:Number($("distance").value)||0,steps:Number($("workoutSteps").value)||0,load:Number($("load").value)||0,notes:$("workoutNotes").value,time:new Date().toISOString()};
-  if(!w.minutes&&!w.sets&&!w.reps&&!w.distance&&!w.steps)throw Error("Enter at least one workout detail.");
-  day().workouts.push(w);await saveData();
-  ["customExercise","minutes","sets","reps","distance","workoutSteps","load","workoutNotes"].forEach(id=>$(id).value="");
-  msg("Workout saved!");renderAll();
- }catch(e){msg("Workout save failed: "+e.message)}
-};
-window.saveWeight=async()=>{
- try{
-  const weight=Number($("todayWeight").value);
-  if(!weight||weight<1||weight>500)throw Error("Enter a valid weight in kg.");
-  const p=data.profile||{};
-  if(!p.startingWeight)p.startingWeight=Number(p.weight)||weight;
-  p.weight=weight;data.profile=p;
-  day().food={...day().food,weight};
-  await saveData();$("todayWeight").value="";renderAll();msg("Today's weight saved!");
- }catch(e){msg("Weight save failed: "+e.message)}
-};
-function renderWeight(){
- const p=data.profile||{},entries=Object.entries(data.days||{}).filter(([k,v])=>v.food&&Number(v.food.weight)>0).sort((a,b)=>a[0].localeCompare(b[0]));
- const current=entries.length?Number(entries[entries.length-1][1].food.weight):Number(p.weight)||0;
- const start=Number(p.startingWeight)||current,goal=Number(p.goalWeight)||0;
- $("startingWeight").textContent=start||"—";$("currentWeight").textContent=current||"—";$("goalWeight").textContent=goal||"—";
- const remaining=goal&&current?Math.abs(current-goal):0;
- $("remainingWeight").textContent=goal&&current?remaining.toFixed(1):"—";
- let pct=0;
- if(start&&goal&&start!==goal){pct=start>goal?(start-current)/(start-goal)*100:(current-start)/(goal-start)*100;pct=Math.max(0,Math.min(100,pct))}
- $("weightProgress").style.width=pct+"%";
- $("weightPercent").textContent=goal&&current?`${pct.toFixed(1)}% progress toward your goal`:"Add your current and goal weight in Profile to see your journey.";
- $("weightChange").textContent=start&&current?`Change since starting: ${(start-current)>0?(start-current).toFixed(1)+" kg lost":(start-current)<0?Math.abs(start-current).toFixed(1)+" kg gained":"No change yet"}`:"";
- $("weightHistory").innerHTML=entries.slice().reverse().map(([date,v])=>`<div class="item">${date} <b style="float:right">${Number(v.food.weight).toFixed(1)} kg</b></div>`).join("")||'<p class="small">Your weigh-ins will appear here.</p>';
-}
-window.saveSteps=async()=>{
- try{const steps=Number($("todaySteps").value),goal=Number($("stepGoal").value)||6000;if(!Number.isFinite(steps)||steps<0)throw Error("Enter a valid step count.");day().steps=steps;data.targets.step=goal;await saveData();renderAll();msg("Steps saved!")}
- catch(e){msg("Step save failed: "+e.message)}
-};
-function renderSteps(){const d=day(),steps=Number(d.steps)||0,goal=Number(data.targets.step)||6000;$("stepProgress").style.width=Math.min(100,steps/goal*100)+"%";$("stepSummary").textContent=`${steps.toLocaleString()} / ${goal.toLocaleString()} steps (${Math.round(steps/goal*100)}% of your goal)`;}
-window.saveTargets=async()=>{try{data.targets.weekly=Math.max(1,Number($("weeklyTarget").value)||4);await saveData();msg("Weekly target saved!");renderAll()}catch(e){msg(e.message)}};
+function renderRoutines(){$("routineList").innerHTML=data.routines.map((r,i)=>`<div class="item"><b>${esc(r.name)}</b><p class="small">${esc(r.steps)}</p><button class="secondary" onclick="editRoutine(${i})">Edit</button><button class="danger" onclick="deleteRoutine(${i})">Delete</button></div>`).join("")||'<p class="small">No routines yet.</p>'}
+window.addRoutine=async()=>{let name=$("routineName").value.trim();if(!name)return msg("Enter a routine name.");data.routines.push({name,steps:$("routineSteps").value.trim()});$("routineName").value="";$("routineSteps").value="";try{await saveData();renderRoutines();msg("Routine added.")}catch(e){msg(e.message)}};
+window.editRoutine=async i=>{let r=data.routines[i],n=prompt("Routine name",r.name);if(n===null)return;let s=prompt("Routine steps",r.steps);if(s===null)return;if(!n.trim())return msg("Name cannot be empty.");data.routines[i]={name:n.trim(),steps:s};try{await saveData();renderRoutines()}catch(e){msg(e.message)}};
+window.deleteRoutine=async i=>{if(!confirm("Delete this routine?"))return;data.routines.splice(i,1);try{await saveData();renderRoutines()}catch(e){msg(e.message)}};
 
-/* Friend-code system: friend codes reveal only the account identifier
-   to authenticated users; profile and health records are not exposed. */
-function makeCode(){return "WA90-"+Math.random().toString(36).slice(2,8).toUpperCase()}
-async function setupFriendCode(){
- const ref=doc(db,"users",user.uid),snap=await getDoc(ref);
- let code=snap.exists()?snap.data().friendCode:null;
- if(!code){code=makeCode();data.friendCode=code;await saveData()}
- $("myFriendCode").textContent=code;
- await setDoc(doc(db,"friendCodes",code),{uid:user.uid},{merge:true});
- await loadFriends();
-}
-window.copyFriendCode=async()=>{try{await navigator.clipboard.writeText(data.friendCode||"");msg("Friend code copied!")}catch(e){msg("Your code is "+(data.friendCode||""))}};
-window.sendFriendRequest=async()=>{
- try{
-  const code=$("friendCodeInput").value.trim().toUpperCase();
-  if(!code)throw Error("Enter a friend's code.");
-  if(code===data.friendCode)throw Error("You cannot add yourself.");
-  const target=await getDoc(doc(db,"friendCodes",code));
-  if(!target.exists())throw Error("Friend code not found.");
-  const recipient=target.data().uid;
-  const existing=await getDocs(query(collection(db,"friendRequests"),where("from","==",user.uid),where("to","==",recipient),where("status","==","pending")));
-  if(!existing.empty)throw Error("A request is already pending.");
-  await addDoc(collection(db,"friendRequests"),{from:user.uid,to:recipient,fromCode:data.friendCode,toCode:code,status:"pending",createdAt:serverTimestamp()});
-  $("friendCodeInput").value="";msg("Friend request sent!");await loadFriends();
- }catch(e){msg("Request failed: "+e.message)}
-};
-async function loadFriends(){
- if(!user)return;
- const incoming=await getDocs(query(collection(db,"friendRequests"),where("to","==",user.uid),where("status","==","pending")));
- $("incomingRequests").innerHTML="";
- for(const r of incoming.docs){
-  const v=r.data(),div=document.createElement("div");div.className="item";
-  div.textContent="Request from "+v.fromCode+" ";
-  const yes=document.createElement("button");yes.textContent="Accept";yes.onclick=()=>respondRequest(r.id,true);
-  const no=document.createElement("button");no.textContent="Reject";no.className="secondary";no.onclick=()=>respondRequest(r.id,false);
-  div.append(yes,no);$("incomingRequests").append(div);
- }
- const accepted1=await getDocs(query(collection(db,"friendRequests"),where("from","==",user.uid),where("status","==","accepted")));
- const accepted2=await getDocs(query(collection(db,"friendRequests"),where("to","==",user.uid),where("status","==","accepted")));
- const friends=[...accepted1.docs,...accepted2.docs];
- $("friendList").innerHTML=friends.map(r=>{const v=r.data();return `<div class="item">${escapeHtml(v.from===user.uid?v.toCode:v.fromCode)}</div>`}).join("")||'<p class="small">No accepted friends yet.</p>';
- const challenges=await getDocs(query(collection(db,"challenges"),where("participants","array-contains",user.uid)));
- $("challengeList").innerHTML=challenges.docs.map(r=>`<div class="item"><b>${escapeHtml(r.data().name)}</b><div class="small">90-day challenge · Participants: ${r.data().participants.length}</div></div>`).join("")||'<p class="small">No challenges yet.</p>';
-}
-window.respondRequest=async(id,accepted)=>{
- try{await updateDoc(doc(db,"friendRequests",id),{status:accepted?"accepted":"rejected"});msg(accepted?"Friend request accepted!":"Request rejected.");await loadFriends()}
- catch(e){msg("Could not update request: "+e.message)}
-};
-window.createChallenge=async()=>{
- try{
-  const name=$("challengeName").value.trim(),code=$("challengeFriendCode").value.trim().toUpperCase();
-  if(!name||!code)throw Error("Enter a challenge name and friend's code.");
-  const target=await getDoc(doc(db,"friendCodes",code));
-  if(!target.exists())throw Error("Friend code not found.");
-  const friend=target.data().uid;
-  const accepted=await getDocs(query(collection(db,"friendRequests"),where("status","==","accepted")));
-  const isFriend=accepted.docs.some(r=>{const v=r.data();return (v.from===user.uid&&v.to===friend)||(v.to===user.uid&&v.from===friend)});
-  if(!isFriend)throw Error("You can only challenge an accepted friend.");
-  await addDoc(collection(db,"challenges"),{name,participants:[user.uid,friend],createdBy:user.uid,createdAt:serverTimestamp(),durationDays:90});
-  $("challengeName").value="";$("challengeFriendCode").value="";msg("90-day challenge created!");await loadFriends();
- }catch(e){msg("Challenge failed: "+e.message)}
-};
-</script>
-</body>
-</html>
+window.saveProfile=async()=>{try{let p=data.profile||{};p.name=$("pName").value.trim();p.age=Number($("pAge").value)||"";p.gender=$("pGender").value;p.height=Number($("pHeight").value)||"";p.weight=Number($("pWeight").value)||"";p.goalWeight=Number($("pGoalWeight").value)||"";p.goal=$("pGoal").value;if(p.weight&&!p.startingWeight)p.startingWeight=p.weight;data.profile=p;await saveData();renderAll();msg("Profile saved.")}catch(e){msg(e.message)}};
+
+window.saveFoodEntry=async()=>{try{let d=day(),e={meal:$("foodMeal").value,name:$("foodName").value.trim(),quantity:$("foodQuantity").value.trim(),calories:Number($("foodCalories").value)||0};if(!e.name)throw Error("Enter a food name.");if(editingFood<0)d.food.entries.push(e);else d.food.entries[editingFood]=e;await saveData();cancelFoodEdit();renderFood();msg("Food saved.")}catch(e){msg(e.message)}};
+window.editFood=i=>{let e=day().food.entries[i];editingFood=i;$("foodMeal").value=e.meal;$("foodName").value=e.name;$("foodQuantity").value=e.quantity||"";$("foodCalories").value=e.calories||"";$("foodSaveButton").textContent="Update food";$("foodCancelButton").classList.remove("hidden");window.showTab("food")};
+window.cancelFoodEdit=()=>{editingFood=-1;$("foodMeal").value="Breakfast";$("foodName").value="";$("foodQuantity").value="";$("foodCalories").value="";$("foodSaveButton").textContent="Add food";$("foodCancelButton").classList.add("hidden")};
+window.deleteFood=async i=>{if(!confirm("Delete this food entry?"))return;day().food.entries.splice(i,1);try{await saveData();renderFood();msg("Food deleted.")}catch(e){msg(e.message)}};
+function renderFood(){$("foodList").innerHTML=day().food.entries.map((e,i)=>`<div class="item"><b>${esc(e.meal)}: ${esc(e.name)}</b><div class="small">${esc(e.quantity||"")}${e.calories?" · "+e.calories+" kcal":""}</div><button class="secondary" onclick="editFood(${i})">Edit</button><button class="danger" onclick="deleteFood(${i})">Delete</button></div>`).join("")||'<p class="small">No food logged today.</p>'}
+window.saveWater=async()=>{try{day().food.water=Number($("water").value)||0;await saveData();msg("Water saved.")}catch(e){msg(e.message)}};
+window.saveReflection=async()=>{try{day().reflection=$("reflection").value;await saveData();msg("Reflection saved.")}catch(e){msg(e.message)}};
+
+const MET={"walking":3.5,"brisk walking":4.5,"hiking":6,"stairs":8,"cycling":7.5,"running":9.8,"jogging":7,"sprinting":12,"skipping rope":11,"swimming":7,"dancing":5,"aerobics":6.5,"push-ups":5,"pull-ups":6,"squats":5,"lunges":5,"plank":3.5,"burpees":8,"dead hangs":3,"dips":5,"mountain climbers":8,"dumbbell workout":5,"barbell workout":5,"resistance bands":4,"yoga":3,"stretching":2.5,"mobility":2.5,"custom workout":4};
+function caloriesFor(name,minutes){let weight=Number(data.profile.weight)||65,met=MET[String(name).toLowerCase()]||4;return Math.round(met*3.5*weight/200*minutes)}
+window.saveWorkout=async()=>{try{let d=day(),name=$("customExercise").value.trim()||$("exerciseName").value,minutes=Number($("minutes").value)||0,w={name,minutes,sets:Number($("sets").value)||0,reps:Number($("reps").value)||0,distance:Number($("distance").value)||0,steps:Number($("workoutSteps").value)||0,load:Number($("load").value)||0,notes:$("workoutNotes").value.trim(),time:new Date().toISOString()};if(!minutes&&!w.sets&&!w.reps&&!w.distance&&!w.steps)throw Error("Enter a workout detail.");w.calories=caloriesFor(name,minutes);if(editingWorkout<0)d.workouts.push(w);else d.workouts[editingWorkout]=w;await saveData();cancelWorkoutEdit();renderWorkouts();renderCalories();msg("Workout saved · estimated "+w.calories+" kcal.")}catch(e){msg(e.message)}};
+window.editWorkout=i=>{let w=day().workouts[i];editingWorkout=i;$("exerciseName").value=[...$("exerciseName").options].some(o=>o.value===w.name)?w.name:"Custom workout";$("customExercise").value=$("exerciseName").value===w.name?"":w.name;$("minutes").value=w.minutes||"";$("sets").value=w.sets||"";$("reps").value=w.reps||"";$("distance").value=w.distance||"";$("workoutSteps").value=w.steps||"";$("load").value=w.load||"";$("workoutNotes").value=w.notes||"";$("workoutSaveButton").textContent="Update workout";$("workoutCancelButton").classList.remove("hidden");window.showTab("workouts")};
+window.cancelWorkoutEdit=()=>{editingWorkout=-1;["customExercise","minutes","sets","reps","distance","workoutSteps","load","workoutNotes"].forEach(id=>$(id).value="");$("workoutSaveButton").textContent="Save workout";$("workoutCancelButton").classList.add("hidden")};
+window.deleteWorkout=async i=>{if(!confirm("Delete this workout?"))return;day().workouts.splice(i,1);try{await saveData();renderWorkouts();renderCalories();msg("Workout deleted.")}catch(e){msg(e.message)}};
+function renderWorkouts(){$("workoutList").innerHTML=day().workouts.map((w,i)=>`<div class="item"><b>${esc(w.name)}</b><div class="small">${w.minutes||0} min · ${w.sets||0} sets · ${w.reps||0} reps · ${w.distance||0} km · ${w.steps||0} steps · <b>${Number(w.calories)||caloriesFor(w.name,w.minutes||0)} kcal estimated</b></div>${esc(w.notes||"")}<button class="secondary" onclick="editWorkout(${i})">Edit</button><button class="danger" onclick="deleteWorkout(${i})">Delete</button></div>`).join("")||'<p class="small">No workouts logged today.</p>'}
+function renderCalories(){let total=day().workouts.reduce((s,w)=>s+(Number(w.calories)||caloriesFor(w.name,w.minutes||0)),0);$("dailyCalories").textContent=total+" kcal";$("homeCalories").textContent=total;let week=0,now=new Date();for(let i=0;i<7;i++){let d=new Date(now);d.setDate(now.getDate()-i);let k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;(data.days[k]?.workouts||[]).forEach(w=>week+=Number(w.calories)||caloriesFor(w.name,w.minutes||0))}$("weeklyCalories").textContent=week+" kcal"}
+
+window.saveWeight=async()=>{try{let w=Number($("todayWeight").value);if(!w||w<1||w>500)throw Error("Enter valid weight.");let p=data.profile||{};if(!p.startingWeight)p.startingWeight=Number(p.weight)||w;p.weight=w;data.profile=p;day().food.weight=w;await saveData();$("todayWeight").value="";renderAll();msg("Weight saved.")}catch(e){msg(e.message)}};
+function renderWeight(){let p=data.profile||{},a=Object.entries(data.days).filter(([k,v])=>v.food&&Number(v.food.weight)>0).sort((x,y)=>x[0].localeCompare(y[0])),cur=a.length?Number(a[a.length-1][1].food.weight):Number(p.weight)||0,start=Number(p.startingWeight)||cur,goal=Number(p.goalWeight)||0;$("startingWeight").textContent=start||"—";$("currentWeight").textContent=cur||"—";$("goalWeight").textContent=goal||"—";$("remainingWeight").textContent=goal&&cur?Math.abs(cur-goal).toFixed(1):"—";let pct=0;if(start&&goal&&start!==goal)pct=Math.max(0,Math.min(100,start>goal?(start-cur)/(start-goal)*100:(cur-start)/(goal-start)*100));$("weightProgress").style.width=pct+"%";$("weightPercent").textContent=goal&&cur?pct.toFixed(1)+"% progress toward goal":"Add current and goal weight in Profile."; $("weightChange").textContent=start&&cur?`Change since start: ${start>cur?(start-cur).toFixed(1)+" kg lost":start<cur?(cur-start).toFixed(1)+" kg gained":"No change yet"}`:"";$("weightHistory").innerHTML=a.slice().reverse().map(([date,v])=>`<div class="item">${date}<b style="float:right">${Number(v.food.weight).toFixed(1)} kg</b></div>`).join("")||'<p class="small">No weigh-ins yet.</p>'}
+window.saveSteps=async()=>{try{let s=Number($("todaySteps").value),g=Number($("stepGoal").value)||6000;if(!Number.isFinite(s)||s<0)throw Error("Enter valid steps.");day().steps=s;data.targets.step=g;await saveData();renderAll();msg("Steps saved.")}catch(e){msg(e.message)}};
+function renderSteps(){let s=Number(day().steps)||0,g=Number(data.targets.step)||6000;$("stepProgress").style.width=Math.min(100,s/g*100)+"%";$("stepSummary").textContent=`${s.toLocaleString()} / ${g.toLocaleString()} steps (${Math.round(s/g*100)}% of goal)`}
+window.saveTargets=async()=>{try{data.targets.weekly=Math.max(1,Number($("weeklyTarget").value)||4);await saveData();renderAll();msg("Target saved.")}catch(e){msg(e.message)}};
+
+function makeCode(){return"WA90-"+Math.random().toString(36).slice(2,8).toUpperCase()}
+async function setupFriendCode(){let s=await getDoc(doc(db,"users",user.uid)),code=s.exists()?s.data().friendCode:null;if(!code){code=makeCode();data.friendCode=code;await saveData()}else data.friendCode=code;$("myFriendCode").textContent=code;await setDoc(doc(db,"friendCodes",code),{uid:user.uid},{merge:true});await loadFriends()}
+window.copyFriendCode=async()=>{try{await navigator.clipboard.writeText(data.friendCode||"");msg("Friend code copied.")}catch(e){msg("Your code: "+data.friendCode)}};
+window.sendFriendRequest=async()=>{try{let c=$("friendCodeInput").value.trim().toUpperCase();if(!c||c===data.friendCode)throw Error("Enter another person's code.");let t=await getDoc(doc(db,"friendCodes",c));if(!t.exists())throw Error("Code not found.");await addDoc(collection(db,"friendRequests"),{from:user.uid,to:t.data().uid,fromCode:data.friendCode,toCode:c,status:"pending",createdAt:new Date().toISOString()});$("friendCodeInput").value="";msg("Request sent.");await loadFriends()}catch(e){msg(e.message)}};
+async function loadFriends(){if(!user)return;let inc=await getDocs(query(collection(db,"friendRequests"),where("to","==",user.uid),where("status","==","pending")));$("incomingRequests").innerHTML="";inc.forEach(r=>{let v=r.data(),d=document.createElement("div");d.className="item";d.textContent="Request from "+v.fromCode+" ";let a=document.createElement("button");a.textContent="Accept";a.onclick=()=>respondRequest(r.id,true);let n=document.createElement("button");n.textContent="Reject";n.className="secondary";n.onclick=()=>respondRequest(r.id,false);d.append(a,n);$("incomingRequests").append(d)});let a=await getDocs(query(collection(db,"friendRequests"),where("from","==",user.uid),where("status","==","accepted"))),b=await getDocs(query(collection(db,"friendRequests"),where("to","==",user.uid),where("status","==","accepted")));$("friendList").innerHTML=[...a.docs,...b.docs].map(r=>{let v=r.data();return`<div class="item">${esc(v.from===user.uid?v.toCode:v.fromCode)}</div>`}).join("")||'<p class="small">No accepted friends.</p>';let c=await getDocs(query(collection(db,"challenges"),where("participants","array-contains",user.uid)));$("challengeList").innerHTML=c.docs.map(r=>`<div class="item"><b>${esc(r.data().name)}</b><div class="small">90-day challenge · ${r.data().participants.length} participants</div></div>`).join("")||'<p class="small">No challenges yet.</p>'}
+window.respondRequest=async(id,yes)=>{try{await updateDoc(doc(db,"friendRequests",id),{status:yes?"accepted":"rejected"});msg(yes?"Friend accepted.":"Request rejected.");await loadFriends()}catch(e){msg(e.message)}};
+window.createChallenge=async()=>{try{let n=$("challengeName").value.trim(),c=$("challengeFriendCode").value.trim().toUpperCase();if(!n||!c)throw Error("Enter challenge name and friend code.");let t=await getDoc(doc(db,"friendCodes",c));if(!t.exists())throw Error("Friend code not found.");let friend=t.data().uid,r=await getDocs(query(collection(db,"friendRequests"),where("status","==","accepted"))),ok=r.docs.some(x=>{let v=x.data();return(v.from===user.uid&&v.to===friend)||(v.to===user.uid&&v.from===friend)});if(!ok)throw Error("Accept the friend request first.");await addDoc(collection(db,"challenges"),{name:n,participants:[user.uid,friend],createdBy:user.uid,createdAt:new Date().toISOString(),durationDays:90});$("challengeName").value="";$("challengeFriendCode").value="";msg("Challenge created.");await loadFriends()}catch(e){msg(e.message)}};
+</script></body></html>
