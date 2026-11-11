@@ -3,753 +3,408 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#17102e">
-<title>Fitness Journal | Your 90-Day Journey</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17102f">
+<title>Winter Arc 90</title>
 <style>
-:root {
-  --bg:#100d25;
-  --panel:#251941;
-  --panel2:#30204f;
-  --pink:#ff83bd;
-  --gold:#ffd36b;
-  --blue:#72d9ff;
-  --text:#fff8ff;
-  --muted:#c9bddc;
-  --border:rgba(255,255,255,.15);
-}
+:root{--bg:#130f27;--panel:#251b40;--panel2:#33244f;--pink:#ff83bd;--gold:#ffd477;--blue:#79d7ff;--green:#7be0b2;--muted:#c6bad9;--line:#ffffff22}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(ellipse at 5% 5%,#54256e 0,transparent 35%),
-    radial-gradient(ellipse at 100% 25%,#103f65 0,transparent 35%),
-    linear-gradient(145deg,#100d25,#17102f);
-  min-height:100vh;
-  padding-bottom:100px;
-}
-button,input,textarea,select{font:inherit}
+body{margin:0;background:radial-gradient(ellipse at top left,#51265d,transparent 40%),radial-gradient(ellipse at bottom right,#123b53,transparent 40%),var(--bg);color:#fff;font-family:system-ui,Arial,sans-serif;padding-bottom:35px}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
+.wrap{max-width:950px;margin:auto;padding:15px}
 .hidden{display:none!important}
-header{
-  max-width:900px;
-  margin:auto;
-  padding:22px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.brand{
-  font-size:clamp(21px,5vw,32px);
-  font-weight:900;
-  background:linear-gradient(90deg,#ff9acb,#83dfff);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-.logout{
-  background:#ffffff18;
-  color:white;
-  border:1px solid var(--border);
-  border-radius:30px;
-  padding:12px 18px;
-}
-main{max-width:900px;margin:auto;padding:0 18px}
-.hero{
-  min-height:260px;
-  border-radius:30px;
-  padding:30px;
-  display:flex;
-  flex-direction:column;
-  justify-content:end;
-  background:
-    linear-gradient(90deg,#160d32dd,#160d3255),
-    url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200")
-    center/cover;
-  border:1px solid var(--border);
-  margin:12px 0 25px;
-}
-.eyebrow{
-  color:var(--pink);
-  font-weight:800;
-  letter-spacing:3px;
-  font-size:13px;
-}
-h1{font-size:clamp(30px,7vw,46px);margin:8px 0}
-h2{font-size:24px;margin:0 0 16px}
-h3{margin:0 0 12px}
-p{color:var(--muted);line-height:1.55}
-.panel{
-  background:linear-gradient(145deg,#30204feF,#201738f5);
-  border:1px solid var(--border);
-  border-radius:28px;
-  padding:24px;
-  margin:18px 0;
-  box-shadow:0 12px 35px #0003;
-}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-.stat{
-  background:#ffffff12;
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:18px 8px;
-  text-align:center;
-}
-.stat strong{
-  display:block;
-  font-size:30px;
-  margin-bottom:6px;
-}
-.stat:nth-child(1) strong{color:var(--blue)}
-.stat:nth-child(2) strong{color:var(--pink)}
-.stat:nth-child(3) strong{color:var(--gold)}
-.stat span{font-size:12px;color:var(--muted)}
-.progress{
-  height:12px;
-  background:#ffffff20;
-  border-radius:20px;
-  overflow:hidden;
-  margin:20px 0 10px;
-}
-.progress div{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,var(--pink),var(--gold));
-  border-radius:20px;
-  transition:width .3s;
-}
-.habit{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:15px 0;
-  border-bottom:1px solid var(--border);
-}
-.habit:last-child{border:0}
-.habit input{width:23px;height:23px;accent-color:#ff83bd}
-.habit label{flex:1}
-input,textarea,select{
-  width:100%;
-  padding:15px;
-  background:#100d25;
-  border:1px solid #ffffff25;
-  border-radius:17px;
-  color:white;
-  outline:none;
-  margin:8px 0 17px;
-}
-textarea{min-height:100px;resize:vertical}
-label{color:#e9dff5}
-.primary{
-  width:100%;
-  border:0;
-  border-radius:18px;
-  padding:17px;
-  font-weight:800;
-  color:#21142e;
-  background:linear-gradient(100deg,var(--pink),var(--gold));
-}
-.secondary{
-  border:1px solid var(--border);
-  background:#ffffff12;
-  color:white;
-  border-radius:15px;
-  padding:12px 16px;
-}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.page{display:none}
-.page.active{display:block}
-.nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  background:#100b22f5;
-  border-top:1px solid var(--border);
-  padding:10px 4px max(10px,env(safe-area-inset-bottom));
-  z-index:10;
-  backdrop-filter:blur(18px);
-}
-.nav button{
-  border:0;
-  background:none;
-  color:#c9bddc;
-  padding:5px 2px;
-  font-size:12px;
-}
-.nav button span{display:block;font-size:24px;margin-bottom:3px}
-.nav button.active{color:var(--pink)}
-.chart{
-  width:100%;
-  height:180px;
-  display:block;
-}
-.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.photo-box{
-  min-height:145px;
-  border:1px dashed #ffffff55;
-  border-radius:20px;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  background:#100d25;
-}
-.photo-box img{width:100%;height:180px;object-fit:cover}
-#auth{
-  max-width:430px;
-  margin:10vh auto;
-  padding:25px;
-}
-#auth .panel{padding:28px}
-.message{color:var(--gold);font-size:14px;min-height:22px}
-.small{font-size:13px}
-@media(max-width:480px){
-  .panel{padding:19px;border-radius:24px}
-  .hero{padding:22px;min-height:230px}
-  .stat{padding:14px 5px}
-  .stat strong{font-size:25px}
-  .stat span{font-size:10px}
-  .grid2{gap:8px}
-}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 0}
+.logo{font-size:23px;font-weight:900;background:linear-gradient(90deg,var(--pink),var(--gold));background-clip:text;color:transparent}
+.card{background:linear-gradient(145deg,#30204fef,#201833f5);border:1px solid var(--line);border-radius:20px;padding:18px;margin:13px 0}
+.hero{min-height:185px;padding:25px;border-radius:22px;background:linear-gradient(100deg,#27143bea,#39205d88),url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200") center/cover;display:flex;flex-direction:column;justify-content:center}
+h1{font-size:30px;margin:8px 0}h2{font-size:20px;margin:3px 0 13px}h3{font-size:16px}
+p{color:var(--muted);line-height:1.5}
+.small{font-size:12px;color:var(--muted)}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 5px}
+input,select,textarea{width:100%;padding:12px;border-radius:11px;background:#17132c;color:white;border:1px solid var(--line);margin:4px 0 10px}
+textarea{min-height:70px;resize:vertical}
+button.primary{border:0;border-radius:12px;padding:12px 17px;font-weight:800;color:#25132f;background:linear-gradient(100deg,var(--pink),var(--gold))}
+button.secondary{background:#ffffff12;color:white;border:1px solid var(--line);padding:10px 13px;border-radius:11px}
+button.danger{background:#783550;color:white;border:0;padding:10px 13px;border-radius:11px}
+.nav{display:flex;gap:7px;overflow-x:auto;position:sticky;top:0;background:#17112af5;padding:10px 0;z-index:5}
+.nav button{white-space:nowrap;background:#ffffff12;color:#fff;border:1px solid var(--line);border-radius:10px;padding:10px}
+.nav button.active{background:var(--pink);color:#24132f;font-weight:800}
+.page{display:none}.page.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.stat{background:#ffffff0d;border:1px solid var(--line);border-radius:14px;padding:13px;text-align:center}
+.stat strong{display:block;font-size:23px;color:var(--gold)}
+.stat span{font-size:11px;color:var(--muted)}
+.bar{height:10px;border-radius:20px;background:#ffffff20;overflow:hidden;margin:12px 0}
+.bar div{height:100%;background:linear-gradient(90deg,var(--pink),var(--gold))}
+.habit{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.habit input{width:20px;margin:0;accent-color:var(--pink)}
+.habit span{flex:1}
+.exercise,.history{padding:12px;margin:7px 0;border-radius:12px;background:#ffffff0b;border:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{font-size:11px;color:var(--gold);background:#ffffff12;border-radius:30px;padding:5px 9px}
+.avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;background:#44365c}
+canvas{width:100%;height:190px}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}h1{font-size:25px}.card{padding:15px}.wrap{padding:11px}}
 </style>
 </head>
-
 <body>
+<div class="wrap">
 
-<section id="auth">
-  <div class="panel">
-    <div class="brand">❄ Fitness Journal</div>
-    <p>Your personal 90-day transformation starts here.</p>
-
-    <div id="loginForm">
-      <h2>Welcome back ✨</h2>
-      <label>Email address</label>
-      <input id="email" type="email" placeholder="Your email">
-      <label>Password</label>
-      <input id="password" type="password" placeholder="Your password">
-      <button class="primary" onclick="login()">Log in</button>
-      <p class="small">New here? <a href="#" onclick="showSignup()" style="color:#ff9acb">Create account</a></p>
-      <p class="small"><a href="#" onclick="resetPassword()" style="color:#ff9acb">Forgot password?</a></p>
-    </div>
-
-    <div id="signupForm" class="hidden">
-      <h2>Create your account 💜</h2>
-      <label>Email address</label>
-      <input id="newEmail" type="email" placeholder="Your email">
-      <label>Password (at least 6 characters)</label>
-      <input id="newPassword" type="password" placeholder="Create password">
-      <button class="primary" onclick="signup()">Create account</button>
-      <p class="small"><a href="#" onclick="showLogin()" style="color:#ff9acb">Back to login</a></p>
-    </div>
-    <div id="authMessage" class="message"></div>
-  </div>
+<!-- LOGIN -->
+<section id="authScreen" class="card" style="max-width:430px;margin:8vh auto">
+ <div class="logo">WINTER ARC 90 ✨</div>
+ <p>Your personal fitness and lifestyle journal.</p>
+ <div id="loginBox">
+  <h2>Welcome back</h2>
+  <label>Email</label><input id="email" type="email" placeholder="Email address">
+  <label>Password</label><input id="password" type="password" placeholder="Password">
+  <button class="primary" style="width:100%" onclick="login()">Log in</button>
+  <p><a href="#" onclick="resetPassword()" style="color:var(--pink)">Forgot password?</a></p>
+  <p>New user? <a href="#" onclick="showRegister()" style="color:var(--gold)">Create account</a></p>
+ </div>
+ <div id="registerBox" class="hidden">
+  <h2>Create account</h2>
+  <label>Email</label><input id="newEmail" type="email">
+  <label>Password (minimum 6 characters)</label><input id="newPassword" type="password">
+  <button class="primary" style="width:100%" onclick="register()">Create account</button>
+  <p>Already registered? <a href="#" onclick="showLogin()" style="color:var(--pink)">Log in</a></p>
+ </div>
+ <p id="authMessage" class="small"></p>
 </section>
 
+<!-- MAIN APP -->
 <div id="app" class="hidden">
 <header>
-  <div class="brand">❄ FITNESS JOURNAL</div>
-  <button class="logout" onclick="logout()">Log out ↗</button>
+ <div><div class="logo">WINTER ARC 90 ✨</div><div class="small">Progress over perfection.</div></div>
+ <button class="secondary" onclick="logout()">Log out</button>
 </header>
 
-<main>
+<nav class="nav">
+ <button class="active" onclick="tab('home',this)">🏠 Home</button>
+ <button onclick="tab('profile',this)">👤 Profile</button>
+ <button onclick="tab('food',this)">🥗 Food</button>
+ <button onclick="tab('workouts',this)">💪 Workouts</button>
+ <button onclick="tab('progress',this)">📈 Progress</button>
+ <button onclick="tab('settings',this)">⚙️ Settings</button>
+</nav>
 
 <!-- HOME -->
-<section class="page active" id="home">
-  <div class="hero">
-    <div class="eyebrow">YOUR PERSONAL TRANSFORMATION</div>
-    <h1>Make this season your strongest yet ✨</h1>
-    <p>One day at a time. Your future self is cheering for you.</p>
-    <button class="primary" onclick="document.getElementById('habitPanel').scrollIntoView({behavior:'smooth'})">Start today's habits ✨</button>
-  </div>
+<section id="home" class="page active">
+ <div class="hero">
+  <span class="pill">YOUR 90-DAY JOURNEY</span>
+  <h1 id="greeting">Welcome to your Winter Arc!</h1>
+  <p>Become a little stronger every day. Your journey, your pace.</p>
+ </div>
+ <div class="stats">
+  <div class="stat"><strong id="dayNo">1/90</strong><span>Challenge day</span></div>
+  <div class="stat"><strong id="habitNo">0/6</strong><span>Habits completed</span></div>
+  <div class="stat"><strong id="waterNo">0</strong><span>Water glasses</span></div>
+  <div class="stat"><strong id="workoutNo">0</strong><span>Workouts today</span></div>
+ </div>
+ <div class="card">
+  <div class="row"><h2>Today's habits 🌷</h2><span class="pill" id="habitPercent">0%</span></div>
+  <div class="bar"><div id="habitBar" style="width:0%"></div></div>
+  <div id="habits"></div>
+  <button class="secondary" onclick="addHabit()">＋ Add a habit</button>
+ </div>
+ <div class="card">
+  <h2>Daily reflection ✍️</h2>
+  <textarea id="reflection" placeholder="How was your day? What are you proud of?"></textarea>
+  <button class="primary" onclick="saveReflection()">Save reflection</button>
+ </div>
+</section>
 
-  <h2>Your 90-day journey</h2>
-  <div class="panel">
-    <div class="stats">
-      <div class="stat"><strong id="dayNumber">1</strong><span>CHALLENGE DAY</span></div>
-      <div class="stat"><strong id="streak">0 🔥</strong><span>DAY STREAK</span></div>
-      <div class="stat"><strong id="habitPercent">0%</strong><span>TODAY'S HABITS</span></div>
-    </div>
-    <div class="progress"><div id="journeyBar"></div></div>
-    <p id="journeyText">89 days to go — keep going!</p>
+<!-- PROFILE -->
+<section id="profile" class="page">
+ <div class="card">
+  <h2>My Personal Profile 💜</h2>
+  <div class="row">
+   <img id="avatar" class="avatar" alt="Profile photo">
+   <div style="flex:1"><label>Profile photo (this device)</label><input id="photo" type="file" accept="image/*" onchange="changePhoto(event)"></div>
   </div>
-
-  <div class="panel" id="habitPanel">
-    <h2>Today's habits 🌈</h2>
-    <p>Tick each habit as you complete it. Changes save automatically.</p>
-    <div id="habitList"></div>
+  <label>Name</label><input id="name" placeholder="Your name">
+  <div class="grid">
+   <div><label>Age</label><input id="age" type="number"></div>
+   <div><label>Gender</label><select id="gender"><option value="">Choose</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></div>
+   <div><label>Height (cm)</label><input id="height" type="number"></div>
+   <div><label>Current weight (kg)</label><input id="currentWeight" type="number" step=".1"></div>
+   <div><label>Goal weight (kg)</label><input id="goalWeight" type="number" step=".1"></div>
+   <div><label>Fitness goal</label><select id="goal"><option>Healthy lifestyle</option><option>Weight management</option><option>Muscle building</option><option>Strength</option><option>General fitness</option></select></div>
   </div>
-
-  <div class="panel" style="background:linear-gradient(120deg,#713d86,#155d78)">
-    <div class="eyebrow">A LITTLE REMINDER</div>
-    <h2>You don't need to be perfect. You need to keep showing up.</h2>
-    <p>Keep your promise to yourself. 💜</p>
-  </div>
-
-  <div class="panel">
-    <h2>Progress photos 📸</h2>
-    <p class="small">Photos are stored only on this device, not uploaded to Firebase.</p>
-    <div class="photo-grid">
-      <div><label>Starting photo</label><div class="photo-box" id="beforePreview">No photo yet</div><input type="file" accept="image/*" onchange="savePhoto(event,'before')"></div>
-      <div><label>Latest photo</label><div class="photo-box" id="afterPreview">No photo yet</div><input type="file" accept="image/*" onchange="savePhoto(event,'after')"></div>
-    </div>
-  </div>
+  <button class="primary" onclick="saveProfile()">Save profile</button>
+ </div>
 </section>
 
 <!-- FOOD -->
-<section class="page" id="food">
-  <div class="hero" style="background-image:linear-gradient(90deg,#160d32dd,#160d3255),url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200')">
-    <div class="eyebrow">NOURISH YOUR BODY</div>
-    <h1>Food & Nutrition 🥑</h1>
-    <p>Build healthy habits one meal at a time.</p>
+<section id="food" class="page">
+ <div class="card">
+  <h2>Food & Nutrition 🥑</h2>
+  <label>Breakfast</label><textarea id="breakfast"></textarea>
+  <label>Lunch</label><textarea id="lunch"></textarea>
+  <label>Dinner</label><textarea id="dinner"></textarea>
+  <label>Snacks</label><textarea id="snacks"></textarea>
+  <div class="grid">
+   <div><label>Water (glasses)</label><input id="water" type="number" min="0"></div>
+   <div><label>Today's weight (kg)</label><input id="weight" type="number" step=".1"></div>
   </div>
-
-  <div class="panel">
-    <h2>Today's food diary</h2>
-    <label>Breakfast</label><textarea id="breakfast" placeholder="What did you eat?"></textarea>
-    <label>Lunch</label><textarea id="lunch" placeholder="What did you eat?"></textarea>
-    <label>Dinner</label><textarea id="dinner" placeholder="What did you eat?"></textarea>
-    <label>Snacks</label><textarea id="snacks" placeholder="Any snacks?"></textarea>
-    <div class="grid2">
-      <div><label>Water (glasses)</label><input id="water" type="number" min="0" placeholder="8"></div>
-      <div><label>Weight (kg)</label><input id="weight" type="number" min="0" step="0.1" placeholder="Optional"></div>
-    </div>
-    <button class="primary" onclick="saveFood()">Save food diary 💗</button>
-  </div>
-
-  <div class="panel">
-    <h2>Weight journey ⚖️</h2>
-    <p>Focus on strength, energy and healthy habits — not just a number.</p>
-    <canvas id="weightChart" class="chart"></canvas>
-    <p id="weightNote" class="small">Add a weight entry to see your chart.</p>
-  </div>
+  <button class="primary" onclick="saveFood()">Save food journal</button>
+ </div>
+ <div class="card"><h2>A gentle reminder 💧</h2><p>Eat balanced meals, drink water and give your body the nourishment it needs. This journal is for awareness, not restriction.</p></div>
 </section>
 
-<!-- FITNESS -->
-<section class="page" id="fitness">
-  <div class="hero" style="background-image:linear-gradient(90deg,#160d32dd,#160d3255),url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200')">
-    <div class="eyebrow">MOVE WITH PURPOSE</div>
-    <h1>Fitness & Movement 💪</h1>
-    <p>Every bit of movement counts. Celebrate what your body can do.</p>
+<!-- WORKOUTS -->
+<section id="workouts" class="page">
+ <div class="card">
+  <h2>Workout & Activity Hub 🔥</h2>
+  <p>Choose activities that suit your fitness level. You can set your own step target.</p>
+  <label>Search activities</label><input id="searchExercise" oninput="renderExercises()" placeholder="Search exercises...">
+  <label>Category</label>
+  <select id="category" onchange="renderExercises()">
+   <option>All</option><option>Walking & Steps</option><option>Cardio</option><option>Bodyweight</option><option>Strength & Gym</option><option>Flexibility & Recovery</option>
+  </select>
+  <div id="exerciseList"></div>
+ </div>
+ <div class="card">
+  <h2>Log a workout 🏋️</h2>
+  <label>Exercise or activity</label><input id="exerciseName" placeholder="e.g. Squats, walking">
+  <div class="grid">
+   <div><label>Sets</label><input id="sets" type="number" min="0"></div>
+   <div><label>Reps</label><input id="reps" type="number" min="0"></div>
+   <div><label>Duration (minutes)</label><input id="minutes" type="number" min="0"></div>
+   <div><label>Distance (km)</label><input id="distance" type="number" min="0" step=".1"></div>
+   <div><label>Steps</label><input id="steps" type="number" min="0"></div>
+   <div><label>Weight lifted (kg)</label><input id="load" type="number" min="0" step=".5"></div>
   </div>
-
-  <div class="panel">
-    <h2>Today's workout</h2>
-    <label>Activity</label><textarea id="activity" placeholder="Walking, gym, yoga, dance..."></textarea>
-    <div class="grid2">
-      <div><label>Minutes</label><input id="minutes" type="number" min="0" placeholder="30"></div>
-      <div><label>Steps</label><input id="steps" type="number" min="0" placeholder="5000"></div>
-    </div>
-    <label>Mood / energy after movement</label>
-    <textarea id="mood" placeholder="How did you feel?"></textarea>
-    <button class="primary" onclick="saveWorkout()">Save workout 🔥</button>
-  </div>
-
-  <div class="panel">
-    <h2>Weekly movement</h2>
-    <canvas id="workoutChart" class="chart"></canvas>
-    <p class="small">Workout minutes from your recent entries.</p>
-  </div>
+  <label>Notes</label><textarea id="workoutNotes" placeholder="How did it feel?"></textarea>
+  <button class="primary" onclick="saveWorkout()">＋ Save workout</button>
+ </div>
+ <div class="card">
+  <h2>Today's workout history</h2><div id="history"></div>
+ </div>
+ <div class="card">
+  <h2>My activity targets</h2>
+  <label>Daily step target</label><input id="stepTarget" type="number" min="0" value="6000">
+  <label>Weekly workout target</label><input id="weeklyTarget" type="number" min="0" value="4">
+  <button class="secondary" onclick="saveTargets()">Save targets</button>
+ </div>
 </section>
 
 <!-- PROGRESS -->
-<section class="page" id="progress">
-  <div class="hero" style="background-image:linear-gradient(90deg,#160d32dd,#160d3255),url('https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1200')">
-    <div class="eyebrow">LOOK HOW FAR YOU'VE COME</div>
-    <h1>Your progress ✨</h1>
-    <p>Consistency over perfection. Every check-in matters.</p>
+<section id="progress" class="page">
+ <div class="card">
+  <h2>My Progress 🌟</h2>
+  <div class="stats">
+   <div class="stat"><strong id="totalWorkouts">0</strong><span>Total workouts</span></div>
+   <div class="stat"><strong id="totalMinutes">0</strong><span>Active minutes</span></div>
+   <div class="stat"><strong id="totalSteps">0</strong><span>Steps logged</span></div>
+   <div class="stat"><strong id="challengePercent">0%</strong><span>Challenge progress</span></div>
   </div>
-
-  <div class="panel">
-    <h2>Your challenge stats</h2>
-    <div class="stats">
-      <div class="stat"><strong id="totalHabits">0</strong><span>HABITS DONE</span></div>
-      <div class="stat"><strong id="workoutDays">0</strong><span>WORKOUT DAYS</span></div>
-      <div class="stat"><strong id="bestStreak">0</strong><span>BEST STREAK</span></div>
-    </div>
-    <div class="progress"><div id="progressBar"></div></div>
-    <p id="progressDay">Day 1 of 90</p>
-  </div>
-
-  <div class="panel">
-    <h2>Weekly habit consistency 🌟</h2>
-    <canvas id="habitChart" class="chart"></canvas>
-  </div>
-
-  <div class="panel">
-    <h2>Daily reflection 📝</h2>
-    <textarea id="reflection" placeholder="What went well today? What are you proud of?"></textarea>
-    <button class="primary" onclick="saveReflection()">Save reflection</button>
-  </div>
+ </div>
+ <div class="card">
+  <h2>Weight journey</h2><canvas id="chart" width="700" height="220"></canvas>
+  <div id="weightHistory" class="small"></div>
+ </div>
+ <div class="card"><h2>Personal records 🏆</h2><div id="records"></div></div>
+ <div class="card"><h2>90-day calendar</h2><div id="calendar"></div></div>
 </section>
 
-</main>
-
-<nav class="nav">
-  <button class="active" onclick="openPage('home',this)"><span>⌂</span>Home</button>
-  <button onclick="openPage('food',this)"><span>🥑</span>Food</button>
-  <button onclick="openPage('fitness',this)"><span>⚡</span>Fitness</button>
-  <button onclick="openPage('progress',this)"><span>✨</span>Progress</button>
-</nav>
+<!-- SETTINGS -->
+<section id="settings" class="page">
+ <div class="card">
+  <h2>Settings ⚙️</h2>
+  <label>Challenge start date</label><input id="startDate" type="date">
+  <button class="secondary" onclick="saveStartDate()">Save start date</button>
+  <hr>
+  <h3>Export journal</h3>
+  <p>Download a JSON backup of your journal data.</p>
+  <button class="secondary" onclick="exportData()">Download my data</button>
+  <hr>
+  <p>Your data is saved in your personal Firebase account. Do not share your password.</p>
+  <button class="danger" onclick="logout()">Log out</button>
+ </div>
+</section>
+</div>
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-import {
-  getAuth, onAuthStateChanged, signInWithEmailAndPassword,
-  createUserWithEmailAndPassword, sendPasswordResetEmail, signOut
-} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
-import {
-  getFirestore, doc, getDoc, setDoc
-} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+import{initializeApp}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+import{getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,signOut}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+import{getFirestore,doc,getDoc,setDoc}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",
-  authDomain: "winterarc90web-5d889.firebaseapp.com",
-  projectId: "winterarc90web-5d889",
-  storageBucket: "winterarc90web-5d889.firebasestorage.app",
-  messagingSenderId: "53251809201",
-  appId: "1:53251809201:web:565ee6e61037a038692790"
+const firebaseConfig={
+ apiKey:"AIzaSyB58uqmgAqdCYQaXkTGKlfnBc1ps1S5qMg",
+ authDomain:"winterarc90web-5d889.firebaseapp.com",
+ projectId:"winterarc90web-5d889",
+ storageBucket:"winterarc90web-5d889.firebasestorage.app",
+ messagingSenderId:"53251809201",
+ appId:"1:53251809201:web:565ee6e61037a038692790"
 };
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-const habits = [
-  "Wake up on time",
-  "Drink enough water",
-  "Move your body",
-  "Eat nourishing meals",
-  "Read or learn something",
-  "Limit unnecessary screen time",
-  "Sleep on time"
-];
-
-let currentUser = null;
-let data = {};
-let startDate = null;
-
-const today = () => new Date().toLocaleDateString("en-CA");
-const $ = id => document.getElementById(id);
-
-function notify(message) {
-  alert(message);
+const fb=initializeApp(firebaseConfig),auth=getAuth(fb),db=getFirestore(fb);
+let user=null,photoData="";
+let data={startDate:today(),days:{},profile:{},targets:{step:6000,weekly:4}};
+const defaultHabits=["Wake up on time","Drink enough water","Move my body","Eat balanced meals","Read or learn","Sleep on time"];
+const exercises={
+ "Walking & Steps":["10,000 steps","Walking","Brisk walking","Hiking","Stair climbing","Cycling"],
+ "Cardio":["Running","Jogging","Sprinting","Skipping rope","Swimming","Dancing","Aerobics"],
+ "Bodyweight":["Push-ups","Pull-ups","Squats","Lunges","Plank","Burpees","Dead hangs","Dips","Mountain climbers"],
+ "Strength & Gym":["Dumbbell workout","Barbell workout","Chest workout","Back workout","Shoulder workout","Arm workout","Leg workout","Core workout","Resistance bands"],
+ "Flexibility & Recovery":["Yoga","Stretching","Mobility","Balance exercises","Breathing exercises"]
+};
+function today(){let d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function day(date=today()){
+ data.days??={};data.days[date]??={habits:[],food:{},workouts:[],reflection:""};
+ let d=data.days[date];
+ if(!Array.isArray(d.habits))d.habits=Object.keys(d.habits||{}).filter(k=>d.habits[k]).map(Number);
+ if(!Array.isArray(d.workouts))d.workouts=[];
+ return d;
 }
+async function save(){
+ if(user)await setDoc(doc(db,"users",user.uid),data,{merge:true});
+}
+function msg(s){document.getElementById("authMessage").textContent=s}
+window.showRegister=()=>{loginBox.classList.add("hidden");registerBox.classList.remove("hidden");msg("")};
+window.showLogin=()=>{registerBox.classList.add("hidden");loginBox.classList.remove("hidden");msg("")};
+window.login=async()=>{try{await signInWithEmailAndPassword(auth,email.value,password.value)}catch(e){msg(e.message)}};
+window.register=async()=>{try{await createUserWithEmailAndPassword(auth,newEmail.value,newPassword.value)}catch(e){msg(e.message)}};
+window.resetPassword=async()=>{if(!email.value)return msg("Enter your email first.");try{await sendPasswordResetEmail(auth,email.value);msg("Reset email sent.")}catch(e){msg(e.message)}};
+window.logout=()=>signOut(auth);
 
-window.showSignup = () => {
-  $("loginForm").classList.add("hidden");
-  $("signupForm").classList.remove("hidden");
-};
-window.showLogin = () => {
-  $("signupForm").classList.add("hidden");
-  $("loginForm").classList.remove("hidden");
-};
-
-window.login = async () => {
-  try {
-    await signInWithEmailAndPassword(auth,$("email").value,$("password").value);
-  } catch(e) {
-    $("authMessage").textContent = e.message;
-  }
-};
-
-window.signup = async () => {
-  try {
-    await createUserWithEmailAndPassword(auth,$("newEmail").value,$("newPassword").value);
-  } catch(e) {
-    $("authMessage").textContent = e.message;
-  }
-};
-
-window.resetPassword = async () => {
-  const email = $("email").value;
-  if(!email) return notify("Enter your email address first.");
-  try {
-    await sendPasswordResetEmail(auth,email);
-    notify("Password reset email sent.");
-  } catch(e) { notify(e.message); }
-};
-
-window.logout = () => signOut(auth);
-
-onAuthStateChanged(auth, async user => {
-  currentUser = user;
-  $("auth").classList.toggle("hidden",!!user);
-  $("app").classList.toggle("hidden",!user);
-  if(user) {
-    await loadData();
-    render();
-  }
+onAuthStateChanged(auth,async u=>{
+ user=u;
+ if(!u){authScreen.classList.remove("hidden");app.classList.add("hidden");return}
+ authScreen.classList.add("hidden");app.classList.remove("hidden");
+ try{
+  const s=await getDoc(doc(db,"users",u.uid));
+  if(s.exists())data={...data,...s.data(),days:s.data().days||{}};
+  else await save();
+  photoData=localStorage.getItem("winterPhoto_"+u.uid)||"";
+  fillProfile();renderAll();
+ }catch(e){alert("Could not load your journal: "+e.message)}
 });
-
-async function loadData() {
-  try {
-    const snap = await getDoc(doc(db,"users",currentUser.uid));
-    data = snap.exists() ? snap.data() : {};
-    if(!data.days) data.days = {};
-    startDate = data.startDate || today();
-    if(!data.startDate) {
-      data.startDate = startDate;
-      await persist();
-    }
-  } catch(e) {
-    notify("Could not load your records: "+e.message);
-  }
-}
-
-async function persist() {
-  await setDoc(doc(db,"users",currentUser.uid),data,{merge:true});
-}
-
-function dayData(date=today()) {
-  if(!data.days[date]) data.days[date] = {};
-  return data.days[date];
-}
-
-async function saveToday() {
-  try { await persist(); render(); }
-  catch(e) { notify("Save failed: "+e.message); }
-}
-
-function dateDifference(a,b) {
-  const start = new Date(a+"T00:00:00");
-  const end = new Date(b+"T00:00:00");
-  return Math.max(1,Math.floor((end-start)/86400000)+1);
-}
-
-function renderHabits() {
-  const d = dayData();
-  $("habitList").innerHTML = "";
-  habits.forEach((habit,i) => {
-    const line = document.createElement("div");
-    line.className = "habit";
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = !!(d.habits && d.habits[i]);
-    checkbox.addEventListener("change",async () => {
-      if(!d.habits) d.habits = {};
-      d.habits[i] = checkbox.checked;
-      await saveToday();
-    });
-    const label = document.createElement("label");
-    label.textContent = habit;
-    line.append(checkbox,label);
-    $("habitList").append(line);
-  });
-}
-
-function allDates() {
-  return Object.keys(data.days || {}).sort();
-}
-
-function render() {
-  renderHabits();
-  const d = dayData();
-  const day = Math.min(90,dateDifference(startDate,today()));
-  const completed = habits.filter((_,i)=>d.habits && d.habits[i]).length;
-  const pct = Math.round(completed/habits.length*100);
-  const total = allDates().reduce((sum,date)=>{
-    const h = data.days[date].habits || {};
-    return sum+habits.filter((_,i)=>h[i]).length;
-  },0);
-  const workoutEntries = allDates().filter(date=>Number(data.days[date].minutes)>0);
-  const streak = calculateStreak();
-
-  $("dayNumber").textContent = day;
-  $("streak").textContent = streak+" 🔥";
-  $("habitPercent").textContent = pct+"%";
-  $("journeyBar").style.width = (day/90*100)+"%";
-  $("journeyText").textContent = (90-day)+" days to go — keep going!";
-  $("totalHabits").textContent = total;
-  $("workoutDays").textContent = workoutEntries.length;
-  $("bestStreak").textContent = streak;
-  $("progressBar").style.width = (day/90*100)+"%";
-  $("progressDay").textContent = "Day "+day+" of 90";
-
-  const food = d.food || {};
-  ["breakfast","lunch","dinner","snacks","water","weight"].forEach(k=>{
-    $(k).value = food[k] ?? "";
-  });
-  const workout = d.workout || {};
-  $("activity").value = workout.activity || "";
-  $("minutes").value = workout.minutes ?? "";
-  $("steps").value = workout.steps ?? "";
-  $("mood").value = workout.mood || "";
-  $("reflection").value = d.reflection || "";
-
-  drawChart("habitChart","habits","habits");
-  drawChart("workoutChart","minutes","minutes");
-  drawChart("weightChart","weight","weight");
-}
-
-function calculateStreak() {
-  let streak = 0;
-  const dates = allDates();
-  let cursor = new Date(today()+"T00:00:00");
-  for(let i=0;i<90;i++){
-    const key = cursor.toLocaleDateString("en-CA");
-    const h = data.days[key]?.habits || {};
-    const count = habits.filter((_,j)=>h[j]).length;
-    if(count===habits.length) streak++;
-    else if(i!==0) break;
-    cursor.setDate(cursor.getDate()-1);
-  }
-  return streak;
-}
-
-window.saveFood = async () => {
-  const d = dayData();
-  d.food = {};
-  ["breakfast","lunch","dinner","snacks","water","weight"].forEach(k=>{
-    d.food[k] = $(k).value;
-  });
-  d.water = Number($("water").value)||0;
-  d.weight = $("weight").value;
-  await saveToday();
-  notify("Food diary saved 💗");
+window.tab=(id,btn)=>{
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+ btn.classList.add("active");
+ if(id==="progress")renderProgress();
 };
-
-window.saveWorkout = async () => {
-  const d = dayData();
-  d.workout = {
-    activity:$("activity").value,
-    minutes:Number($("minutes").value)||0,
-    steps:Number($("steps").value)||0,
-    mood:$("mood").value
-  };
-  d.minutes = d.workout.minutes;
-  await saveToday();
-  notify("Workout saved 🔥");
-};
-
-window.saveReflection = async () => {
-  dayData().reflection = $("reflection").value;
-  await saveToday();
-  notify("Reflection saved 💜");
-};
-
-window.openPage = (name,button) => {
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  $(name).classList.add("active");
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-  button.classList.add("active");
-  window.scrollTo({top:0,behavior:"smooth"});
-  setTimeout(render,50);
-};
-
-window.savePhoto = (event,kind) => {
-  const file = event.target.files[0];
-  if(!file) return;
-  if(file.size > 5*1024*1024) {
-    notify("Please choose a photo smaller than 5 MB.");
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = () => {
-    const key = "fitnessjournal-photo-"+currentUser.uid+"-"+kind;
-    localStorage.setItem(key,reader.result);
-    showPhoto(kind,reader.result);
-  };
-  reader.readAsDataURL(file);
-};
-
-function showPhoto(kind,src) {
-  const box = $(kind+"Preview");
-  box.innerHTML = "";
-  const img = document.createElement("img");
-  img.src = src;
-  box.append(img);
+function fillProfile(){
+ const p=data.profile||{};
+ const fields={name:"name",age:"age",gender:"gender",height:"height",currentWeight:"weight",goalWeight:"goalWeight",goal:"goal"};
+ Object.entries(fields).forEach(([id,k])=>document.getElementById(id).value=p[k]??"");
+ avatar.src=photoData;
+ startDate.value=data.startDate||today();
+ stepTarget.value=data.targets?.step??6000;
+ weeklyTarget.value=data.targets?.weekly??4;
 }
-
-function loadPhotos() {
-  ["before","after"].forEach(kind=>{
-    const src = localStorage.getItem("fitnessjournal-photo-"+currentUser.uid+"-"+kind);
-    if(src) showPhoto(kind,src);
+window.changePhoto=e=>{
+ const f=e.target.files[0];if(!f)return;
+ const r=new FileReader();r.onload=()=>{
+  photoData=r.result;avatar.src=photoData;
+  if(user)localStorage.setItem("winterPhoto_"+user.uid,photoData);
+ };r.readAsDataURL(f);
+};
+window.saveProfile=async()=>{
+ data.profile={name:name.value,age:age.value,gender:gender.value,height:height.value,weight:currentWeight.value,goalWeight:goalWeight.value,goal:goal.value};
+ await save();renderAll();alert("Profile saved 💜");
+};
+window.addHabit=async()=>{
+ const n=prompt("Enter a habit name");if(!n?.trim())return;
+ data.customHabits??=[];data.customHabits.push(n.trim());await save();renderAll();
+};
+window.toggleHabit=async i=>{
+ const d=day(),a=d.habits;
+ d.habits=a.includes(i)?a.filter(x=>x!==i):[...a,i];
+ await save();renderAll();
+};
+window.saveReflection=async()=>{day().reflection=reflection.value;await save();alert("Reflection saved!")};
+window.saveFood=async()=>{
+ day().food={breakfast:breakfast.value,lunch:lunch.value,dinner:dinner.value,snacks:snacks.value,water:Number(water.value)||0,weight:Number(weight.value)||""};
+ await save();renderAll();alert("Food journal saved 🥗");
+};
+window.renderExercises=()=>{
+ const q=searchExercise.value.toLowerCase(),c=category.value;
+ let html="";
+ Object.entries(exercises).forEach(([cat,names])=>{
+  if(c!=="All"&&c!==cat)return;
+  names.filter(n=>n.toLowerCase().includes(q)).forEach(n=>{
+   html+=`<div class="exercise row"><div><strong>${escapeHTML(n)}</strong><div class="small">${escapeHTML(cat)}</div></div><button class="secondary" onclick="chooseExercise('${escapeHTML(n)}')">Log this</button></div>`;
   });
+ });
+ document.getElementById("exerciseList").innerHTML=html||"<p>No matching activities.</p>";
+};
+window.chooseExercise=n=>{exerciseName.value=n;document.getElementById("exerciseName").scrollIntoView({behavior:"smooth",block:"center"})};
+window.saveWorkout=async()=>{
+ const n=exerciseName.value.trim();if(!n)return alert("Enter an exercise name.");
+ day().workouts.push({name:n,sets:Number(sets.value)||0,reps:Number(reps.value)||0,minutes:Number(minutes.value)||0,distance:Number(distance.value)||0,steps:Number(steps.value)||0,load:Number(load.value)||0,notes:workoutNotes.value,time:new Date().toLocaleTimeString()});
+ ["exerciseName","sets","reps","minutes","distance","steps","load","workoutNotes"].forEach(id=>document.getElementById(id).value="");
+ await save();renderAll();alert("Workout saved 💪");
+};
+window.saveTargets=async()=>{data.targets={step:Number(stepTarget.value)||0,weekly:Number(weeklyTarget.value)||0};await save();alert("Targets saved!")};
+window.saveStartDate=async()=>{data.startDate=startDate.value||today();await save();renderAll();alert("Challenge date saved.")};
+window.exportData=()=>{
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="winter-arc-90-backup.json";a.click();URL.revokeObjectURL(a.href);
+};
+function renderAll(){
+ const d=day(),p=data.profile||{};
+ greeting.textContent=p.name?"Welcome back, "+p.name+"! 💜":"Welcome to your Winter Arc!";
+ const start=new Date((data.startDate||today())+"T00:00:00"),now=new Date(today()+"T00:00:00");
+ const elapsed=Math.floor((now-start)/86400000)+1,challenge=Math.min(90,Math.max(1,elapsed));
+ dayNo.textContent=challenge+"/90";
+ const list=[...defaultHabits,...(data.customHabits||[])],done=d.habits.length;
+ habitNo.textContent=done+"/"+list.length;
+ habitPercent.textContent=Math.round(done/list.length*100)+"%";
+ habitBar.style.width=(done/list.length*100)+"%";
+ habits.innerHTML=list.map((n,i)=>`<label class="habit"><input type="checkbox" ${d.habits.includes(i)?"checked":""} onchange="toggleHabit(${i})"><span>${escapeHTML(n)}</span></label>`).join("");
+ waterNo.textContent=d.food?.water||0;
+ workoutNo.textContent=d.workouts.length;
+ reflection.value=d.reflection||"";
+ breakfast.value=d.food?.breakfast||"";lunch.value=d.food?.lunch||"";
+ dinner.value=d.food?.dinner||"";snacks.value=d.food?.snacks||"";
+ water.value=d.food?.water??"";weight.value=d.food?.weight??"";
+ history.innerHTML=d.workouts.length?d.workouts.map(w=>`<div class="history"><strong>${escapeHTML(w.name)}</strong><div class="small">${w.sets? w.sets+" sets · ":""}${w.reps?w.reps+" reps · ":""}${w.minutes?w.minutes+" min · ":""}${w.distance?w.distance+" km · ":""}${w.steps?w.steps+" steps · ":""}${w.load?w.load+" kg":""}</div><div class="small">${escapeHTML(w.notes||"")}</div></div>`).join(""):"<p>No workouts logged today yet.</p>";
+ renderExercises();renderProgress();
 }
-
-function drawChart(id,field,type) {
-  const canvas = $(id);
-  const ctx = canvas.getContext("2d");
-  const rect = canvas.getBoundingClientRect();
-  const w = Math.max(280,rect.width);
-  const h = 180;
-  const ratio = window.devicePixelRatio || 1;
-  canvas.width = w*ratio;
-  canvas.height = h*ratio;
-  ctx.setTransform(ratio,0,0,ratio,0,0);
-  ctx.clearRect(0,0,w,h);
-
-  const dates = [];
-  for(let i=6;i>=0;i--){
-    const date = new Date();
-    date.setDate(date.getDate()-i);
-    dates.push(date.toLocaleDateString("en-CA"));
-  }
-
-  const values = dates.map(date=>{
-    const entry = data.days[date] || {};
-    if(field==="habits"){
-      const h = entry.habits || {};
-      return habits.filter((_,i)=>h[i]).length;
-    }
-    if(field==="minutes") return Number(entry.minutes)||0;
-    return Number(entry.food?.weight ?? entry.weight)||0;
-  });
-
-  const max = Math.max(1,...values);
-  const left=12,right=w-12,top=15,bottom=135;
-  ctx.strokeStyle="rgba(255,255,255,.16)";
-  ctx.lineWidth=1;
-  for(let i=0;i<4;i++){
-    const y=top+i*35;
-    ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke();
-  }
-
-  const color = field==="habits"?"#ffd36b":field==="minutes"?"#72d9ff":"#ff83bd";
-  ctx.strokeStyle=color;
-  ctx.fillStyle=color;
-  ctx.lineWidth=3;
-  ctx.beginPath();
-  values.forEach((v,i)=>{
-    const x=left+i*(right-left)/6;
-    const y=bottom-(v/max)*100;
-    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-  });
-  ctx.stroke();
-
-  values.forEach((v,i)=>{
-    const x=left+i*(right-left)/6;
-    const y=bottom-(v/max)*100;
-    ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle="#c9bddc";
-    ctx.font="11px system-ui";
-    ctx.textAlign="center";
-    ctx.fillText(dates[i].slice(5),x,160);
-    ctx.fillStyle=color;
-  });
+function renderProgress(){
+ let all=[],minutes=0,stepsTotal=0,dates=Object.keys(data.days||{}),weights=[];
+ dates.sort().forEach(date=>{
+  const d=data.days[date],ws=d.workouts||[];
+  ws.forEach(w=>{all.push({...w,date});minutes+=Number(w.minutes)||0;stepsTotal+=Number(w.steps)||0});
+  const wt=d.food?.weight;if(wt)weights.push({date,weight:Number(wt)});
+ });
+ totalWorkouts.textContent=all.length;totalMinutes.textContent=minutes;totalSteps.textContent=stepsTotal;
+ const start=new Date((data.startDate||today())+"T00:00:00"),now=new Date(today()+"T00:00:00");
+ const days=Math.min(90,Math.max(0,Math.floor((now-start)/86400000)+1));
+ challengePercent.textContent=Math.round(days/90*100)+"%";
+ records.innerHTML=all.length?all.map(w=>`<div class="item"><strong>${escapeHTML(w.name)}</strong><div class="small">${w.date} · ${w.load?w.load+" kg":""} ${w.reps?w.reps+" reps":""}</div></div>`).join(""):"<p>Your workout records will appear here.</p>";
+ weightHistory.innerHTML=weights.length?weights.map(w=>w.date+": "+w.weight+" kg").join(" · "):"No weight entries yet.";
+ drawChart(weights);
+ let completed=dates.filter(date=>(data.days[date].habits||[]).length>0).length;
+ calendar.innerHTML=`<p>${completed} days with habits recorded.</p><div class="grid">${Array.from({length:90},(_,i)=>{
+  const date=new Date(start);date.setDate(date.getDate()+i);
+  const key=date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
+  const done=(data.days[key]?.habits||[]).length;
+  return `<div class="history"><strong>Day ${i+1}</strong><div class="small">${key}</div><span class="pill">${done?"✓ Habits logged":"Not logged"}</span></div>`;
+ }).join("")}</div>`;
 }
-
-window.addEventListener("resize",()=>{
-  if(currentUser) {
-    drawChart("habitChart","habits","habits");
-    drawChart("workoutChart","minutes","minutes");
-    drawChart("weightChart","weight","weight");
-  }
-});
-
-const originalRender = render;
-function renderWithPhotos() {
-  originalRender();
-  loadPhotos();
+function drawChart(items){
+ const c=document.getElementById("chart"),ctx=c.getContext("2d");
+ ctx.clearRect(0,0,c.width,c.height);ctx.strokeStyle="#ffffff44";ctx.beginPath();ctx.moveTo(35,15);ctx.lineTo(35,190);ctx.lineTo(680,190);ctx.stroke();
+ if(!items.length){ctx.fillStyle="#c6bad9";ctx.font="16px Arial";ctx.fillText("Add weight entries to see your chart.",55,100);return}
+ const vals=items.map(x=>x.weight),min=Math.min(...vals)-1,max=Math.max(...vals)+1;
+ ctx.strokeStyle="#ff83bd";ctx.lineWidth=3;ctx.beginPath();
+ items.forEach((x,i)=>{
+  const px=45+(items.length===1?0:i*620/(items.length-1));
+  const py=175-(x.weight-min)/(max-min||1)*140;
+  if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+  ctx.fillStyle="#ffd477";ctx.fillRect(px-3,py-3,6,6);
+ });
+ ctx.stroke();ctx.fillStyle="#ffffff";ctx.font="12px Arial";ctx.fillText(max.toFixed(1)+" kg",40,15);ctx.fillText(min.toFixed(1)+" kg",40,185);
 }
 </script>
 </body>
